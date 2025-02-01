@@ -83,9 +83,10 @@ visible = false
 position = Vector2(-5.126e-06, -8.25)
 scale = Vector2(1.05469, 2.25)
 polygon = PackedVector2Array(-32, 14, -32, 4, 32, 4, 32, 14)
+disabled = true
 
 [node name="Body" type="Sprite2D" parent="."]
-position = Vector2(0, -5.99966)
+position = Vector2(0, -4.64487)
 texture = SubResource("GradientTexture2D_ohmiq")
 offset = Vector2(0, -2)
 
@@ -102,7 +103,8 @@ libraries = {
 autoplay = "idle"
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-target_desired_distance = 32.0
+path_max_distance = 512.0
+avoidance_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_k0fo3")
