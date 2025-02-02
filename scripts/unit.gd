@@ -8,12 +8,14 @@ const TURN_LIMIT = 80
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var hl = $Highlight
 
-@onready var slow_distance: float = nav.target_desired_distance * 2
+@export var reveal = true
 
 var acceleration: float = 1024
 
 # Engine
 func _ready() -> void:
+	if !reveal:
+		$PointLight2D.queue_free()
 	route(position)
 
 func _process(delta: float) -> void:
