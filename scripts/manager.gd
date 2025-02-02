@@ -29,17 +29,24 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("click"):
 		var box: Rect2 = Rect2(selection_start, GameInfo.camera_offset(event.position) - selection_start).abs()
 		selection_start = Vector2.ZERO
+		var all_units = find_children("*", "Unit")
 		if box.get_area() > 32 * 16:
 			for unit in selected:
 				if unit != null and !unit.dying:
 					unit.select(false)
 			selected.clear()
-			for unit in find_children("*", "Unit"):
-				if box.has_point(unit.position) and !unit.dying:
+			for unit in all_units:
+				if box.has_point(unit.position) and !unit.dying and unit.team == GameInfo.active_player:
 					selected.push_back(unit)
 					unit.select()
+			for i in range(selected.size() - 1, 0, -1):
+				if selected.size() > 1 and selected[i] is Building:
+					selected[i].select(false)
+					selected.remove_at(i)
+				else:
+					selected[i].select()
 		else:
-			for unit in find_children("*", "Unit"):
+			for unit in all_units:
 				if GameInfo.camera_offset(event.position).distance_to(unit.position) < 24:
 					for sel in selected:
 						sel.select(false)

@@ -71,7 +71,7 @@ shape = SubResource("CircleShape2D_x4ik5")
 z_index = 2
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_56ero")
-frame_progress = 0.477716
+frame_progress = 0.183663
 
 [node name="Lifetime" type="Timer" parent="."]
 wait_time = 5.0

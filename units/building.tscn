@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://cyfrfpamya4yp"]
+
+[ext_resource type="PackedScene" uid="uid://cpbr6chnsnpg" path="res://units/unit.tscn" id="1_1ou6t"]
+[ext_resource type="Texture2D" uid="uid://bc3pgqwdhrlkw" path="res://textures/building_box.tres" id="2_7w8qw"]
+[ext_resource type="Script" path="res://scripts/building.gd" id="2_irg30"]
+[ext_resource type="Material" uid="uid://cogv4mxm3di27" path="res://textures/building.tres" id="3_yll8e"]
+
+[sub_resource type="Gradient" id="Gradient_s43am"]
+colors = PackedColorArray(0, 0.403922, 0, 0.666667, 0.643137, 1, 0.615686, 0.156863)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y1thl"]
+gradient = SubResource("Gradient_s43am")
+width = 272
+height = 128
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_10ntb"]
+radius = 224.0
+
+[node name="Building" instance=ExtResource("1_1ou6t")]
+collision_priority = 1.0
+script = ExtResource("2_irg30")
+max_hp = 100
+attack_range = 0
+acceleration = 0.0
+
+[node name="Collision" parent="." index="0"]
+position = Vector2(0.499993, -79.5625)
+scale = Vector2(3.89648, 9.5625)
+
+[node name="Body" parent="." index="1"]
+texture = ExtResource("2_7w8qw")
+
+[node name="Highlight" parent="." index="2"]
+texture = SubResource("GradientTexture2D_y1thl")
+
+[node name="Header" parent="." index="3"]
+offset_left = -144.0
+offset_top = -112.0
+offset_right = 144.0
+offset_bottom = -96.0
+
+[node name="Particles" parent="." index="4"]
+process_material = ExtResource("3_yll8e")
+
+[node name="Light" parent="." index="5"]
+texture_scale = 1.5
+
+[node name="AttackRange" parent="." index="8"]
+enabled = false
+shape = SubResource("CircleShape2D_10ntb")
+
+[node name="AttackCooldown" parent="." index="9"]
+autostart = false

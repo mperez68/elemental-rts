@@ -2,6 +2,8 @@ extends Node
 
 const GRID: Vector2i = Vector2i(64, 32)
 
+@export var active_player: int = 0
+
 @onready var screen_size: Vector2i = get_viewport().get_visible_rect().size
 var camera: Camera2D = null
 

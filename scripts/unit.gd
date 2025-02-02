@@ -18,19 +18,24 @@ var reveal = true
 
 @export var team: int = 0
 @export var max_hp: int = 10
-@export var attack_range: int = 64
+@export var damage_multiplier: float = 1
+@export var attack_range: int = 224
 @export var acceleration: float = 1024
-var hp: int = max_hp
+@onready var hp: int = max_hp
 var dying: bool = false
 
 
 
 # Engine
 func _ready() -> void:
+	reveal = team == GameInfo.active_player
 	if !reveal:
-		$PointLight2D.queue_free()
+		$Light.queue_free()
+		header.visible = true
 	route(position)
 	
+	attack_radius.shape.radius = attack_range
+	hp_meter.max_value = max_hp
 	hp_meter.value = hp
 
 func _process(delta: float) -> void:
@@ -83,7 +88,7 @@ func movement(delta: float) -> void:
 		if position.distance_to(nav.get_final_position()) > nav.target_desired_distance:
 			route(nav.get_final_position())
 	else:
-		nav.avoidance_priority = 1
+		nav.avoidance_priority = 0.6
 		var direction = position.direction_to(nav.get_next_path_position())
 		new_velocity += direction * acceleration * delta
 			
@@ -114,6 +119,7 @@ func _on_attack_cooldown_timeout() -> void:
 	for target in attack_radius.collision_result:
 		if target.collider is Unit and target.collider.team != team and !target.collider.dying:
 			var m = missile.instantiate()
+			m.damage *= damage_multiplier
 			m.set_target(position, target.collider.position)
 			m.team = team
 			add_sibling(m)
