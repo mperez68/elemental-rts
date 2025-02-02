@@ -17,8 +17,11 @@ func _input(event: InputEvent) -> void:
 		if map.get_cell_tile_data(map.local_to_map(GameInfo.camera_offset(event.position))) == null:
 			return
 		var formation: Array[Vector2] = _get_formation(event.position)
-		for i in selected.size():
-			selected[i].route(Vector2(formation[i]))
+		for i in range(selected.size() - 1, -1, -1):
+			if selected[i] == null:
+				selected.remove_at(i)
+			else:
+				selected[i].route(Vector2(formation[i]))
 	
 	if event.is_action_pressed("click"):
 		selection_start = GameInfo.camera_offset(event.position)
@@ -28,10 +31,11 @@ func _input(event: InputEvent) -> void:
 		selection_start = Vector2.ZERO
 		if box.get_area() > 32 * 16:
 			for unit in selected:
-				unit.select(false)
+				if unit != null and !unit.dying:
+					unit.select(false)
 			selected.clear()
 			for unit in find_children("*", "Unit"):
-				if box.has_point(unit.position):
+				if box.has_point(unit.position) and !unit.dying:
 					selected.push_back(unit)
 					unit.select()
 		else:

@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Conflux"
 config/version="0.0.1"
+config/tags=PackedStringArray("proof_of_concept")
 run/main_scene="res://core/manager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
@@ -19,6 +20,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameInfo="*res://core/game_info.tscn"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [editor_plugins]
 

@@ -15,11 +15,13 @@ tile_map_data = PackedByteArray("AAAxAAMAAAACAAMAAAAxAAIAAAAKAAIAAAAxAAEAAAADAAA
 
 [node name="Unit" parent="." instance=ExtResource("2_7pr3c")]
 position = Vector2(-207, -88)
+team = 1
 
 [node name="Unit2" parent="." instance=ExtResource("2_7pr3c")]
-position = Vector2(215, -135)
+position = Vector2(389, -141)
 
 [node name="Unit3" parent="." instance=ExtResource("2_7pr3c")]
-position = Vector2(127, 70)
+position = Vector2(183, 187)
+team = 1
 
 [editable path="World"]
