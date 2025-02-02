@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cyfrfpamya4yp"]
+[gd_scene load_steps=7 format=3 uid="uid://cyfrfpamya4yp"]
 
 [ext_resource type="PackedScene" uid="uid://cpbr6chnsnpg" path="res://units/unit.tscn" id="1_1ou6t"]
 [ext_resource type="Texture2D" uid="uid://bc3pgqwdhrlkw" path="res://textures/building_box.tres" id="2_7w8qw"]
@@ -13,14 +13,10 @@ gradient = SubResource("Gradient_s43am")
 width = 272
 height = 128
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_10ntb"]
-radius = 224.0
-
 [node name="Building" instance=ExtResource("1_1ou6t")]
 collision_priority = 1.0
 script = ExtResource("2_irg30")
 max_hp = 100
-attack_range = 0
 acceleration = 0.0
 
 [node name="Collision" parent="." index="0"]
@@ -47,7 +43,6 @@ texture_scale = 1.5
 
 [node name="AttackRange" parent="." index="8"]
 enabled = false
-shape = SubResource("CircleShape2D_10ntb")
 
 [node name="AttackCooldown" parent="." index="9"]
 autostart = false

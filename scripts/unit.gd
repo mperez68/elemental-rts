@@ -19,7 +19,6 @@ var reveal = true
 @export var team: int = 0
 @export var max_hp: int = 10
 @export var damage_multiplier: float = 1
-@export var attack_range: int = 224
 @export var acceleration: float = 1024
 @onready var hp: int = max_hp
 var dying: bool = false
@@ -34,7 +33,6 @@ func _ready() -> void:
 		header.visible = true
 	route(position)
 	
-	attack_radius.shape.radius = attack_range
 	hp_meter.max_value = max_hp
 	hp_meter.value = hp
 

@@ -4,6 +4,7 @@ const GRID: Vector2i = Vector2i(64, 32)
 
 @export var active_player: int = 0
 
+@onready var music_manager = $MusicManager
 @onready var screen_size: Vector2i = get_viewport().get_visible_rect().size
 var camera: Camera2D = null
 
@@ -13,6 +14,7 @@ var scroll_speed: int = 1024
 # Engine
 func _ready() -> void:
 	get_tree().get_root().size_changed.connect(resize)
+	music_manager.play(music_manager.THEME)
 
 
 # Util

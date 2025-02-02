@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://dybyuy4iemrhh"]
+[gd_scene load_steps=5 format=3 uid="uid://dybyuy4iemrhh"]
 
 [ext_resource type="Script" path="res://scripts/game_info.gd" id="1_rhlfo"]
+[ext_resource type="Script" path="res://scripts/music_manager.gd" id="2_2huf8"]
+[ext_resource type="AudioStream" uid="uid://djjrqq8eymtxt" path="res://assets/music/theme_intro.wav" id="3_fvk1y"]
+[ext_resource type="AudioStream" uid="uid://bd8l70w8ahm5" path="res://assets/music/theme_loop.wav" id="4_6lq1h"]
 
 [node name="GameInfo" type="Node"]
 script = ExtResource("1_rhlfo")
+
+[node name="MusicManager" type="Node" parent="."]
+script = ExtResource("2_2huf8")
+
+[node name="ThemeIntro" type="AudioStreamPlayer" parent="MusicManager"]
+stream = ExtResource("3_fvk1y")
+bus = &"Music"
+
+[node name="ThemeLoop" type="AudioStreamPlayer" parent="MusicManager"]
+stream = ExtResource("4_6lq1h")
+bus = &"Music"
+
+[connection signal="finished" from="MusicManager/ThemeIntro" to="MusicManager" method="_on_theme_finished" binds= [0]]
