@@ -1,6 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://cpbr6chnsnpg"]
+[gd_scene load_steps=14 format=3 uid="uid://cpbr6chnsnpg"]
 
 [ext_resource type="Script" path="res://scripts/unit.gd" id="1_70gch"]
+[ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="2_tvcjn"]
+[ext_resource type="Texture2D" uid="uid://75j44o686o8g" path="res://assets/graphics/Light.png" id="3_3uhgc"]
 
 [sub_resource type="Gradient" id="Gradient_ctinq"]
 colors = PackedColorArray(0, 0, 0, 1, 0.67069, 0.67069, 0.67069, 1)
@@ -45,14 +47,6 @@ _data = {
 "idle": SubResource("Animation_iben3")
 }
 
-[sub_resource type="Environment" id="Environment_k0fo3"]
-background_mode = 3
-glow_enabled = true
-glow_intensity = 4.0
-glow_strength = 1.5
-glow_blend_mode = 0
-glow_hdr_scale = 0.75
-
 [sub_resource type="Gradient" id="Gradient_sa4ku"]
 colors = PackedColorArray(1, 1, 0.733333, 1, 1, 1, 1, 0)
 
@@ -74,7 +68,6 @@ color_ramp = SubResource("GradientTexture1D_cgird")
 [node name="Unit" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(128, 128)
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_70gch")
@@ -109,8 +102,33 @@ avoidance_enabled = true
 radius = 16.0
 max_speed = 256.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_k0fo3")
+[node name="Control" type="Control" parent="."]
+z_index = 1
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -48.0
+offset_right = 32.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_tvcjn")
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 10.0
+step = 1.0
+value = 8.0
+show_percentage = false
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 amount = 20
@@ -119,5 +137,11 @@ explosiveness = 0.2
 randomness = 1.0
 trail_enabled = true
 trail_lifetime = 0.02
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+y_sort_enabled = true
+blend_mode = 2
+range_item_cull_mask = 3
+texture = ExtResource("3_3uhgc")
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

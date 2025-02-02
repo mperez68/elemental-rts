@@ -1,7 +1,9 @@
 extends Node
 
-var camera: Camera2D = null
+const GRID: Vector2i = Vector2i(64, 32)
+
 @onready var screen_size: Vector2i = get_viewport().get_visible_rect().size
+var camera: Camera2D = null
 
 var scroll_speed: int = 1024
 

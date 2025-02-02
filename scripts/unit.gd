@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Unit
 
+signal update_fog(target: Vector2)
+
 const TURN_LIMIT = 80
 
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
@@ -26,13 +28,12 @@ func _process(delta: float) -> void:
 		nav.avoidance_priority = 1
 		var direction = position.direction_to(nav.get_next_path_position())
 		new_velocity += direction * acceleration * delta
-		#if position.distance_to(nav.get_final_position()) < slow_distance:
-			#new_velocity = new_velocity * max((position.distance_to(nav.get_final_position()) / slow_distance), 0.5)
 			
 		var ang = rad_to_deg(position.direction_to(nav.get_next_path_position()).angle_to(velocity))
 		if ang > TURN_LIMIT or ang < -TURN_LIMIT:
 			new_velocity = position.direction_to(nav.get_next_path_position()).normalized() * new_velocity.length()
 		position.direction_to(nav.get_next_path_position()).angle_to(velocity)
+		update_fog.emit(position)
 	
 	if nav.avoidance_enabled:
 		nav.set_velocity(new_velocity)

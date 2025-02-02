@@ -1,7 +1,9 @@
 extends Node2D
 
 @onready var map = $World/Ground
+@onready var fog = $Fog
 
+# Unit Selection
 var selected: Array[Unit] = [  ]
 var selection_start: Vector2 = Vector2.ZERO
 
