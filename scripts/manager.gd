@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var map = $World/Ground
+
 var selected: Array[Unit] = [  ]
 var selection_start: Vector2 = Vector2.ZERO
 
@@ -11,15 +13,11 @@ func _process(_delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("alt_click"):
+		if map.get_cell_tile_data(map.local_to_map(GameInfo.camera_offset(event.position))) == null:
+			return
 		var formation: Array[Vector2] = _get_formation(event.position)
-		var valid: bool = true
 		for i in selected.size():
 			selected[i].route(Vector2(formation[i]))
-			if !selected[i].nav.is_target_reachable():
-				valid = false
-		if !valid:
-			for unit in selected:
-				unit.route(unit.global_position)
 	
 	if event.is_action_pressed("click"):
 		selection_start = GameInfo.camera_offset(event.position)
