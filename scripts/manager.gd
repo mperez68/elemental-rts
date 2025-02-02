@@ -28,20 +28,20 @@ func _input(event: InputEvent) -> void:
 		selection_start = Vector2.ZERO
 		if box.get_area() > 32 * 16:
 			for unit in selected:
-				unit.highlight(false)
+				unit.select(false)
 			selected.clear()
 			for unit in find_children("*", "Unit"):
 				if box.has_point(unit.position):
 					selected.push_back(unit)
-					unit.highlight()
+					unit.select()
 		else:
 			for unit in find_children("*", "Unit"):
 				if GameInfo.camera_offset(event.position).distance_to(unit.position) < 24:
 					for sel in selected:
-						sel.highlight(false)
+						sel.select(false)
 					selected.clear()
 					selected.push_back(unit)
-					unit.highlight()
+					unit.select()
 					break
 		
 		queue_redraw()

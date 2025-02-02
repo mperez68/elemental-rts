@@ -22,6 +22,24 @@ gradient = SubResource("Gradient_s43am")
 width = 80
 height = 24
 
+[sub_resource type="Gradient" id="Gradient_sa4ku"]
+colors = PackedColorArray(1, 1, 0.733333, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cgird"]
+gradient = SubResource("Gradient_sa4ku")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gqh4e"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 32.0
+direction = Vector3(0, -1, 2)
+spread = 5.0
+initial_velocity_min = 112.9
+initial_velocity_max = 112.9
+gravity = Vector3(0, 98, 0)
+color_ramp = SubResource("GradientTexture1D_cgird")
+
 [sub_resource type="Animation" id="Animation_rcmn5"]
 length = 0.001
 
@@ -48,24 +66,6 @@ _data = {
 "idle": SubResource("Animation_iben3")
 }
 
-[sub_resource type="Gradient" id="Gradient_sa4ku"]
-colors = PackedColorArray(1, 1, 0.733333, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_cgird"]
-gradient = SubResource("Gradient_sa4ku")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gqh4e"]
-lifetime_randomness = 1.0
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 32.0
-direction = Vector3(0, -1, 2)
-spread = 5.0
-initial_velocity_min = 112.9
-initial_velocity_max = 112.9
-gravity = Vector3(0, 98, 0)
-color_ramp = SubResource("GradientTexture1D_cgird")
-
 [node name="Unit" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
@@ -74,7 +74,7 @@ collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_70gch")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="Collision" type="CollisionPolygon2D" parent="."]
 visible = false
 use_parent_material = true
 position = Vector2(-5.126e-06, -8.25)
@@ -96,20 +96,8 @@ use_parent_material = true
 position = Vector2(0, 12)
 texture = SubResource("GradientTexture2D_4dv0w")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_08fj6")
-}
-autoplay = "idle"
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 16.0
-simplify_path = true
-avoidance_enabled = true
-radius = 16.0
-max_speed = 256.0
-
-[node name="Control" type="Control" parent="."]
+[node name="Header" type="Control" parent="."]
+visible = false
 z_index = 1
 use_parent_material = true
 layout_mode = 3
@@ -126,7 +114,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("2_tvcjn")
 
-[node name="ProgressBar" type="ProgressBar" parent="Control"]
+[node name="Health" type="ProgressBar" parent="Header"]
 use_parent_material = true
 layout_mode = 1
 anchors_preset = 15
@@ -139,7 +127,7 @@ step = 1.0
 value = 8.0
 show_percentage = false
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="Particles" type="GPUParticles2D" parent="."]
 use_parent_material = true
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_gqh4e")
@@ -148,11 +136,25 @@ randomness = 1.0
 trail_enabled = true
 trail_lifetime = 0.02
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
+[node name="Light" type="PointLight2D" parent="."]
 y_sort_enabled = true
 use_parent_material = true
 blend_mode = 2
 range_item_cull_mask = 3
 texture = ExtResource("3_3uhgc")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 16.0
+path_max_distance = 512.0
+simplify_path = true
+avoidance_enabled = true
+radius = 16.0
+max_speed = 256.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_08fj6")
+}
+autoplay = "idle"
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

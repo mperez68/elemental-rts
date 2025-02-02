@@ -7,8 +7,15 @@ const TURN_LIMIT = 80
 
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var hl = $Highlight
+@onready var header = $Header
+@onready var hp_meter = $Header/Health
 
-@export var reveal = true
+var reveal = true
+
+@export var team: int = 0
+@export var max_hp: int = 10
+@export var hp: int = max_hp
+
 
 var acceleration: float = 1024
 
@@ -17,6 +24,8 @@ func _ready() -> void:
 	if !reveal:
 		$PointLight2D.queue_free()
 	route(position)
+	
+	hp_meter.value = hp
 
 func _process(delta: float) -> void:
 	var new_velocity: Vector2 = velocity
@@ -65,8 +74,9 @@ func route(target: Vector2):
 		return
 	nav.target_position = target
 
-func highlight(activate: bool = true):
-	hl.visible = activate
+func select(enable: bool = true):
+	hl.visible = enable
+	header.visible = enable
 
 
 # Signals
