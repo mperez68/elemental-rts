@@ -5,20 +5,24 @@ var team = 0
 @export var speed = 1024
 
 var velocity = Vector2.ZERO
+var target: Unit
 
 # Engine
 func _process(delta: float) -> void:
+	if target != null:
+		rotation = position.direction_to(target.position).angle()
 	position += velocity * delta
 
 
 # Public
-func set_target(origin: Vector2, target: Vector2):
+func set_target(origin: Vector2, target_in: Vector2):
 	position = origin
-	rotation = origin.direction_to(target).angle()
-	velocity = origin.direction_to(target) * speed
+	rotation = origin.direction_to(target_in).angle()
+	velocity = origin.direction_to(target_in) * speed
 
-func seek_target(origin: Vector2, target: Unit):
-	pass
+func seek_target(origin: Vector2, target_in: Unit):
+	set_target(origin, target_in.position)
+	target = target_in
 
 
 # Signals

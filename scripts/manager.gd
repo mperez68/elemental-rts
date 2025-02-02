@@ -66,11 +66,14 @@ func _draw() -> void:
 
 # Private
 func _get_formation(target: Vector2, spacing: int = 128) -> Array[Vector2]:
+	@warning_ignore("narrowing_conversion")
 	spacing *= GameInfo.camera.zoom.x
 	var formation: Array[Vector2] = [  ]
 	var columns = int(ceil(sqrt(float(selected.size()))))
+	@warning_ignore("integer_division")
 	var offset = Vector2((spacing * (columns - 1)) / 2, ((spacing / 2) * (columns - 1)) / 2)
 	for i in columns:
 		for j in columns:
+			@warning_ignore("integer_division")
 			formation.push_back(GameInfo.camera_offset(target + Vector2(j * spacing, i * spacing / 2) - offset))
 	return formation

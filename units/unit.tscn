@@ -41,6 +41,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Light:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_yyg1g"]
 resource_name = "die"
@@ -67,6 +79,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Light:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_iben3"]
@@ -102,7 +126,9 @@ y_sort_enabled = true
 material = ExtResource("3_uxhit")
 collision_priority = 0.6
 motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_70gch")
+acceleration = 256.0
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 visible = false
@@ -177,10 +203,12 @@ texture_scale = 3.0
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 16.0
 path_max_distance = 512.0
-simplify_path = true
+navigation_layers = 3
+path_postprocessing = 1
 avoidance_enabled = true
 radius = 16.0
 max_speed = 256.0
+debug_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -24,6 +24,7 @@ height = 96
 radius = 224.0
 
 [node name="DefenseTower" instance=ExtResource("1_p4jfv")]
+wall_min_slide_angle = 0.261799
 max_hp = 50
 damage_multiplier = 2.0
 
@@ -48,6 +49,12 @@ offset_bottom = -128.0
 [node name="Light" parent="." index="5"]
 position = Vector2(-5, -7)
 texture_scale = 2.0
+
+[node name="NavigationAgent2D" parent="." index="6"]
+navigation_layers = 1
+path_postprocessing = 0
+simplify_path = true
+debug_enabled = false
 
 [node name="AttackRange" parent="." index="8"]
 enabled = true

@@ -1,8 +1,6 @@
 extends CharacterBody2D
 class_name Unit
 
-signal update_fog(target: Vector2)
-
 const TURN_LIMIT = 80
 
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
@@ -78,34 +76,38 @@ func die():
 func movement(delta: float) -> void:
 	if dying:
 		return
-	var new_velocity: Vector2 = velocity
-	# Accelerate towards target
-	if nav.is_navigation_finished():
-		nav.avoidance_priority = 0.5
-		new_velocity = Vector2.ZERO
-		if position.distance_to(nav.get_final_position()) > nav.target_desired_distance:
-			route(nav.get_final_position())
-	else:
-		nav.avoidance_priority = 0.6
+	if !nav.is_navigation_finished():
 		var direction = position.direction_to(nav.get_next_path_position())
-		new_velocity += direction * acceleration * delta
-			
-		var ang = rad_to_deg(position.direction_to(nav.get_next_path_position()).angle_to(velocity))
-		if ang > TURN_LIMIT or ang < -TURN_LIMIT:
-			new_velocity = position.direction_to(nav.get_next_path_position()).normalized() * new_velocity.length()
-		position.direction_to(nav.get_next_path_position()).angle_to(velocity)
-		update_fog.emit(position)
+		position += direction * acceleration * delta
 	
-	if nav.avoidance_enabled:
-		nav.set_velocity(new_velocity)
-	else:
-		_on_navigation_agent_2d_velocity_computed(new_velocity)
-	
-	# Debug
-	queue_redraw()
-	
-	# Resolve
-	move_and_slide()
+	#var new_velocity: Vector2 = velocity
+	## Accelerate towards target
+	#if nav.is_navigation_finished():
+		#nav.avoidance_priority = 0.5
+		#new_velocity = Vector2.ZERO
+		#if position.distance_to(nav.get_final_position()) > nav.target_desired_distance:
+			#route(nav.get_final_position())
+	#else:
+		#nav.avoidance_priority = 0.6
+		#var direction = position.direction_to(nav.get_next_path_position())
+		#new_velocity += direction * acceleration * delta
+			#
+		#var ang = rad_to_deg(position.direction_to(nav.get_next_path_position()).angle_to(velocity))
+		#if ang > TURN_LIMIT or ang < -TURN_LIMIT:
+			#new_velocity = position.direction_to(nav.get_next_path_position()).normalized() * new_velocity.length()
+		#position.direction_to(nav.get_next_path_position()).angle_to(velocity)
+		#update_fog.emit(position)
+	#
+	#if nav.avoidance_enabled:
+		#nav.set_velocity(new_velocity)
+	#else:
+		#_on_navigation_agent_2d_velocity_computed(new_velocity)
+	#
+	## Debug
+	#queue_redraw()
+	#
+	## Resolve
+	#move_and_slide()
 
 
 # Signals
