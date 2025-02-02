@@ -75,6 +75,7 @@ color_ramp = SubResource("GradientTexture1D_cgird")
 z_index = 1
 y_sort_enabled = true
 position = Vector2(128, 128)
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_70gch")
 
@@ -83,10 +84,9 @@ visible = false
 position = Vector2(-5.126e-06, -8.25)
 scale = Vector2(1.05469, 2.25)
 polygon = PackedVector2Array(-32, 14, -32, 4, 32, 4, 32, 14)
-disabled = true
 
 [node name="Body" type="Sprite2D" parent="."]
-position = Vector2(0, -4.64487)
+position = Vector2(0, -3)
 texture = SubResource("GradientTexture2D_ohmiq")
 offset = Vector2(0, -2)
 
@@ -103,8 +103,11 @@ libraries = {
 autoplay = "idle"
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_max_distance = 512.0
+path_desired_distance = 16.0
+simplify_path = true
 avoidance_enabled = true
+radius = 16.0
+max_speed = 256.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_k0fo3")
@@ -116,3 +119,5 @@ explosiveness = 0.2
 randomness = 1.0
 trail_enabled = true
 trail_lifetime = 0.02
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

@@ -14,7 +14,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("alt_click"):
 		var formation: Array[Vector2] = _get_formation(event.position)
 		for i in selected.size():
-			selected[i].route(formation[i])
+			selected[i].route(Vector2(formation[i]))
 	
 	if event.is_action_pressed("click"):
 		selection_start = GameInfo.camera_offset(event.position)
@@ -56,5 +56,5 @@ func _get_formation(target: Vector2, spacing: int = 128) -> Array[Vector2]:
 	var offset = Vector2((spacing * (columns - 1)) / 2, ((spacing / 2) * (columns - 1)) / 2)
 	for i in columns:
 		for j in columns:
-			formation.push_back(target + Vector2(j * spacing, i * spacing / 2) - offset)
+			formation.push_back(GameInfo.camera_offset(target + Vector2(j * spacing, i * spacing / 2) - offset))
 	return formation

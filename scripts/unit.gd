@@ -1,35 +1,70 @@
 extends CharacterBody2D
 class_name Unit
 
-var max_speed: float = 256
-var acceleration: float = 512
-var friction: float = 16
+const TURN_LIMIT = 80
 
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var hl = $Highlight
 
+@onready var slow_distance: float = nav.target_desired_distance * 2
+
+var acceleration: float = 1024
+
 # Engine
+func _ready() -> void:
+	route(position)
+
 func _process(delta: float) -> void:
-	if !nav.is_navigation_finished():
-		var direction = position.direction_to(nav.get_next_path_position())
-		velocity += direction * delta * acceleration
-		if abs(velocity.length()) > friction:
-			velocity -= direction * delta * friction
-		if abs(direction) * max_speed < abs(velocity):
-			velocity = direction * max_speed
+	var new_velocity: Vector2 = velocity
+	# Accelerate towards target
+	if nav.is_navigation_finished():
+		nav.avoidance_priority = 0.5
+		new_velocity = Vector2.ZERO
+		if position.distance_to(nav.get_final_position()) > nav.target_desired_distance:
+			route(nav.get_final_position())
 	else:
-		velocity = Vector2.ZERO
-	#var max_speed_vector = velocity.normalized() * max_speed
-	#if velocity.length() > max_speed_vector.length():
-		#velocity = max_speed_vector
+		nav.avoidance_priority = 1
+		var direction = position.direction_to(nav.get_next_path_position())
+		new_velocity += direction * acceleration * delta
+		#if position.distance_to(nav.get_final_position()) < slow_distance:
+			#new_velocity = new_velocity * max((position.distance_to(nav.get_final_position()) / slow_distance), 0.5)
+			
+		var ang = rad_to_deg(position.direction_to(nav.get_next_path_position()).angle_to(velocity))
+		if ang > TURN_LIMIT or ang < -TURN_LIMIT:
+			new_velocity *= 0.1
+		position.direction_to(nav.get_next_path_position()).angle_to(velocity)
+	
+	if nav.avoidance_enabled:
+		nav.set_velocity(new_velocity)
+	else:
+		_on_navigation_agent_2d_velocity_computed(new_velocity)
+	
+	# Debug
+	queue_redraw()
+	
+	# Resolve
 	move_and_slide()
 
+func _draw() -> void:
+	if nav.debug_enabled:
+		draw_line(Vector2.ZERO, position.direction_to(nav.get_next_path_position()) * 32, Color.BLUE, 1)
+		draw_circle(position.direction_to(nav.get_next_path_position()) * 32, 3, Color.BLACK)
+		var color = Color.BLACK
+		var ang = rad_to_deg(position.direction_to(nav.get_next_path_position()).angle_to(velocity))
+		if ang > TURN_LIMIT or ang < -TURN_LIMIT:
+			color = Color.RED
+		draw_line(Vector2.ZERO, velocity, color, 2)
 
 # Public
 func route(target: Vector2):
 	if GameInfo.camera == null:
 		return
-	nav.target_position = Vector2(GameInfo.camera_offset(target))
+	nav.target_position = target
 
 func highlight(activate: bool = true):
 	hl.visible = activate
+
+
+# Signals
+func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
+		velocity = safe_velocity
