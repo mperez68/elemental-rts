@@ -1,7 +1,6 @@
 extends Node2D
 
 var selected: Array[Unit] = [  ]
-
 var selection_start: Vector2 = Vector2.ZERO
 
 
@@ -13,8 +12,14 @@ func _process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("alt_click"):
 		var formation: Array[Vector2] = _get_formation(event.position)
+		var valid: bool = true
 		for i in selected.size():
 			selected[i].route(Vector2(formation[i]))
+			if !selected[i].nav.is_target_reachable():
+				valid = false
+		if !valid:
+			for unit in selected:
+				unit.route(unit.global_position)
 	
 	if event.is_action_pressed("click"):
 		selection_start = GameInfo.camera_offset(event.position)
@@ -39,7 +44,7 @@ func _input(event: InputEvent) -> void:
 					selected.push_back(unit)
 					unit.highlight()
 					break
-					
+		
 		queue_redraw()
 
 func _draw() -> void:
@@ -51,6 +56,7 @@ func _draw() -> void:
 
 # Private
 func _get_formation(target: Vector2, spacing: int = 128) -> Array[Vector2]:
+	spacing *= GameInfo.camera.zoom.x
 	var formation: Array[Vector2] = [  ]
 	var columns = int(ceil(sqrt(float(selected.size()))))
 	var offset = Vector2((spacing * (columns - 1)) / 2, ((spacing / 2) * (columns - 1)) / 2)

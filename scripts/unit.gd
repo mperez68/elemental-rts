@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 			
 		var ang = rad_to_deg(position.direction_to(nav.get_next_path_position()).angle_to(velocity))
 		if ang > TURN_LIMIT or ang < -TURN_LIMIT:
-			new_velocity *= 0.1
+			new_velocity = position.direction_to(nav.get_next_path_position()).normalized() * new_velocity.length()
 		position.direction_to(nav.get_next_path_position()).angle_to(velocity)
 	
 	if nav.avoidance_enabled:
@@ -54,6 +54,7 @@ func _draw() -> void:
 		if ang > TURN_LIMIT or ang < -TURN_LIMIT:
 			color = Color.RED
 		draw_line(Vector2.ZERO, velocity, color, 2)
+
 
 # Public
 func route(target: Vector2):

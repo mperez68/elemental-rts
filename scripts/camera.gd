@@ -3,6 +3,8 @@ extends Camera2D
 const ZOOM_MAX = 2
 const ZOOM_MIN = 0.7
 
+
+# Engine
 func _ready() -> void:
 	GameInfo.camera = self
 
