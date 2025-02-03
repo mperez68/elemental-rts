@@ -1,12 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cyfrfpamya4yp"]
+[gd_scene load_steps=7 format=3 uid="uid://cyfrfpamya4yp"]
 
 [ext_resource type="PackedScene" uid="uid://cpbr6chnsnpg" path="res://units/unit.tscn" id="1_1ou6t"]
 [ext_resource type="Texture2D" uid="uid://bc3pgqwdhrlkw" path="res://textures/building_box.tres" id="2_7w8qw"]
 [ext_resource type="Script" path="res://scripts/building.gd" id="2_irg30"]
 [ext_resource type="Material" uid="uid://cogv4mxm3di27" path="res://textures/building.tres" id="3_yll8e"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2n6ns"]
-size = Vector2(128, 64)
 
 [sub_resource type="Gradient" id="Gradient_s43am"]
 colors = PackedColorArray(0, 0.678431, 0, 1, 0, 0, 0, 0)
@@ -26,31 +23,33 @@ footprint = Vector2i(3, 3)
 max_hp = 100
 acceleration = 0.0
 
-[node name="Collision" parent="." index="0"]
-position = Vector2(0, -16)
-shape = SubResource("RectangleShape2D_2n6ns")
+[node name="MissileCollision" parent="." index="1"]
+polygon = PackedVector2Array(-64, -4, -64, -36, 64, -36, 64, -4)
 
-[node name="Body" parent="." index="1"]
+[node name="Body" parent="." index="2"]
 texture = ExtResource("2_7w8qw")
 offset = Vector2(0, -36)
 
-[node name="Highlight" parent="." index="2"]
+[node name="Highlight" parent="." index="3"]
 texture = SubResource("GradientTexture2D_qdmxy")
 
-[node name="Header" parent="." index="3"]
+[node name="Header" parent="." index="4"]
 offset_left = -72.0
 offset_top = -112.0
 offset_right = 72.0
 offset_bottom = -96.0
 
-[node name="Particles" parent="." index="4"]
+[node name="Particles" parent="." index="5"]
 process_material = ExtResource("3_yll8e")
 
-[node name="Light" parent="." index="5"]
+[node name="Light" parent="." index="6"]
 texture_scale = 1.5
 
-[node name="AttackRange" parent="." index="8"]
+[node name="NavigationAgent2D" parent="." index="7"]
+avoidance_priority = 1.0
+
+[node name="AttackRange" parent="." index="9"]
 enabled = false
 
-[node name="AttackCooldown" parent="." index="9"]
+[node name="AttackCooldown" parent="." index="10"]
 autostart = true

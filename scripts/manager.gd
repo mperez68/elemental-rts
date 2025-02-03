@@ -13,6 +13,7 @@ func _ready() -> void:
 		unit.select_event.connect(log_click_unit)
 
 func _process(_delta: float) -> void:
+	# Draw Selection Box
 	if selection_start != Vector2.ZERO:
 		queue_redraw()
 

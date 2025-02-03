@@ -62,13 +62,14 @@ animations = [{
 [node name="Missile" type="Area2D"]
 material = ExtResource("1_pfgfq")
 scale = Vector2(0.7, 0.7)
+collision_layer = 2
 script = ExtResource("2_d1yrp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_x4ik5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-z_index = 2
+z_index = 1
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_56ero")
 frame_progress = 0.183663
