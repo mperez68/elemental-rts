@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cpbr6chnsnpg"]
+[gd_scene load_steps=15 format=3 uid="uid://cpbr6chnsnpg"]
 
 [ext_resource type="Script" path="res://scripts/unit.gd" id="1_70gch"]
 [ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="2_tvcjn"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://0y7ec1p2xhyf" path="res://textures/unit_box.tres" id="3_h2xli"]
 [ext_resource type="Material" uid="uid://csh3ts0onhaqd" path="res://core/fog_unit.tres" id="3_uxhit"]
 [ext_resource type="Material" uid="uid://q7gg5v5jjwlg" path="res://textures/unit.tres" id="5_pp3fc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sccn8"]
+size = Vector2(66, 34)
 
 [sub_resource type="Gradient" id="Gradient_s43am"]
 colors = PackedColorArray(0, 0.403922, 0, 0.666667, 0.643137, 1, 0.615686, 0.156863)
@@ -125,17 +128,16 @@ z_index = 1
 y_sort_enabled = true
 material = ExtResource("3_uxhit")
 collision_priority = 0.6
+input_pickable = true
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_70gch")
 acceleration = 256.0
 
-[node name="Collision" type="CollisionPolygon2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
 use_parent_material = true
-position = Vector2(-5.126e-06, -8.25)
-scale = Vector2(1.05469, 2.25)
-polygon = PackedVector2Array(-32, 14, -32, 4, 32, 4, 32, 14)
+shape = SubResource("RectangleShape2D_sccn8")
 
 [node name="Body" type="Sprite2D" parent="."]
 light_mask = 2
@@ -208,7 +210,6 @@ path_postprocessing = 1
 avoidance_enabled = true
 radius = 16.0
 max_speed = 256.0
-debug_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -226,6 +227,9 @@ target_position = Vector2(0, 0)
 wait_time = 0.5
 autostart = true
 
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]

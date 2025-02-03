@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cyfrfpamya4yp"]
+[gd_scene load_steps=8 format=3 uid="uid://cyfrfpamya4yp"]
 
 [ext_resource type="PackedScene" uid="uid://cpbr6chnsnpg" path="res://units/unit.tscn" id="1_1ou6t"]
 [ext_resource type="Texture2D" uid="uid://bc3pgqwdhrlkw" path="res://textures/building_box.tres" id="2_7w8qw"]
 [ext_resource type="Script" path="res://scripts/building.gd" id="2_irg30"]
 [ext_resource type="Material" uid="uid://cogv4mxm3di27" path="res://textures/building.tres" id="3_yll8e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2n6ns"]
+size = Vector2(256, 129)
 
 [sub_resource type="Gradient" id="Gradient_s43am"]
 colors = PackedColorArray(0, 0.403922, 0, 0.666667, 0.643137, 1, 0.615686, 0.156863)
@@ -20,8 +23,7 @@ max_hp = 100
 acceleration = 0.0
 
 [node name="Collision" parent="." index="0"]
-position = Vector2(0.499993, -79.5625)
-scale = Vector2(3.89648, 9.5625)
+shape = SubResource("RectangleShape2D_2n6ns")
 
 [node name="Body" parent="." index="1"]
 texture = ExtResource("2_7w8qw")

@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Unit
 
+signal select_event(this: Unit)
+
 const TURN_LIMIT = 80
 
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
@@ -12,7 +14,6 @@ const TURN_LIMIT = 80
 
 var missile = preload("res://core/missile.tscn")
 
-var reveal = true
 
 @export var team: int = 0
 @export var max_hp: int = 10
@@ -20,6 +21,8 @@ var reveal = true
 @export var acceleration: float = 1024
 @onready var hp: int = max_hp
 var dying: bool = false
+var selected: bool = false
+var reveal = true
 
 
 
@@ -28,7 +31,7 @@ func _ready() -> void:
 	reveal = team == GameInfo.active_player
 	if !reveal:
 		$Light.queue_free()
-		header.visible = true
+		header.visible = false
 	route(position)
 	
 	hp_meter.max_value = max_hp
@@ -55,6 +58,7 @@ func route(target: Vector2):
 	nav.target_position = target
 
 func select(enable: bool = true):
+	selected = enable
 	hl.visible = enable
 	header.visible = enable
 
@@ -79,35 +83,6 @@ func movement(delta: float) -> void:
 	if !nav.is_navigation_finished():
 		var direction = position.direction_to(nav.get_next_path_position())
 		position += direction * acceleration * delta
-	
-	#var new_velocity: Vector2 = velocity
-	## Accelerate towards target
-	#if nav.is_navigation_finished():
-		#nav.avoidance_priority = 0.5
-		#new_velocity = Vector2.ZERO
-		#if position.distance_to(nav.get_final_position()) > nav.target_desired_distance:
-			#route(nav.get_final_position())
-	#else:
-		#nav.avoidance_priority = 0.6
-		#var direction = position.direction_to(nav.get_next_path_position())
-		#new_velocity += direction * acceleration * delta
-			#
-		#var ang = rad_to_deg(position.direction_to(nav.get_next_path_position()).angle_to(velocity))
-		#if ang > TURN_LIMIT or ang < -TURN_LIMIT:
-			#new_velocity = position.direction_to(nav.get_next_path_position()).normalized() * new_velocity.length()
-		#position.direction_to(nav.get_next_path_position()).angle_to(velocity)
-		#update_fog.emit(position)
-	#
-	#if nav.avoidance_enabled:
-		#nav.set_velocity(new_velocity)
-	#else:
-		#_on_navigation_agent_2d_velocity_computed(new_velocity)
-	#
-	## Debug
-	#queue_redraw()
-	#
-	## Resolve
-	#move_and_slide()
 
 
 # Signals
@@ -123,8 +98,24 @@ func _on_attack_cooldown_timeout() -> void:
 			m.set_target(position, target.collider.position)
 			m.team = team
 			add_sibling(m)
+			return
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "die":
 		queue_free()
+
+
+func _on_mouse_entered() -> void:
+	if !selected:
+		header.visible = true
+
+
+func _on_mouse_exited() -> void:
+	if !selected:
+		header.visible = false
+
+
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("click"):
+		select_event.emit(self)

@@ -14,7 +14,7 @@ var scroll_speed: int = 1024
 # Engine
 func _ready() -> void:
 	get_tree().get_root().size_changed.connect(resize)
-	music_manager.play(music_manager.THEME)
+	#music_manager.play(music_manager.THEME)
 
 
 # Util

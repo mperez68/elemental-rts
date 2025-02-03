@@ -5,9 +5,13 @@ extends Node2D
 # Unit Selection
 var selected: Array[Unit] = [  ]
 var selection_start: Vector2 = Vector2.ZERO
-
+var clicked_unit: Unit = null
 
 # Engine
+func _ready() -> void:
+	for unit in find_children("*", "Unit"):
+		unit.select_event.connect(log_click_unit)
+
 func _process(_delta: float) -> void:
 	if selection_start != Vector2.ZERO:
 		queue_redraw()
@@ -28,34 +32,43 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_released("click"):
 		var box: Rect2 = Rect2(selection_start, GameInfo.camera_offset(event.position) - selection_start).abs()
-		selection_start = Vector2.ZERO
+		var box_size: Vector2 = box.size
 		var all_units = find_children("*", "Unit")
-		if box.get_area() > 32 * 16:
-			for unit in selected:
-				if unit != null and !unit.dying:
-					unit.select(false)
-			selected.clear()
-			for unit in all_units:
-				if box.has_point(unit.position) and !unit.dying and unit.team == GameInfo.active_player:
-					selected.push_back(unit)
-					unit.select()
-			for i in range(selected.size() - 1, 0, -1):
-				if selected.size() > 1 and selected[i] is Building:
-					selected[i].select(false)
-					selected.remove_at(i)
-				else:
-					selected[i].select()
+		# Box past size threshold
+		if box_size.x + box_size.y > GameInfo.GRID.x + GameInfo.GRID.y:
+			new_sel(all_units, box)
 		else:
-			for unit in all_units:
-				if GameInfo.camera_offset(event.position).distance_to(unit.position) < 24:
-					for sel in selected:
-						sel.select(false)
-					selected.clear()
-					selected.push_back(unit)
-					unit.select()
-					break
+			clear_sel()
+			if clicked_unit != null:
+				selected.push_back(clicked_unit)
+				clicked_unit.select()
+			clicked_unit = null
 		
+		selection_start = Vector2.ZERO
 		queue_redraw()
+
+func log_click_unit(unit: Unit):
+	clicked_unit = unit
+
+
+func new_sel(units: Array[Node], rect: Rect2):
+	clear_sel()
+	for unit in units:
+		if rect.has_point(unit.position) and !unit.dying and unit.team == GameInfo.active_player:
+			selected.push_back(unit)
+			unit.select()
+	for i in range(selected.size() - 1, 0, -1):
+		if selected.size() > 1 and selected[i] is Building:
+			selected[i].select(false)
+			selected.remove_at(i)
+		else:
+			selected[i].select()
+
+func clear_sel():
+	for unit in selected:
+		if unit != null and !unit.dying:
+			unit.select(false)
+	selected.clear()
 
 func _draw() -> void:
 	if selection_start != Vector2.ZERO:

@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://geybfgoqhvmj"]
+[gd_scene load_steps=8 format=3 uid="uid://geybfgoqhvmj"]
 
 [ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/building.tscn" id="1_p4jfv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j67hy"]
+size = Vector2(123.259, 86.2222)
 
 [sub_resource type="Gradient" id="Gradient_ctinq"]
 colors = PackedColorArray(0, 0, 0, 1, 0.67069, 0.67069, 0.67069, 1)
@@ -29,8 +32,9 @@ max_hp = 50
 damage_multiplier = 2.0
 
 [node name="Collision" parent="." index="0"]
-position = Vector2(-1.90735e-06, -80.9375)
-scale = Vector2(1.99219, 10.9375)
+position = Vector2(0, -22)
+scale = Vector2(1.05469, 2.25)
+shape = SubResource("RectangleShape2D_j67hy")
 
 [node name="Body" parent="." index="1"]
 position = Vector2(0.5, -23.8281)
@@ -54,7 +58,6 @@ texture_scale = 2.0
 navigation_layers = 1
 path_postprocessing = 0
 simplify_path = true
-debug_enabled = false
 
 [node name="AttackRange" parent="." index="8"]
 enabled = true
