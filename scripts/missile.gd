@@ -6,11 +6,13 @@ var team = 0
 
 var velocity = Vector2.ZERO
 var target: Unit
+var last_position = position
 
 # Engine
 func _process(delta: float) -> void:
 	if target != null:
 		rotation = position.direction_to(target.position).angle()
+	last_position = position
 	position += velocity * delta
 
 
@@ -19,6 +21,7 @@ func set_target(origin: Vector2, target_in: Vector2):
 	position = origin
 	rotation = origin.direction_to(target_in).angle()
 	velocity = origin.direction_to(target_in) * speed
+	last_position = position
 
 func seek_target(origin: Vector2, target_in: Unit):
 	set_target(origin, target_in.position)
@@ -36,6 +39,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 func _on_body_entered(body: Node) -> void:
 	if body is Unit and body.team != team:
 		body.damage(damage)
+		position = last_position
 		velocity = Vector2.ZERO
 		$AnimatedSprite2D.play("hit")
 		$Lifetime.stop()

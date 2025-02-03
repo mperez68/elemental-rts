@@ -26,4 +26,8 @@ collision_layer = 1
 position = Vector2(150, 76)
 team = 1
 
+[node name="Unit2" parent="." instance=ExtResource("2_7pr3c")]
+position = Vector2(138, 270)
+team = 1
+
 [editable path="World"]
