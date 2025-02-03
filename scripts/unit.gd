@@ -1,6 +1,9 @@
 extends CharacterBody2D
 class_name Unit
 
+enum WeaponType { NONE, MISSILE, HITSCAN }
+enum TargetingType { SINGLE, MULTI }
+
 signal select_event(this: Unit)
 
 const TURN_LIMIT = 80
@@ -21,6 +24,8 @@ var missile = preload("res://core/missile.tscn")
 @export var max_hp: int = 10
 @export var damage_multiplier: float = 1
 @export var acceleration: float = 1024
+@export var weapon_type: WeaponType = WeaponType.NONE
+@export var targetting_type: TargetingType = TargetingType.SINGLE
 @onready var hp: int = max_hp
 var dying: bool = false
 var selected: bool = false
@@ -110,18 +115,41 @@ func movement(delta: float) -> void:
 	
 	move_and_slide()
 
+func _attack():
+	for target in attack_radius.collision_result:
+		if target.collider is Unit and target.collider.team != team and !target.collider.dying:
+			match weapon_type:
+				WeaponType.MISSILE:
+					_missile(target.collider)
+				WeaponType.HITSCAN:
+					_hit_scan(target.collider)
+				_:
+					print("no attack")
+			if targetting_type == TargetingType.SINGLE:
+				return
+
+func _missile(target: Unit):
+	var m = missile.instantiate()
+	m.damage *= damage_multiplier
+	m.set_target(get_collider_position(), target.get_collider_position())
+	m.team = team
+	add_sibling(m)
+	
+func _hit_scan(target: Unit):
+	var m = missile.instantiate()
+	m.damage *= damage_multiplier
+	m.set_target(target.position, target.get_collider_position())
+	m.team = team
+	m.z_index += 1
+	add_sibling(m)
 
 # Signals
 func _on_attack_cooldown_timeout() -> void:
+	# Simple Missile
 	if nav.is_navigation_finished():
-		for target in attack_radius.collision_result:
-			if target.collider is Unit and target.collider.team != team and !target.collider.dying:
-				var m = missile.instantiate()
-				m.damage *= damage_multiplier
-				m.set_target(position, target.collider.get_collider_position())
-				m.team = team
-				add_sibling(m)
-				return
+		_attack()
+	else:
+		attack_cooldown.stop()
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "die":

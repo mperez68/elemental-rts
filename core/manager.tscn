@@ -17,26 +17,13 @@ tile_map_data = PackedByteArray("AAArAPD/AAADAAAAAAAqAPD/AAADAAEAAAApAPD/AAADAAE
 
 [node name="DefenseTower2" parent="." instance=ExtResource("5_45pwa")]
 position = Vector2(291, 168)
-collision_layer = 1
 
 [node name="Building" parent="." instance=ExtResource("4_gcqf5")]
 position = Vector2(527, 195)
 collision_layer = 1
 
 [node name="Unit" parent="." instance=ExtResource("2_7pr3c")]
-position = Vector2(234, 213)
-team = 1
-
-[node name="Unit2" parent="." instance=ExtResource("2_7pr3c")]
-position = Vector2(134, 91)
-team = 1
-
-[node name="Unit3" parent="." instance=ExtResource("2_7pr3c")]
-position = Vector2(220, 51)
-team = 1
-
-[node name="Unit4" parent="." instance=ExtResource("2_7pr3c")]
-position = Vector2(357, 45)
+position = Vector2(150, 76)
 team = 1
 
 [editable path="World"]

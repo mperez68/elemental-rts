@@ -30,8 +30,13 @@ wall_min_slide_angle = 0.261799
 footprint = Vector2i(2, 2)
 max_hp = 50
 damage_multiplier = 2.0
+weapon_type = 1
+
+[node name="UnitCollision" parent="." index="0"]
+y_sort_enabled = false
 
 [node name="MissileCollision" parent="." index="1"]
+position = Vector2(0, 1)
 polygon = PackedVector2Array(-32, -4, -32, -68, 32, -68, 32, -4)
 
 [node name="Body" parent="." index="2"]

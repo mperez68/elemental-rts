@@ -136,13 +136,16 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_70gch")
 acceleration = 16384.0
+weapon_type = 1
 
 [node name="UnitCollision" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
 use_parent_material = true
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_cgom5")
 
 [node name="MissileCollision" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, 4)
 polygon = PackedVector2Array(-16, -4, -16, -36, 16, -36, 16, -4)
 
 [node name="Body" type="Sprite2D" parent="."]
