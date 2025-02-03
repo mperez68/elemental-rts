@@ -39,7 +39,7 @@ func _input(event: InputEvent) -> void:
 			new_sel(all_units, box)
 		else:
 			clear_sel()
-			if clicked_unit != null:
+			if clicked_unit != null and clicked_unit.team == GameInfo.active_player:
 				selected.push_back(clicked_unit)
 				clicked_unit.select()
 			clicked_unit = null

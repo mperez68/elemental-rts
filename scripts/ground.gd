@@ -1,5 +1,8 @@
 extends TileMapLayer
 
+func _ready() -> void:
+	GameInfo.map = self
+
 func _use_tile_data_runtime_update(coords: Vector2i) -> bool:
 	if coords in $"../Buildings".get_used_cells_by_id():
 		return true

@@ -6,35 +6,41 @@
 [ext_resource type="Material" uid="uid://cogv4mxm3di27" path="res://textures/building.tres" id="3_yll8e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2n6ns"]
-size = Vector2(256, 129)
+size = Vector2(128, 64)
 
 [sub_resource type="Gradient" id="Gradient_s43am"]
-colors = PackedColorArray(0, 0.403922, 0, 0.666667, 0.643137, 1, 0.615686, 0.156863)
+colors = PackedColorArray(0, 0.678431, 0, 1, 0, 0, 0, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_y1thl"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qdmxy"]
 gradient = SubResource("Gradient_s43am")
-width = 272
+width = 256
 height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
 
 [node name="Building" instance=ExtResource("1_1ou6t")]
 collision_priority = 1.0
 script = ExtResource("2_irg30")
+footprint = Vector2i(3, 3)
 max_hp = 100
 acceleration = 0.0
 
 [node name="Collision" parent="." index="0"]
+position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_2n6ns")
 
 [node name="Body" parent="." index="1"]
 texture = ExtResource("2_7w8qw")
+offset = Vector2(0, -36)
 
 [node name="Highlight" parent="." index="2"]
-texture = SubResource("GradientTexture2D_y1thl")
+texture = SubResource("GradientTexture2D_qdmxy")
 
 [node name="Header" parent="." index="3"]
-offset_left = -144.0
+offset_left = -72.0
 offset_top = -112.0
-offset_right = 144.0
+offset_right = 72.0
 offset_bottom = -96.0
 
 [node name="Particles" parent="." index="4"]
@@ -47,4 +53,4 @@ texture_scale = 1.5
 enabled = false
 
 [node name="AttackCooldown" parent="." index="9"]
-autostart = false
+autostart = true

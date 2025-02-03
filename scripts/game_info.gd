@@ -7,6 +7,7 @@ const GRID: Vector2i = Vector2i(64, 32)
 @onready var music_manager = $MusicManager
 @onready var screen_size: Vector2i = get_viewport().get_visible_rect().size
 var camera: Camera2D = null
+var map: TileMapLayer = null
 
 var scroll_speed: int = 1024
 
