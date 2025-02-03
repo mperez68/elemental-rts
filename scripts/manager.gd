@@ -26,7 +26,7 @@ func _input(event: InputEvent) -> void:
 			if selected[i] == null:
 				selected.remove_at(i)
 			else:
-				selected[i].route(Vector2(formation[i]))
+				selected[i].route(Vector2(formation[i]), true)
 	
 	if event.is_action_pressed("click"):
 		selection_start = GameInfo.camera_offset(event.position)

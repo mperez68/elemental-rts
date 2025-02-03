@@ -3,6 +3,7 @@ class_name Unit
 
 enum WeaponType { NONE, MISSILE, HITSCAN }
 enum TargetingType { SINGLE, MULTI }
+enum Stance { BUILDING, AGGRESSIVE, DEFENSIVE, HOLD_FIRE }
 
 signal select_event(this: Unit)
 
@@ -15,6 +16,8 @@ const TURN_LIMIT = 80
 @onready var attack_radius = $AttackRange
 @onready var attack_cooldown = $AttackCooldown
 @onready var anim = $AnimationPlayer
+@onready var missile_collision = $MissileCollision
+@onready var unit_collision = $UnitCollision
 
 
 var missile = preload("res://core/missile.tscn")
@@ -26,12 +29,14 @@ var missile = preload("res://core/missile.tscn")
 @export var acceleration: float = 1024
 @export var weapon_type: WeaponType = WeaponType.NONE
 @export var targetting_type: TargetingType = TargetingType.SINGLE
+@export var stance: Stance = Stance.AGGRESSIVE
 @onready var hp: int = max_hp
 var dying: bool = false
 var selected: bool = false
 var reveal = true
 var multi_select = true
 var collider_target: Vector2 = position
+var last_targets: Array = [ ]
 
 
 # Engine
@@ -46,7 +51,7 @@ func _ready() -> void:
 	hp_meter.max_value = max_hp
 	hp_meter.value = hp
 	# Set missile collider center
-	var vertices: PackedVector2Array = $MissileCollision.polygon
+	var vertices: PackedVector2Array = missile_collision.polygon
 	var sum: Vector2 = Vector2.ZERO
 	for vertex in vertices:
 		sum += vertex
@@ -68,7 +73,9 @@ func _draw() -> void:
 
 
 # Public
-func route(target: Vector2):
+func route(target: Vector2, clear_chase: bool = false):
+	if clear_chase:
+		last_targets.clear()
 	nav.target_position = target
 
 func select(enable: bool = true):
@@ -116,6 +123,7 @@ func movement(delta: float) -> void:
 	move_and_slide()
 
 func _attack():
+	var new_targets: Array = []
 	for target in attack_radius.collision_result:
 		if target.collider is Unit and target.collider.team != team and !target.collider.dying:
 			match weapon_type:
@@ -125,8 +133,19 @@ func _attack():
 					_hit_scan(target.collider)
 				_:
 					print("no attack")
+			new_targets.push_back(target.collider)
 			if targetting_type == TargetingType.SINGLE:
-				return
+				break
+	# Chase/Stop when in range
+	if stance == Stance.AGGRESSIVE and new_targets.is_empty():
+			for unit in last_targets:
+				if unit != null and unit.hp > 0:
+					route(unit.position - ( position.direction_to(unit.position) * (position.distance_to(unit.position) - attack_radius.shape.radius)))
+					last_targets.clear()
+					last_targets.push_back(unit)
+					return
+	last_targets.clear()
+	last_targets = new_targets
 
 func _missile(target: Unit):
 	var m = missile.instantiate()
@@ -169,6 +188,7 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 
 
 func _on_navigation_finished() -> void:
+	_on_attack_cooldown_timeout()
 	attack_cooldown.start()
 
 

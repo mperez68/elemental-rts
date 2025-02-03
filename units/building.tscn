@@ -23,6 +23,7 @@ footprint = Vector2i(3, 3)
 max_hp = 100
 acceleration = 0.0
 weapon_type = 0
+stance = 0
 
 [node name="MissileCollision" parent="." index="1"]
 polygon = PackedVector2Array(-64, -4, -64, -36, 64, -36, 64, -4)
