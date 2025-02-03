@@ -10,6 +10,7 @@ const TURN_LIMIT = 80
 @onready var header = $Header
 @onready var hp_meter = $Header/Health
 @onready var attack_radius = $AttackRange
+@onready var attack_cooldown = $AttackCooldown
 @onready var anim = $AnimationPlayer
 
 var missile = preload("res://core/missile.tscn")
@@ -83,39 +84,38 @@ func movement(delta: float) -> void:
 	if !nav.is_navigation_finished():
 		var direction = position.direction_to(nav.get_next_path_position())
 		position += direction * acceleration * delta
+		if !attack_cooldown.is_stopped():
+			attack_cooldown.stop()
 
 
 # Signals
-func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
-		velocity = safe_velocity
-
-
 func _on_attack_cooldown_timeout() -> void:
-	for target in attack_radius.collision_result:
-		if target.collider is Unit and target.collider.team != team and !target.collider.dying:
-			var m = missile.instantiate()
-			m.damage *= damage_multiplier
-			m.set_target(position, target.collider.position)
-			m.team = team
-			add_sibling(m)
-			return
-
+	if nav.is_navigation_finished():
+		for target in attack_radius.collision_result:
+			if target.collider is Unit and target.collider.team != team and !target.collider.dying:
+				var m = missile.instantiate()
+				m.damage *= damage_multiplier
+				m.set_target(position, target.collider.position)
+				m.team = team
+				add_sibling(m)
+				return
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "die":
 		queue_free()
 
-
 func _on_mouse_entered() -> void:
 	if !selected:
 		header.visible = true
-
 
 func _on_mouse_exited() -> void:
 	if !selected:
 		header.visible = false
 
-
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("click"):
 		select_event.emit(self)
+
+
+func _on_navigation_finished() -> void:
+	attack_cooldown.start()

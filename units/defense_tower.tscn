@@ -3,15 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/building.tscn" id="1_p4jfv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j67hy"]
-size = Vector2(123.259, 86.2222)
+size = Vector2(64, 128)
 
 [sub_resource type="Gradient" id="Gradient_ctinq"]
 colors = PackedColorArray(0, 0, 0, 1, 0.67069, 0.67069, 0.67069, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_6i07l"]
 gradient = SubResource("Gradient_ctinq")
-width = 128
-height = 192
+height = 128
 fill = 1
 fill_from = Vector2(0, 1)
 
@@ -32,8 +31,8 @@ max_hp = 50
 damage_multiplier = 2.0
 
 [node name="Collision" parent="." index="0"]
-position = Vector2(0, -22)
-scale = Vector2(1.05469, 2.25)
+visible = true
+position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_j67hy")
 
 [node name="Body" parent="." index="1"]
@@ -66,3 +65,5 @@ shape = SubResource("CircleShape2D_v1x1j")
 [node name="AttackCooldown" parent="." index="9"]
 wait_time = 1.0
 autostart = true
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
