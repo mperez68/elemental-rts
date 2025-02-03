@@ -57,12 +57,11 @@ func new_sel(units: Array[Node], rect: Rect2):
 		if rect.has_point(unit.position) and !unit.dying and unit.team == GameInfo.active_player:
 			selected.push_back(unit)
 			unit.select()
-	for i in range(selected.size() - 1, 0, -1):
-		if selected.size() > 1 and selected[i] is Building:
-			selected[i].select(false)
-			selected.remove_at(i)
-		else:
-			selected[i].select()
+	if selected.size() > 1:
+		for i in range(selected.size() - 1, -1, -1):
+			if !selected[i].multi_select:
+				selected[i].select(false)
+				selected.remove_at(i)
 
 func clear_sel():
 	for unit in selected:

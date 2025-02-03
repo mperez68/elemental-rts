@@ -7,6 +7,7 @@ var grid_start: Vector2i
 # Engine
 func _ready() -> void:
 	super()
+	multi_select = false
 	while (GameInfo.map == null):
 		await get_tree().create_timer(0.1).timeout
 	

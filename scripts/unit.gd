@@ -24,6 +24,7 @@ var missile = preload("res://core/missile.tscn")
 var dying: bool = false
 var selected: bool = false
 var reveal = true
+var multi_select = true
 
 
 
