@@ -29,6 +29,8 @@ var missile = preload("res://core/missile.tscn")
 @export var stance: Stance = Stance.AGGRESSIVE
 @onready var hp: int = max_hp
 
+static var priority_tie_break: int = 1
+
 var flags: Dictionary = {
 	"dying": false,
 	"selected": false,
@@ -111,7 +113,8 @@ func movement(delta: float) -> void:
 			return_timer.start()
 	else:
 		# Approach nav target
-		nav.avoidance_priority = 0.5
+		priority_tie_break = (priority_tie_break + 1) % 100
+		nav.avoidance_priority = 0.5 + (float(priority_tie_break) * 0.001)
 		var direction = position.direction_to(nav.get_next_path_position())
 		nav.set_velocity(direction * (acceleration * delta))
 		if !attack_cooldown.is_stopped():

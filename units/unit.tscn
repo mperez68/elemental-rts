@@ -37,22 +37,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Particles:visible")
+tracks/1/path = NodePath("Light:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Light:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -76,22 +64,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Particles:visible")
+tracks/1/path = NodePath("Light:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.133333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Light:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
@@ -129,7 +105,7 @@ radius = 128.0
 z_index = 1
 y_sort_enabled = true
 material = ExtResource("3_uxhit")
-collision_layer = 3
+collision_layer = 6
 collision_priority = 0.6
 input_pickable = true
 motion_mode = 1
@@ -143,7 +119,6 @@ y_sort_enabled = true
 use_parent_material = true
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_cgom5")
-disabled = true
 
 [node name="MissileCollision" type="CollisionPolygon2D" parent="."]
 position = Vector2(0, 4)
@@ -161,6 +136,15 @@ visible = false
 z_index = -1
 use_parent_material = true
 texture = SubResource("GradientTexture2D_87oqr")
+
+[node name="Particles" type="GPUParticles2D" parent="Highlight"]
+use_parent_material = true
+amount = 20
+process_material = ExtResource("5_pp3fc")
+explosiveness = 0.2
+randomness = 1.0
+trail_enabled = true
+trail_lifetime = 0.02
 
 [node name="Header" type="Control" parent="."]
 visible = false
@@ -192,15 +176,6 @@ max_value = 10.0
 step = 1.0
 value = 8.0
 show_percentage = false
-
-[node name="Particles" type="GPUParticles2D" parent="."]
-use_parent_material = true
-amount = 20
-process_material = ExtResource("5_pp3fc")
-explosiveness = 0.2
-randomness = 1.0
-trail_enabled = true
-trail_lifetime = 0.02
 
 [node name="Light" type="PointLight2D" parent="."]
 y_sort_enabled = true
@@ -237,6 +212,7 @@ target_position = Vector2(0, 0)
 wait_time = 0.5
 
 [node name="ReturnTimer" type="Timer" parent="."]
+wait_time = 0.25
 one_shot = true
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

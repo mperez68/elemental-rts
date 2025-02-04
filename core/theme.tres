@@ -1,4 +1,7 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cirsgegfbmvdq"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cirsgegfbmvdq"]
+
+[sub_resource type="SystemFont" id="SystemFont_3cbhc"]
+font_names = PackedStringArray("Gill Sans")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghspq"]
 bg_color = Color(0.165656, 0.165656, 0.165656, 1)
@@ -16,5 +19,12 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [resource]
+default_font_size = 16
+Label/font_sizes/font_size = 18
+Label/fonts/font = SubResource("SystemFont_3cbhc")
+MarginContainer/constants/margin_bottom = 40
+MarginContainer/constants/margin_left = 40
+MarginContainer/constants/margin_right = 40
+MarginContainer/constants/margin_top = 40
 ProgressBar/styles/background = SubResource("StyleBoxFlat_ghspq")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_auuqk")
