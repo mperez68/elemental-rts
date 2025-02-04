@@ -17,4 +17,9 @@ stream = ExtResource("3_fvk1y")
 [node name="ThemeLoop" type="AudioStreamPlayer" parent="MusicManager"]
 stream = ExtResource("4_6lq1h")
 
+[node name="ProductionTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
 [connection signal="finished" from="MusicManager/ThemeIntro" to="MusicManager" method="_on_theme_finished" binds= [0]]
+[connection signal="timeout" from="ProductionTimer" to="." method="_on_production_timer_timeout"]

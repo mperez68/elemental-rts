@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cmrm13bj2120g"]
+[gd_scene load_steps=46 format=3 uid="uid://cmrm13bj2120g"]
 
 [ext_resource type="Texture2D" uid="uid://dk6j7twvhjhi5" path="res://assets/graphics/simpleisometric/tileset_simpleisometric.png" id="1_8i47a"]
 [ext_resource type="Script" path="res://addons/gaea/renderers/2D/tilemap_gaea_renderer.gd" id="2_vq5q1"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://addons/gaea/tile_info/tilemap_tile_info.gd" id="6_wrcqb"]
 [ext_resource type="Script" path="res://scripts/ground.gd" id="7_s82ub"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="8_7vjpy"]
+[ext_resource type="Texture2D" uid="uid://d00dytsoqvtvn" path="res://assets/graphics/effects/Pixel_Magic_Effects_Animations.png" id="8_ny57g"]
 
 [sub_resource type="Resource" id="Resource_2228d"]
 script = ExtResource("6_wrcqb")
@@ -536,6 +537,160 @@ terrain_set_0/terrain_0/color = Color(1, 1, 1, 1)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_y3tkr")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dr0ot"]
+texture = ExtResource("8_ny57g")
+texture_region_size = Vector2i(64, 64)
+9:0/animation_columns = 1
+9:0/animation_mode = 1
+9:0/animation_frame_0/duration = 0.1
+9:0/animation_frame_1/duration = 0.1
+9:0/animation_frame_2/duration = 0.1
+9:0/animation_frame_3/duration = 0.1
+9:0/0 = 0
+9:0/0/texture_origin = Vector2i(0, 32)
+4:0/animation_columns = 1
+4:0/animation_frame_0/duration = 0.1
+4:0/animation_frame_1/duration = 0.1
+4:0/animation_frame_2/duration = 0.1
+4:0/animation_frame_3/duration = 0.1
+4:0/0 = 0
+4:0/0/texture_origin = Vector2i(0, 32)
+
+[sub_resource type="TileSet" id="TileSet_14q1s"]
+tile_shape = 1
+tile_layout = 4
+tile_size = Vector2i(64, 32)
+sources/1 = SubResource("TileSetAtlasSource_dr0ot")
+
+[sub_resource type="Gradient" id="Gradient_cdou1"]
+offsets = PackedFloat32Array(0.0277778, 0.171296, 0.550926, 1, 0.856481)
+colors = PackedColorArray(0.18318, 0.181945, 0, 1, 0.0886683, 0.0882657, 0.0230598, 1, 0.0295066, 0.0295066, 0.0295066, 1, 0.108551, 0.157376, 0.314411, 1, 0.0245832, 0.0200766, 0.087875, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4els6"]
+frequency = 0.0009
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rmb1e"]
+width = 3000
+height = 3000
+color_ramp = SubResource("Gradient_cdou1")
+noise = SubResource("FastNoiseLite_4els6")
+
+[sub_resource type="Gradient" id="Gradient_wm3as"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8mnbm"]
+gradient = SubResource("Gradient_wm3as")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d0irx"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(600, 800, 1)
+angle_min = -720.0
+angle_max = 720.0
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 0.2
+radial_velocity_min = -50.0
+radial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -10.0
+linear_accel_max = 45.0
+scale_max = 4.0
+scale_over_velocity_max = 2.0
+color = Color(0, 0, 1, 1)
+color_ramp = SubResource("GradientTexture1D_8mnbm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2srhk"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(600, 800, 1)
+angle_min = -720.0
+angle_max = 720.0
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 0.2
+radial_velocity_min = -50.0
+radial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -46.0
+linear_accel_max = 10.0
+scale_max = 4.0
+scale_over_velocity_max = 2.0
+color = Color(0.607438, 0.607438, 1.34766e-06, 1)
+color_ramp = SubResource("GradientTexture1D_8mnbm")
+
+[sub_resource type="Gradient" id="Gradient_hmldj"]
+offsets = PackedFloat32Array(0.0277778, 0.5, 1)
+colors = PackedColorArray(0.184314, 0.180392, 0, 0.254902, 0, 0, 0, 0.47451, 0.109804, 0.156863, 0.313726, 0.2)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_64wka"]
+width = 3000
+height = 3000
+color_ramp = SubResource("Gradient_hmldj")
+noise = SubResource("FastNoiseLite_4els6")
+
+[sub_resource type="Animation" id="Animation_wfblt"]
+resource_name = "idle"
+length = 60.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 30, 60),
+"transitions": PackedFloat32Array(1.5, 0.5, 1),
+"update": 0,
+"values": [6.28319, 3.14159, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BlurTexture:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 60),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_awg4w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BlurTexture:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.133949]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_56hik"]
+_data = {
+"RESET": SubResource("Animation_awg4w"),
+"idle": SubResource("Animation_wfblt")
+}
+
 [node name="World" type="Node2D"]
 y_sort_enabled = true
 
@@ -556,13 +711,53 @@ y_sort_enabled = true
 tile_set = SubResource("TileSet_64sk4")
 script = ExtResource("7_s82ub")
 
-[node name="Buildings" type="TileMapLayer" parent="."]
-z_index = -1
+[node name="ResourceVeins" type="TileMapLayer" parent="."]
 y_sort_enabled = true
-tile_set = SubResource("TileSet_64sk4")
+tile_set = SubResource("TileSet_14q1s")
 
 [node name="Camera" type="Camera2D" parent="."]
 script = ExtResource("8_7vjpy")
 
 [node name="Fog" type="CanvasModulate" parent="."]
 color = Color(0.219501, 0.219501, 0.219501, 1)
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BackgroundTexture" type="TextureRect" parent="Background"]
+z_index = -1
+offset_left = -579.0
+offset_top = -732.0
+offset_right = 2421.0
+offset_bottom = 2268.0
+pivot_offset = Vector2(1500, 1500)
+texture = SubResource("NoiseTexture2D_rmb1e")
+stretch_mode = 1
+
+[node name="BlueSwirl" type="GPUParticles2D" parent="Background"]
+position = Vector2(1123, 826)
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_d0irx")
+
+[node name="YellowSwirl" type="GPUParticles2D" parent="Background"]
+position = Vector2(775, 824)
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_2srhk")
+
+[node name="BlurTexture" type="TextureRect" parent="Background"]
+z_index = -1
+offset_left = -468.0
+offset_top = -1593.0
+offset_right = 2532.0
+offset_bottom = 1407.0
+rotation = 0.133949
+pivot_offset = Vector2(1500, 1500)
+texture = SubResource("NoiseTexture2D_64wka")
+stretch_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Background"]
+root_node = NodePath("../BackgroundTexture")
+libraries = {
+"": SubResource("AnimationLibrary_56hik")
+}
+autoplay = "idle"

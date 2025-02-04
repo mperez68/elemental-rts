@@ -28,6 +28,8 @@ func _ready() -> void:
 		for b in footprint.y:
 			GameInfo.map.set_cell(grid_start + Vector2i(a, -b))
 
+func movement(_delta: float) -> void:
+	pass
 
 # Public
 func die():

@@ -60,6 +60,8 @@ func _ready() -> void:
 		sum += vertex
 	sum = sum / vertices.size()
 	collider_target = sum
+	# Shuffle animation start time
+	anim.seek(randf_range(0, 4), true)
 
 func _process(delta: float) -> void:
 	movement(delta)

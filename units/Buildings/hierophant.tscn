@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://me35g8ppcoqg"]
+
+[ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/Buildings/building.tscn" id="1_f2j3m"]
+[ext_resource type="Script" path="res://scripts/producer.gd" id="2_gs5d6"]
+
+[sub_resource type="Gradient" id="Gradient_6gbta"]
+colors = PackedColorArray(1, 1, 0, 0.196078, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yetbg"]
+gradient = SubResource("Gradient_6gbta")
+width = 96
+height = 48
+fill = 1
+fill_from = Vector2(0.521368, 0.521368)
+fill_to = Vector2(1, 0.517094)
+
+[sub_resource type="Gradient" id="Gradient_s43am"]
+offsets = PackedFloat32Array(0.00462963, 1)
+colors = PackedColorArray(0, 0.678431, 0, 0.698039, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_elm17"]
+gradient = SubResource("Gradient_s43am")
+width = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="Hierophant" instance=ExtResource("1_f2j3m")]
+script = ExtResource("2_gs5d6")
+aether_production = 0
+empyrium_production = 10
+
+[node name="MissileCollision" parent="." index="1"]
+polygon = PackedVector2Array(-48, -17, -47, -49, 48, -47, 48, -16)
+
+[node name="Body" parent="." index="2"]
+texture = SubResource("GradientTexture2D_yetbg")
+
+[node name="Highlight" parent="." index="3"]
+texture = SubResource("GradientTexture2D_elm17")

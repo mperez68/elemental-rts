@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://geybfgoqhvmj"]
 
-[ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/building.tscn" id="1_p4jfv"]
+[ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/Buildings/building.tscn" id="1_p4jfv"]
 
 [sub_resource type="Gradient" id="Gradient_ctinq"]
 colors = PackedColorArray(0, 0, 0, 1, 0.67069, 0.67069, 0.67069, 1)

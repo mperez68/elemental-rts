@@ -1,7 +1,7 @@
 extends Camera2D
 
-const ZOOM_MAX = 2
-const ZOOM_MIN = 1
+const ZOOM_MAX = 1
+const ZOOM_MIN = 0.7
 
 var hud_scroll_vector: Vector2i = Vector2i.ZERO
 
