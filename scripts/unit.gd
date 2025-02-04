@@ -1,5 +1,4 @@
-extends CharacterBody2D
-class_name Unit
+class_name Unit extends CharacterBody2D
 
 enum WeaponType { NONE, MISSILE, HITSCAN }
 enum TargetingType { SINGLE, MULTI }
@@ -13,6 +12,7 @@ signal select_event(this: Unit)
 @onready var hp_meter = $Header/Health
 @onready var attack_radius = $AttackRange
 @onready var attack_cooldown = $AttackCooldown
+@onready var attack_sfx = $AttackSFX
 @onready var return_timer = $ReturnTimer
 @onready var anim = $AnimationPlayer
 @onready var missile_collision = $MissileCollision
@@ -134,7 +134,7 @@ func _attack():
 				WeaponType.HITSCAN:
 					_hit_scan(target.collider)
 				_:
-					print("no attack")
+					pass	# No attack
 			new_targets.push_back(target.collider)
 			if targetting_type == TargetingType.SINGLE:
 				break
@@ -155,6 +155,7 @@ func _missile(target: Unit):
 	m.set_target(get_collider_position(), target.get_collider_position())
 	m.team = team
 	add_sibling(m)
+	attack_sfx.play()
 	
 func _hit_scan(target: Unit):
 	var m = missile.instantiate()
@@ -163,6 +164,7 @@ func _hit_scan(target: Unit):
 	m.team = team
 	m.z_index += 1
 	add_sibling(m)
+	attack_sfx.play()
 
 # Signals
 func _on_attack_cooldown_timeout() -> void:

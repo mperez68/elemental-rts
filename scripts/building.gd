@@ -1,5 +1,5 @@
-extends Unit
-class_name Building
+class_name Building extends Unit
+
 
 @export var footprint: Vector2i = Vector2i(3, 3)
 var grid_start: Vector2i
@@ -28,10 +28,11 @@ func _ready() -> void:
 		for b in footprint.y:
 			GameInfo.map.set_cell(grid_start + Vector2i(a, -b))
 
-func movement(_delta: float) -> void:
-	pass
 
 # Public
+func movement(_delta: float) -> void:
+	pass
+	
 func die():
 	super()
 	

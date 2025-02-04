@@ -1,17 +1,21 @@
-[gd_scene load_steps=9 format=4 uid="uid://j3qlx5gglclb"]
+[gd_scene load_steps=7 format=4 uid="uid://j3qlx5gglclb"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_u45tw"]
 [ext_resource type="PackedScene" uid="uid://cmrm13bj2120g" path="res://core/world.tscn" id="1_wu4d5"]
 [ext_resource type="PackedScene" uid="uid://cpbr6chnsnpg" path="res://units/unit.tscn" id="2_7pr3c"]
 [ext_resource type="PackedScene" uid="uid://dsn6ofk6ltksd" path="res://ui/hud.tscn" id="2_pf1tx"]
-[ext_resource type="PackedScene" uid="uid://cbjsmxqtb84tf" path="res://units/Buildings/locus.tscn" id="3_5qtnb"]
 [ext_resource type="Script" path="res://scripts/hud_layer.gd" id="4_0prem"]
 [ext_resource type="PackedScene" uid="uid://c071lej28y8j7" path="res://units/Buildings/nexus.tscn" id="6_vr4sl"]
-[ext_resource type="PackedScene" uid="uid://me35g8ppcoqg" path="res://units/Buildings/hierophant.tscn" id="7_fs8t6"]
 
 [node name="Manager" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_u45tw")
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("4_0prem")
+
+[node name="HUD" parent="HUDLayer" instance=ExtResource("2_pf1tx")]
 
 [node name="World" parent="." instance=ExtResource("1_wu4d5")]
 
@@ -21,31 +25,11 @@ tile_map_data = PackedByteArray("AAArAPD/AAADAAAAAAAqAPD/AAADAAEAAAApAPD/AAADAAE
 [node name="ResourceVeins" parent="World" index="3"]
 tile_map_data = PackedByteArray("AAAHAAwAAQAJAAAAAAAFABAAAQAEAAAAAAA=")
 
-[node name="Locus" parent="World" instance=ExtResource("3_5qtnb")]
-position = Vector2(637, 128)
-
 [node name="Unit" parent="." instance=ExtResource("2_7pr3c")]
 position = Vector2(150, 76)
 
-[node name="Unit2" parent="." instance=ExtResource("2_7pr3c")]
-position = Vector2(290, 78)
-
-[node name="Unit3" parent="." instance=ExtResource("2_7pr3c")]
-position = Vector2(149, 177)
-
-[node name="Unit4" parent="." instance=ExtResource("2_7pr3c")]
-position = Vector2(286, 176)
-
-[node name="HUDLayer" type="CanvasLayer" parent="."]
-visible = false
-script = ExtResource("4_0prem")
-
-[node name="HUD" parent="HUDLayer" instance=ExtResource("2_pf1tx")]
-
 [node name="Nexus" parent="." instance=ExtResource("6_vr4sl")]
-position = Vector2(362, -45)
-
-[node name="Hierophant" parent="." instance=ExtResource("7_fs8t6")]
-position = Vector2(704, 227)
+position = Vector2(309, 148)
+team = 1
 
 [editable path="World"]

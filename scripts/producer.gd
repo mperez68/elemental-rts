@@ -1,5 +1,5 @@
-extends Building
-class_name Producer
+class_name Producer extends Building
+
 
 @export var aether_production: int = 10
 @export var empyrium_production: int = 0

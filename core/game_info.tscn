@@ -13,9 +13,11 @@ script = ExtResource("2_2huf8")
 
 [node name="ThemeIntro" type="AudioStreamPlayer" parent="MusicManager"]
 stream = ExtResource("3_fvk1y")
+bus = &"Music"
 
 [node name="ThemeLoop" type="AudioStreamPlayer" parent="MusicManager"]
 stream = ExtResource("4_6lq1h")
+bus = &"Music"
 
 [node name="ProductionTimer" type="Timer" parent="."]
 wait_time = 10.0

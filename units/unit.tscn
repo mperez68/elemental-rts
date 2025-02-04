@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cpbr6chnsnpg"]
+[gd_scene load_steps=16 format=3 uid="uid://cpbr6chnsnpg"]
 
 [ext_resource type="Script" path="res://scripts/unit.gd" id="1_70gch"]
 [ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="2_tvcjn"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://0y7ec1p2xhyf" path="res://textures/unit_box.tres" id="3_h2xli"]
 [ext_resource type="Material" uid="uid://csh3ts0onhaqd" path="res://core/fog_unit.tres" id="3_uxhit"]
 [ext_resource type="Material" uid="uid://q7gg5v5jjwlg" path="res://textures/unit.tres" id="5_pp3fc"]
+[ext_resource type="AudioStream" uid="uid://c45cyb4vc1e1t" path="res://assets/sfx/MAGSpel_ Weird Magic, Fire Spell Launch, Metallic Resonance_Ocular Sounds_Magic Spells_The Complete Fantasy Collection.wav" id="7_kfwnh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cgom5"]
 radius = 16.0
@@ -105,7 +106,7 @@ radius = 128.0
 z_index = 1
 y_sort_enabled = true
 material = ExtResource("3_uxhit")
-collision_layer = 6
+collision_layer = 3
 collision_priority = 0.6
 input_pickable = true
 motion_mode = 1
@@ -203,7 +204,6 @@ libraries = {
 autoplay = "idle"
 
 [node name="AttackRange" type="ShapeCast2D" parent="."]
-visible = false
 scale = Vector2(2, 1)
 shape = SubResource("CircleShape2D_v4kk7")
 target_position = Vector2(0, 0)
@@ -214,6 +214,12 @@ wait_time = 0.5
 [node name="ReturnTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="AttackSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_kfwnh")
+volume_db = -18.0
+max_polyphony = 3
+bus = &"Sfx"
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
