@@ -7,21 +7,18 @@ enum Stance { BUILDING, AGGRESSIVE, DEFENSIVE, HOLD_FIRE }
 
 signal select_event(this: Unit)
 
-const TURN_LIMIT = 80
-
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var hl = $Highlight
 @onready var header = $Header
 @onready var hp_meter = $Header/Health
 @onready var attack_radius = $AttackRange
 @onready var attack_cooldown = $AttackCooldown
+@onready var return_timer = $ReturnTimer
 @onready var anim = $AnimationPlayer
 @onready var missile_collision = $MissileCollision
 @onready var unit_collision = $UnitCollision
 
-
 var missile = preload("res://core/missile.tscn")
-
 
 @export var team: int = 0
 @export var max_hp: int = 10
@@ -31,10 +28,14 @@ var missile = preload("res://core/missile.tscn")
 @export var targetting_type: TargetingType = TargetingType.SINGLE
 @export var stance: Stance = Stance.AGGRESSIVE
 @onready var hp: int = max_hp
-var dying: bool = false
-var selected: bool = false
-var reveal = true
-var multi_select = true
+
+var flags: Dictionary = {
+	"dying": false,
+	"selected": false,
+	"reveal": true,
+	"multi_select": true
+}
+
 var collider_target: Vector2 = position
 var last_targets: Array = [ ]
 
@@ -42,8 +43,8 @@ var last_targets: Array = [ ]
 # Engine
 func _ready() -> void:
 	# set visibility by team
-	reveal = team == GameInfo.active_player
-	if !reveal:
+	flags["reveal"] = team == GameInfo.active_player
+	if !flags["reveal"]:
 		$Light.queue_free()
 		header.visible = false
 	route(position)
@@ -65,11 +66,7 @@ func _draw() -> void:
 	if nav.debug_enabled:
 		draw_line(Vector2.ZERO, position.direction_to(nav.get_next_path_position()) * 32, Color.BLUE, 1)
 		draw_circle(position.direction_to(nav.get_next_path_position()) * 32, 3, Color.BLACK)
-		var color = Color.BLACK
-		var ang = rad_to_deg(position.direction_to(nav.get_next_path_position()).angle_to(velocity))
-		if ang > TURN_LIMIT or ang < -TURN_LIMIT:
-			color = Color.RED
-		draw_line(Vector2.ZERO, velocity, color, 2)
+		draw_line(Vector2.ZERO, velocity, Color.RED, 2)
 
 
 # Public
@@ -79,7 +76,7 @@ func route(target: Vector2, clear_chase: bool = false):
 	nav.target_position = target
 
 func select(enable: bool = true):
-	selected = enable
+	flags["selected"] = enable
 	hl.visible = enable
 	header.visible = enable
 
@@ -96,7 +93,7 @@ func get_collider_position() -> Vector2:
 # Private
 func die():
 	$AttackCooldown.stop()
-	dying = true
+	flags["dying"] = true
 	anim.play("die")
 	header.visible = false
 	hl.visible = false
@@ -104,14 +101,14 @@ func die():
 
 func movement(delta: float) -> void:
 	# Dead men don't move
-	if dying:
+	if flags["dying"]:
 		return
 	
 	if nav.is_navigation_finished():
-		# If target reached, hang out unless we got pushed too far from target
+		# If target reached, hang out unless we got pushed too far from away
 		nav.avoidance_priority = 0.4
-		if position.distance_to(nav.target_position) > GameInfo.GRID.length() / 8:
-			route(nav.target_position)
+		if position.distance_to(nav.target_position) > GameInfo.GRID.length() / 8 and return_timer.is_stopped():
+			return_timer.start()
 	else:
 		# Approach nav target
 		nav.avoidance_priority = 0.5
@@ -125,7 +122,7 @@ func movement(delta: float) -> void:
 func _attack():
 	var new_targets: Array = []
 	for target in attack_radius.collision_result:
-		if target.collider is Unit and target.collider.team != team and !target.collider.dying:
+		if target.collider is Unit and target.collider.team != team and !target.collider.flags["dying"]:
 			match weapon_type:
 				WeaponType.MISSILE:
 					_missile(target.collider)
@@ -139,7 +136,7 @@ func _attack():
 	# Chase/Stop when in range
 	if stance == Stance.AGGRESSIVE and new_targets.is_empty():
 			for unit in last_targets:
-				if unit != null and unit.hp > 0:
+				if unit != null and unit.hp > 0 and !unit.flags["dying"]:
 					route(unit.position - ( position.direction_to(unit.position) * (position.distance_to(unit.position) - attack_radius.shape.radius)))
 					last_targets.clear()
 					last_targets.push_back(unit)
@@ -175,11 +172,11 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		queue_free()
 
 func _on_mouse_entered() -> void:
-	if !selected:
+	if !flags["selected"]:
 		header.visible = true
 
 func _on_mouse_exited() -> void:
-	if !selected:
+	if !flags["selected"]:
 		header.visible = false
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
@@ -194,3 +191,7 @@ func _on_navigation_finished() -> void:
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
+
+
+func _on_return_timer_timeout() -> void:
+	route(nav.target_position)

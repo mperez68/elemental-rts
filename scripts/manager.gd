@@ -55,18 +55,18 @@ func log_click_unit(unit: Unit):
 func new_sel(units: Array[Node], rect: Rect2):
 	clear_sel()
 	for unit in units:
-		if rect.has_point(unit.position) and !unit.dying and unit.team == GameInfo.active_player:
+		if rect.has_point(unit.position) and !unit.flags["dying"] and unit.team == GameInfo.active_player:
 			selected.push_back(unit)
 			unit.select()
 	if selected.size() > 1:
 		for i in range(selected.size() - 1, -1, -1):
-			if !selected[i].multi_select:
+			if !selected[i].flags["multi_select"]:
 				selected[i].select(false)
 				selected.remove_at(i)
 
 func clear_sel():
 	for unit in selected:
-		if unit != null and !unit.dying:
+		if unit != null and !unit.flags["dying"]:
 			unit.select(false)
 	selected.clear()
 
@@ -78,7 +78,7 @@ func _draw() -> void:
 
 
 # Private
-func _get_formation(target: Vector2, spacing: int = 128) -> Array[Vector2]:
+func _get_formation(target: Vector2, spacing: int = 64) -> Array[Vector2]:
 	@warning_ignore("narrowing_conversion")
 	spacing *= GameInfo.camera.zoom.x
 	var formation: Array[Vector2] = [  ]

@@ -143,6 +143,7 @@ y_sort_enabled = true
 use_parent_material = true
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_cgom5")
+disabled = true
 
 [node name="MissileCollision" type="CollisionPolygon2D" parent="."]
 position = Vector2(0, 4)
@@ -235,6 +236,9 @@ target_position = Vector2(0, 0)
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="ReturnTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
@@ -242,3 +246,4 @@ wait_time = 0.5
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_velocity_computed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="ReturnTimer" to="." method="_on_return_timer_timeout"]

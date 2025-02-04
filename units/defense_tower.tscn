@@ -34,6 +34,7 @@ weapon_type = 1
 
 [node name="UnitCollision" parent="." index="0"]
 y_sort_enabled = false
+disabled = false
 
 [node name="MissileCollision" parent="." index="1"]
 polygon = PackedVector2Array(-32, -4, -32, -68, 32, -68, 32, -4)
@@ -63,7 +64,6 @@ time_horizon_agents = 1.0
 max_speed = 256.0
 
 [node name="AttackRange" parent="." index="9"]
-enabled = true
 shape = SubResource("CircleShape2D_v1x1j")
 
 [node name="AttackCooldown" parent="." index="10"]

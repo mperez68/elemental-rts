@@ -50,8 +50,5 @@ texture_scale = 1.5
 [node name="NavigationAgent2D" parent="." index="7"]
 avoidance_priority = 1.0
 
-[node name="AttackRange" parent="." index="9"]
-enabled = false
-
 [node name="AttackCooldown" parent="." index="10"]
 autostart = true

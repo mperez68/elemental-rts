@@ -7,7 +7,7 @@ var grid_start: Vector2i
 # Engine
 func _ready() -> void:
 	super()
-	multi_select = false
+	flags["multi_select"] = false
 	while (GameInfo.map == null):
 		await get_tree().create_timer(0.1).timeout
 	
@@ -20,6 +20,9 @@ func _ready() -> void:
 		position.x += GameInfo.GRID.x / 4
 		@warning_ignore("integer_division")
 		position.y -= GameInfo.GRID.y / 4
+	
+	if weapon_type != WeaponType.NONE:
+		attack_cooldown.start()
 	
 	for a in footprint.x:
 		for b in footprint.y:
