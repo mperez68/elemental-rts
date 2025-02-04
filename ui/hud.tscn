@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://dsn6ofk6ltksd"]
+[gd_scene load_steps=18 format=3 uid="uid://dsn6ofk6ltksd"]
 
 [ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="1_kkdxd"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="2_cg38j"]
 [ext_resource type="PackedScene" uid="uid://m05j8d1li5m3" path="res://ui/unit_card.tscn" id="2_qxiru"]
 
 [sub_resource type="Gradient" id="Gradient_ggbrq"]
@@ -89,6 +90,7 @@ patch_margin_left = 40
 patch_margin_top = 40
 patch_margin_right = 40
 patch_margin_bottom = 40
+script = ExtResource("2_cg38j")
 
 [node name="Margins" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -335,3 +337,103 @@ texture_pressed = SubResource("GradientTexture2D_jwmc4")
 texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
+
+[node name="TopEdge" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.023
+offset_left = 25.0
+offset_right = -25.0
+offset_bottom = 0.16
+grow_horizontal = 2
+mouse_filter = 1
+
+[node name="BottomEdge" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 1
+anchor_top = 0.977
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = -0.160034
+offset_right = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="LeftEdge" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.013
+anchor_bottom = 1.0
+offset_top = 25.0
+offset_right = 0.039999
+offset_bottom = -25.0
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="RightEdge" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.987
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.0400391
+offset_top = 25.0
+offset_bottom = -25.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="TopLeft" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.013
+anchor_bottom = 0.023
+offset_right = 0.039999
+offset_bottom = 0.159998
+
+[node name="TopRight" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.987
+anchor_right = 1.0
+anchor_bottom = 0.023
+offset_left = -0.0400391
+offset_bottom = 0.159998
+grow_horizontal = 0
+
+[node name="BottomLeft" type="Control" parent="."]
+layout_mode = 1
+anchor_top = 0.977
+anchor_right = 0.013
+anchor_bottom = 1.0
+offset_top = -0.160034
+offset_right = 0.039999
+grow_vertical = 0
+
+[node name="BottomRight" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[connection signal="mouse_entered" from="TopEdge" to="." method="_on_mouse_entered" binds= [Vector2i(0, -1)]]
+[connection signal="mouse_exited" from="TopEdge" to="." method="_on_mouse_exited" binds= [Vector2i(0, -1)]]
+[connection signal="mouse_entered" from="BottomEdge" to="." method="_on_mouse_entered" binds= [Vector2i(0, 1)]]
+[connection signal="mouse_exited" from="BottomEdge" to="." method="_on_mouse_exited" binds= [Vector2i(0, 1)]]
+[connection signal="mouse_entered" from="LeftEdge" to="." method="_on_mouse_entered" binds= [Vector2i(-1, 0)]]
+[connection signal="mouse_exited" from="LeftEdge" to="." method="_on_mouse_exited" binds= [Vector2i(-1, 0)]]
+[connection signal="mouse_entered" from="RightEdge" to="." method="_on_mouse_entered" binds= [Vector2i(1, 0)]]
+[connection signal="mouse_exited" from="RightEdge" to="." method="_on_mouse_exited" binds= [Vector2i(1, 0)]]
+[connection signal="mouse_entered" from="TopLeft" to="." method="_on_mouse_entered" binds= [Vector2i(-1, -1)]]
+[connection signal="mouse_exited" from="TopLeft" to="." method="_on_mouse_exited" binds= [Vector2i(-1, -1)]]
+[connection signal="mouse_entered" from="TopRight" to="." method="_on_mouse_entered" binds= [Vector2i(1, -1)]]
+[connection signal="mouse_exited" from="TopRight" to="." method="_on_mouse_exited" binds= [Vector2i(1, -1)]]
+[connection signal="mouse_entered" from="BottomLeft" to="." method="_on_mouse_entered" binds= [Vector2i(-1, 1)]]
+[connection signal="mouse_exited" from="BottomLeft" to="." method="_on_mouse_exited" binds= [Vector2i(-1, 1)]]
+[connection signal="mouse_entered" from="BottomRight" to="." method="_on_mouse_entered" binds= [Vector2i(1, 1)]]
+[connection signal="mouse_exited" from="BottomRight" to="." method="_on_mouse_exited" binds= [Vector2i(1, 1)]]

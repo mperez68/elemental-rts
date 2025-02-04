@@ -1,8 +1,9 @@
 extends Camera2D
 
 const ZOOM_MAX = 2
-const ZOOM_MIN = 0.7
+const ZOOM_MIN = 1
 
+var hud_scroll_vector: Vector2i = Vector2i.ZERO
 
 # Engine
 func _ready() -> void:
@@ -16,7 +17,7 @@ func _process(delta: float) -> void:
 	move += Vector2i.UP * int(Input.is_action_pressed("ui_up"))
 	move += Vector2i.DOWN * int(Input.is_action_pressed("ui_down"))
 	
-	position += move * delta * GameInfo.scroll_speed
+	position += (move + hud_scroll_vector) * delta * GameInfo.scroll_speed
 
 func _input(event):
 	# Scroll with mouse
