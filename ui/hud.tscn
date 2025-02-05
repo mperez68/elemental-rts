@@ -251,8 +251,19 @@ mouse_filter = 0
 columns = 4
 script = ExtResource("6_qvhaj")
 
+[node name="ActionButton0" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
+layout_mode = 2
+focus_mode = 0
+disabled = true
+texture_normal = SubResource("GradientTexture2D_01148")
+texture_pressed = SubResource("GradientTexture2D_jwmc4")
+texture_hover = SubResource("GradientTexture2D_ktfj6")
+texture_disabled = SubResource("GradientTexture2D_x8yj8")
+stretch_mode = 0
+
 [node name="ActionButton1" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
+focus_mode = 0
 disabled = true
 texture_normal = SubResource("GradientTexture2D_01148")
 texture_pressed = SubResource("GradientTexture2D_jwmc4")
@@ -262,6 +273,7 @@ stretch_mode = 0
 
 [node name="ActionButton2" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
+focus_mode = 0
 disabled = true
 texture_normal = SubResource("GradientTexture2D_01148")
 texture_pressed = SubResource("GradientTexture2D_jwmc4")
@@ -271,6 +283,7 @@ stretch_mode = 0
 
 [node name="ActionButton3" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
+focus_mode = 0
 disabled = true
 texture_normal = SubResource("GradientTexture2D_01148")
 texture_pressed = SubResource("GradientTexture2D_jwmc4")
@@ -280,6 +293,7 @@ stretch_mode = 0
 
 [node name="ActionButton4" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
+focus_mode = 0
 disabled = true
 texture_normal = SubResource("GradientTexture2D_01148")
 texture_pressed = SubResource("GradientTexture2D_jwmc4")
@@ -289,6 +303,7 @@ stretch_mode = 0
 
 [node name="ActionButton5" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
+focus_mode = 0
 disabled = true
 texture_normal = SubResource("GradientTexture2D_01148")
 texture_pressed = SubResource("GradientTexture2D_jwmc4")
@@ -298,6 +313,7 @@ stretch_mode = 0
 
 [node name="ActionButton6" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
+focus_mode = 0
 disabled = true
 texture_normal = SubResource("GradientTexture2D_01148")
 texture_pressed = SubResource("GradientTexture2D_jwmc4")
@@ -307,6 +323,7 @@ stretch_mode = 0
 
 [node name="ActionButton7" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
+focus_mode = 0
 disabled = true
 texture_normal = SubResource("GradientTexture2D_01148")
 texture_pressed = SubResource("GradientTexture2D_jwmc4")
@@ -316,6 +333,7 @@ stretch_mode = 0
 
 [node name="ActionButton8" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
+focus_mode = 0
 disabled = true
 texture_normal = SubResource("GradientTexture2D_01148")
 texture_pressed = SubResource("GradientTexture2D_jwmc4")
@@ -325,6 +343,7 @@ stretch_mode = 0
 
 [node name="ActionButton9" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
+focus_mode = 0
 disabled = true
 texture_normal = SubResource("GradientTexture2D_01148")
 texture_pressed = SubResource("GradientTexture2D_jwmc4")
@@ -334,6 +353,7 @@ stretch_mode = 0
 
 [node name="ActionButton10" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
+focus_mode = 0
 disabled = true
 texture_normal = SubResource("GradientTexture2D_01148")
 texture_pressed = SubResource("GradientTexture2D_jwmc4")
@@ -343,15 +363,7 @@ stretch_mode = 0
 
 [node name="ActionButton11" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
-disabled = true
-texture_normal = SubResource("GradientTexture2D_01148")
-texture_pressed = SubResource("GradientTexture2D_jwmc4")
-texture_hover = SubResource("GradientTexture2D_ktfj6")
-texture_disabled = SubResource("GradientTexture2D_x8yj8")
-stretch_mode = 0
-
-[node name="ActionButton12" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
-layout_mode = 2
+focus_mode = 0
 disabled = true
 texture_normal = SubResource("GradientTexture2D_01148")
 texture_pressed = SubResource("GradientTexture2D_jwmc4")
@@ -445,6 +457,18 @@ grow_vertical = 0
 [connection signal="update_cards" from="." to="Margins/InnerMarginBox/UnitSelection" method="_on_hud_update_cards"]
 [connection signal="update_cards" from="." to="Margins/InnerMarginBox/ActionsContainer" method="_on_hud_update_cards"]
 [connection signal="pressed" from="Margins/InnerMarginBox/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton0" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [0]]
+[connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton1" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [1]]
+[connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton2" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [2]]
+[connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton3" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [3]]
+[connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton4" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [4]]
+[connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton5" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [5]]
+[connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton6" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [6]]
+[connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton7" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [7]]
+[connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton8" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [8]]
+[connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton9" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [9]]
+[connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton10" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [10]]
+[connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton11" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [11]]
 [connection signal="mouse_entered" from="TopEdge" to="." method="_on_mouse_entered" binds= [Vector2i(0, -1)]]
 [connection signal="mouse_exited" from="TopEdge" to="." method="_on_mouse_exited" binds= [Vector2i(0, -1)]]
 [connection signal="mouse_entered" from="BottomEdge" to="." method="_on_mouse_entered" binds= [Vector2i(0, 1)]]

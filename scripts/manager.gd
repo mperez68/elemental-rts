@@ -19,7 +19,7 @@ func _process(_delta: float) -> void:
 	if selection_start != Vector2.ZERO:
 		queue_redraw()
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("alt_click"):
 		if map.get_cell_tile_data(map.local_to_map(GameInfo.camera_offset(event.position))) == null:
 			return
@@ -36,7 +36,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("click"):
 		var box: Rect2 = Rect2(selection_start, GameInfo.camera_offset(event.position) - selection_start).abs()
 		var box_size: Vector2 = box.size
-		var all_units = find_children("*", "Unit")
+		var all_units = find_children("*", "Unit", true, false)
 		# Box past size threshold
 		if box_size.x + box_size.y > GameInfo.GRID.x + GameInfo.GRID.y:
 			new_sel(all_units, box)

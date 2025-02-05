@@ -27,6 +27,7 @@ tile_map_data = PackedByteArray("AAAHAAwAAQAJAAAAAAAFABAAAQAEAAAAAAA=")
 
 [node name="DefenseTower" parent="." instance=ExtResource("7_7o7vo")]
 position = Vector2(502, 120)
+actions = Array[int]([])
 
 [node name="Unit" parent="." instance=ExtResource("2_7pr3c")]
 position = Vector2(608, 168)

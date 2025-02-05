@@ -112,6 +112,7 @@ input_pickable = true
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_70gch")
+actions = Array[int]([0, 1, 2])
 acceleration = 16384.0
 weapon_type = 1
 

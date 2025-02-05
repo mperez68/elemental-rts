@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://tbn8673qlcsu"]
+
+[ext_resource type="Texture2D" uid="uid://dk6j7twvhjhi5" path="res://assets/graphics/simpleisometric/tileset_simpleisometric.png" id="1_wybgj"]
+
+[resource]
+atlas = ExtResource("1_wybgj")
+region = Rect2(64, 32, 64, 32)
