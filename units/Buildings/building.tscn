@@ -19,6 +19,7 @@ fill_to = Vector2(1, 0.5)
 collision_priority = 1.0
 script = ExtResource("2_irg30")
 footprint = Vector2i(3, 3)
+unit_name = "Building"
 max_hp = 100
 acceleration = 0.0
 weapon_type = 0

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://m05j8d1li5m3"]
+[gd_scene load_steps=5 format=3 uid="uid://m05j8d1li5m3"]
 
 [ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="1_0n756"]
+[ext_resource type="Script" path="res://scripts/unit_card.gd" id="2_o7l0d"]
 
 [sub_resource type="Gradient" id="Gradient_bwfev"]
 offsets = PackedFloat32Array(0.342593, 1)
@@ -22,6 +23,7 @@ anchor_bottom = 0.093
 offset_right = 0.23999
 offset_bottom = -0.440002
 theme = ExtResource("1_0n756")
+script = ExtResource("2_o7l0d")
 
 [node name="Margins" type="MarginContainer" parent="."]
 layout_mode = 2

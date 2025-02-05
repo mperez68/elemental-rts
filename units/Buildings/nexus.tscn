@@ -8,7 +8,14 @@ script = ExtResource("2_js33e")
 aether_production = 10
 empyrium_production = 0
 footprint = Vector2i(4, 4)
+unit_name = "Nexus"
 max_hp = 200
 
 [node name="MissileCollision" parent="." index="1"]
 polygon = PackedVector2Array(-80, -4, -80, -36, 80, -36, 80, -4)
+
+[node name="AttackRange" parent="." index="8"]
+visible = true
+
+[node name="AttackSFX" parent="." index="11"]
+attenuation = 1.0

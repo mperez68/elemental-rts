@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://j3qlx5gglclb"]
+[gd_scene load_steps=9 format=4 uid="uid://j3qlx5gglclb"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_u45tw"]
 [ext_resource type="PackedScene" uid="uid://cmrm13bj2120g" path="res://core/world.tscn" id="1_wu4d5"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dsn6ofk6ltksd" path="res://ui/hud.tscn" id="2_pf1tx"]
 [ext_resource type="Script" path="res://scripts/hud_layer.gd" id="4_0prem"]
 [ext_resource type="PackedScene" uid="uid://c071lej28y8j7" path="res://units/Buildings/nexus.tscn" id="6_vr4sl"]
+[ext_resource type="PackedScene" uid="uid://geybfgoqhvmj" path="res://units/Buildings/defense_tower.tscn" id="7_7o7vo"]
+[ext_resource type="PackedScene" uid="uid://me35g8ppcoqg" path="res://units/Buildings/hierophant.tscn" id="7_fs8t6"]
 
 [node name="Manager" type="Node2D"]
 y_sort_enabled = true
@@ -26,10 +28,20 @@ tile_map_data = PackedByteArray("AAArAPD/AAADAAAAAAAqAPD/AAADAAEAAAApAPD/AAADAAE
 tile_map_data = PackedByteArray("AAAHAAwAAQAJAAAAAAAFABAAAQAEAAAAAAA=")
 
 [node name="Unit" parent="." instance=ExtResource("2_7pr3c")]
-position = Vector2(150, 76)
+position = Vector2(521, 266)
+
+[node name="Unit2" parent="." instance=ExtResource("2_7pr3c")]
+position = Vector2(521, 325)
 
 [node name="Nexus" parent="." instance=ExtResource("6_vr4sl")]
-position = Vector2(309, 148)
-team = 1
+position = Vector2(278, 94)
+
+[node name="DefenseTower" parent="." instance=ExtResource("7_7o7vo")]
+position = Vector2(324, 337)
+
+[node name="Hierophant" parent="." instance=ExtResource("7_fs8t6")]
+position = Vector2(939, 250)
+
+[connection signal="update_hud" from="." to="HUDLayer/HUD" method="update"]
 
 [editable path="World"]

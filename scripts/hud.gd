@@ -1,5 +1,11 @@
 extends NinePatchRect
 
+signal update_cards(selection: Array[Unit])
+
+
+func update(selection: Array[Unit]):
+	update_cards.emit(selection)
+
 
 func _on_mouse_entered(direction: Vector2i) -> void:
 	GameInfo.camera.hud_scroll_vector += direction

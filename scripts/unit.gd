@@ -20,13 +20,16 @@ signal select_event(this: Unit)
 
 var missile = preload("res://core/missile.tscn")
 
+@export var unit_name: String = "Unit"
 @export var team: int = 0
 @export var max_hp: int = 10
 @export var damage_multiplier: float = 1
+@export var actions: Array = [  ]
 @export var acceleration: float = 1024
 @export var weapon_type: WeaponType = WeaponType.NONE
 @export var targetting_type: TargetingType = TargetingType.SINGLE
 @export var stance: Stance = Stance.AGGRESSIVE
+@export var tags: Array[Texture]
 @onready var hp: int = max_hp
 
 static var priority_tie_break: int = 1

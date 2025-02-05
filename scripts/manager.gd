@@ -1,5 +1,7 @@
 extends Node2D
 
+signal update_hud(selection: Array[Unit])
+
 @onready var map = $World/Ground
 
 # Unit Selection
@@ -44,6 +46,7 @@ func _input(event: InputEvent) -> void:
 				selected.push_back(clicked_unit)
 				clicked_unit.select()
 			clicked_unit = null
+			update_hud.emit(selected)
 		
 		selection_start = Vector2.ZERO
 		queue_redraw()
@@ -63,6 +66,7 @@ func new_sel(units: Array[Node], rect: Rect2):
 			if !selected[i].flags["multi_select"]:
 				selected[i].select(false)
 				selected.remove_at(i)
+	update_hud.emit(selected)
 
 func clear_sel():
 	for unit in selected:

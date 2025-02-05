@@ -1,9 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://dsn6ofk6ltksd"]
+[gd_scene load_steps=21 format=3 uid="uid://dsn6ofk6ltksd"]
 
 [ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="1_kkdxd"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="2_cg38j"]
 [ext_resource type="PackedScene" uid="uid://m05j8d1li5m3" path="res://ui/unit_card.tscn" id="2_qxiru"]
 [ext_resource type="Script" path="res://scripts/resource_data.gd" id="3_wrk08"]
+[ext_resource type="Script" path="res://scripts/unit_selection.gd" id="4_hwld0"]
+[ext_resource type="Script" path="res://scripts/actions_container.gd" id="6_qvhaj"]
 
 [sub_resource type="Gradient" id="Gradient_ggbrq"]
 offsets = PackedFloat32Array(0.898148, 0.967593)
@@ -229,6 +231,7 @@ offset_right = 0.719971
 grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
+script = ExtResource("4_hwld0")
 
 [node name="UnitCard" parent="Margins/InnerMarginBox/UnitSelection" instance=ExtResource("2_qxiru")]
 layout_mode = 2
@@ -246,8 +249,9 @@ grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 0
 columns = 4
+script = ExtResource("6_qvhaj")
 
-[node name="ActionButton" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
+[node name="ActionButton1" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
 disabled = true
 texture_normal = SubResource("GradientTexture2D_01148")
@@ -438,6 +442,8 @@ offset_top = -25.0
 grow_horizontal = 0
 grow_vertical = 0
 
+[connection signal="update_cards" from="." to="Margins/InnerMarginBox/UnitSelection" method="_on_hud_update_cards"]
+[connection signal="update_cards" from="." to="Margins/InnerMarginBox/ActionsContainer" method="_on_hud_update_cards"]
 [connection signal="pressed" from="Margins/InnerMarginBox/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="mouse_entered" from="TopEdge" to="." method="_on_mouse_entered" binds= [Vector2i(0, -1)]]
 [connection signal="mouse_exited" from="TopEdge" to="." method="_on_mouse_exited" binds= [Vector2i(0, -1)]]

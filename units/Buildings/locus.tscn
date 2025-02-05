@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbjsmxqtb84tf"]
+[gd_scene load_steps=8 format=3 uid="uid://cbjsmxqtb84tf"]
 
 [ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/Buildings/building.tscn" id="1_itrtn"]
 [ext_resource type="Script" path="res://scripts/producer.gd" id="2_i0v1u"]
+[ext_resource type="Texture2D" uid="uid://cjtpxia1e8l1v" path="res://assets/graphics/effects/Icons/tile009.png" id="3_o4lgy"]
 
 [sub_resource type="Gradient" id="Gradient_0hhtj"]
 colors = PackedColorArray(0, 0.94902, 0.898039, 0.196078, 1, 1, 1, 0)
@@ -29,6 +30,8 @@ fill_to = Vector2(1, 0.5)
 script = ExtResource("2_i0v1u")
 aether_production = 5
 empyrium_production = 0
+unit_name = "Locus"
+tags = Array[Texture]([ExtResource("3_o4lgy")])
 
 [node name="MissileCollision" parent="." index="1"]
 polygon = PackedVector2Array(-48, -12, -48, -48, 48, -48, 48, -12)
@@ -39,3 +42,9 @@ offset = Vector2(0, -32)
 
 [node name="Highlight" parent="." index="3"]
 texture = SubResource("GradientTexture2D_3juf2")
+
+[node name="AttackRange" parent="." index="8"]
+visible = true
+
+[node name="AttackSFX" parent="." index="11"]
+attenuation = 1.0

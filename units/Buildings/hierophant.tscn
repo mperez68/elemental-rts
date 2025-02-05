@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://me35g8ppcoqg"]
+[gd_scene load_steps=8 format=3 uid="uid://me35g8ppcoqg"]
 
 [ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/Buildings/building.tscn" id="1_f2j3m"]
 [ext_resource type="Script" path="res://scripts/producer.gd" id="2_gs5d6"]
+[ext_resource type="Texture2D" uid="uid://cjow6wj7gs2xb" path="res://assets/graphics/effects/Icons/tile004.png" id="3_t4tav"]
 
 [sub_resource type="Gradient" id="Gradient_6gbta"]
 colors = PackedColorArray(1, 1, 0, 0.196078, 1, 1, 1, 0)
@@ -29,6 +30,8 @@ fill_to = Vector2(1, 0.5)
 script = ExtResource("2_gs5d6")
 aether_production = 0
 empyrium_production = 10
+unit_name = "Hierophant"
+tags = Array[Texture]([ExtResource("3_t4tav")])
 
 [node name="MissileCollision" parent="." index="1"]
 polygon = PackedVector2Array(-48, -17, -47, -49, 48, -47, 48, -16)
@@ -38,3 +41,9 @@ texture = SubResource("GradientTexture2D_yetbg")
 
 [node name="Highlight" parent="." index="3"]
 texture = SubResource("GradientTexture2D_elm17")
+
+[node name="AttackRange" parent="." index="8"]
+visible = true
+
+[node name="AttackSFX" parent="." index="11"]
+attenuation = 1.0

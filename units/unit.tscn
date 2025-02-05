@@ -204,6 +204,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="AttackRange" type="ShapeCast2D" parent="."]
+visible = false
 scale = Vector2(2, 1)
 shape = SubResource("CircleShape2D_v4kk7")
 target_position = Vector2(0, 0)
@@ -218,6 +219,7 @@ one_shot = true
 [node name="AttackSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_kfwnh")
 volume_db = -18.0
+attenuation = 3.0
 max_polyphony = 3
 bus = &"Sfx"
 
