@@ -37,7 +37,7 @@ static func build(action: ActionNames) -> Action:
 
 
 # Private
-func _null_effect(args: Array):
+func _null_effect(_args: Array):
 	print("NO EFFECT SET")
 
 ## Args[ target_position, manager_node ]
@@ -55,8 +55,13 @@ func _build(action: ActionNames, args: Array) -> bool:
 			_null_effect([])
 			return false
 	
-	building.position = args[0]
+	for tile in highlight_tiles:
+		if !tile.valid:
+			return false
+	
+	building.position = args[0] + Vector2(0, highlight_footprint.y / 2 * GameInfo.GRID.y)
 	args[1].add_child(building)
+	clear_highlights()
 	
 	return true
 
@@ -64,15 +69,12 @@ func _build(action: ActionNames, args: Array) -> bool:
 # Effects
 func build_nexus(args: Array) -> bool:
 	return _build(ActionNames.BUILD_NEXUS, args)
-	clear_highlights()
 
 func build_locus(args: Array) -> bool:
 	return _build(ActionNames.BUILD_LOCUS, args)
-	clear_highlights()
 
 func build_hierophant(args: Array) -> bool:
 	return _build(ActionNames.BUILD_HIEROPHANT, args)
-	clear_highlights()
 
 func hover_building(target_position: Vector2) -> void:
 	clear_highlights()
@@ -81,7 +83,8 @@ func hover_building(target_position: Vector2) -> void:
 	for i in highlight_footprint.x:
 		for j in highlight_footprint.y:
 			var temp = tile.instantiate()
-			temp.position = GameInfo.map.map_to_local(grid_start + Vector2i(i, -j))
+			@warning_ignore("integer_division")
+			temp.position = GameInfo.map.map_to_local(grid_start + Vector2i(i - ((highlight_footprint.x / 2)), -j + floor((highlight_footprint.y / 2))))
 			temp.input_event.connect(_highlight_clicked)
 			highlight_tiles.push_back(temp)
 			GameInfo.map.add_child(temp)
@@ -92,6 +95,6 @@ func clear_highlights():
 	highlight_tiles.clear()
 
 
-func _highlight_clicked(viewport: Node, event: InputEvent, shape_idx: int):
+func _highlight_clicked(_viewport: Node, event: InputEvent, _shape_idx: int):
 	if event.is_action_pressed("click"):
 		effect.call([GameInfo.camera_offset(event.position), GameInfo.map.get_tree().current_scene])

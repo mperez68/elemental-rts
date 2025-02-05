@@ -229,7 +229,7 @@ attenuation = 3.0
 max_polyphony = 3
 bus = &"Sfx"
 
-[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="input_event" from="Body/MissileHitbox" to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="Body/MissileHitbox" to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Body/MissileHitbox" to="." method="_on_mouse_exited"]
 [connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_finished"]

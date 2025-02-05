@@ -1,13 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuamnqhr23i1j"]
+[gd_scene load_steps=3 format=3 uid="uid://cuamnqhr23i1j"]
 
+[ext_resource type="Script" path="res://scripts/highlight_tile.gd" id="1_37eb3"]
 [ext_resource type="Texture2D" uid="uid://tbn8673qlcsu" path="res://ui/highlight_tile.tres" id="1_q4u0x"]
 
-[node name="TextureRect" type="Area2D"]
+[node name="HighlightTile" type="Area2D"]
 z_index = 2
+script = ExtResource("1_37eb3")
+valid_color = Color(0, 0.886275, 0, 0.513726)
+invalid_color = Color(0.964706, 0, 0, 0.513726)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.964706, 0.811765, 0, 0.513726)
 texture = ExtResource("1_q4u0x")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(8.4, -16, -8.5, -16, -32, -5.3, -32, 5.2, -8.5, 16, 10.2, 16, 30.6, 5, 32, 5, 32, -5.3)

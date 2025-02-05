@@ -39,5 +39,6 @@ position = Vector2(606, 97)
 position = Vector2(605, 32)
 
 [connection signal="update_hud" from="." to="HUDLayer/HUD" method="update"]
+[connection signal="input_event" from="DefenseTower" to="DefenseTower" method="_on_input_event"]
 
 [editable path="World"]

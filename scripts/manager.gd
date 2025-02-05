@@ -9,6 +9,7 @@ var selected: Array[Unit] = [  ]
 var selection_start: Vector2 = Vector2.ZERO
 var clicked_unit: Unit = null
 
+
 # Engine
 func _ready() -> void:
 	for unit in find_children("*", "Unit"):

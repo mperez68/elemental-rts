@@ -10,7 +10,7 @@ var active_action = -1
 
 var selection: Array[Unit]
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var in_reach = false
 	for unit in selection:
 		if unit.position.distance_to(GameInfo.camera_offset(get_viewport().get_mouse_position())) < unit.attack_radius.shape.radius * 2:
