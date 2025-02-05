@@ -58,7 +58,7 @@ func log_click_unit(unit: Unit):
 func new_sel(units: Array[Node], rect: Rect2):
 	clear_sel()
 	for unit in units:
-		if rect.has_point(unit.position) and !unit.flags["dying"] and unit.team == GameInfo.active_player:
+		if rect.has_point(unit.position + unit.collider_target) and !unit.flags["dying"] and unit.team == GameInfo.active_player:
 			selected.push_back(unit)
 			unit.select()
 	if selected.size() > 1:

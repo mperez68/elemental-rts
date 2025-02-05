@@ -16,7 +16,6 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
 [node name="Building" instance=ExtResource("1_1ou6t")]
-collision_priority = 1.0
 script = ExtResource("2_irg30")
 footprint = Vector2i(3, 3)
 unit_name = "Building"
@@ -25,27 +24,27 @@ acceleration = 0.0
 weapon_type = 0
 stance = 0
 
-[node name="MissileCollision" parent="." index="1"]
-polygon = PackedVector2Array(-64, -4, -64, -36, 64, -36, 64, -4)
-
-[node name="Body" parent="." index="2"]
+[node name="Body" parent="." index="1"]
 texture = ExtResource("2_7w8qw")
 offset = Vector2(0, -36)
 
-[node name="Highlight" parent="." index="3"]
+[node name="MissileCollision" parent="Body/MissileHitbox" index="0"]
+polygon = PackedVector2Array(-80, 3, -81, -76, 80, -75, 79, 4)
+
+[node name="Highlight" parent="." index="2"]
 texture = SubResource("GradientTexture2D_qdmxy")
 
-[node name="Header" parent="." index="4"]
+[node name="Header" parent="." index="3"]
 offset_left = -72.0
 offset_top = -112.0
 offset_right = 72.0
 offset_bottom = -96.0
 
-[node name="Light" parent="." index="5"]
+[node name="Light" parent="." index="4"]
 texture_scale = 1.5
 
-[node name="NavigationAgent2D" parent="." index="6"]
+[node name="NavigationAgent2D" parent="." index="5"]
 avoidance_priority = 1.0
 
-[node name="AttackCooldown" parent="." index="9"]
+[node name="AttackCooldown" parent="." index="8"]
 autostart = true

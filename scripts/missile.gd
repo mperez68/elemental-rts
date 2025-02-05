@@ -36,9 +36,10 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "hit":
 		queue_free()
 
-func _on_body_entered(body: Node) -> void:
-	if body is Unit and body.team != team:
-		body.damage(damage)
+
+func _on_area_entered(area: Area2D) -> void:
+	if area is UnitHitBox and area.unit.team != team:
+		area.unit.damage(damage)
 		position = last_position
 		velocity = Vector2.ZERO
 		$AnimatedSprite2D.play("hit")

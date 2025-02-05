@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cpbr6chnsnpg"]
+[gd_scene load_steps=17 format=3 uid="uid://cpbr6chnsnpg"]
 
 [ext_resource type="Script" path="res://scripts/unit.gd" id="1_70gch"]
 [ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="2_tvcjn"]
 [ext_resource type="Texture2D" uid="uid://75j44o686o8g" path="res://assets/graphics/Light.png" id="3_3uhgc"]
 [ext_resource type="Texture2D" uid="uid://0y7ec1p2xhyf" path="res://textures/unit_box.tres" id="3_h2xli"]
+[ext_resource type="Script" path="res://scripts/hitbox.gd" id="3_lculk"]
 [ext_resource type="Material" uid="uid://csh3ts0onhaqd" path="res://core/fog_unit.tres" id="3_uxhit"]
 [ext_resource type="Material" uid="uid://q7gg5v5jjwlg" path="res://textures/unit.tres" id="5_pp3fc"]
 [ext_resource type="AudioStream" uid="uid://c45cyb4vc1e1t" path="res://assets/sfx/MAGSpel_ Weird Magic, Fire Spell Launch, Metallic Resonance_Ocular Sounds_Magic Spells_The Complete Fantasy Collection.wav" id="7_kfwnh"]
@@ -106,7 +107,6 @@ radius = 128.0
 z_index = 1
 y_sort_enabled = true
 material = ExtResource("3_uxhit")
-collision_layer = 3
 collision_priority = 0.6
 input_pickable = true
 motion_mode = 1
@@ -121,16 +121,20 @@ use_parent_material = true
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_cgom5")
 
-[node name="MissileCollision" type="CollisionPolygon2D" parent="."]
-position = Vector2(0, 4)
-polygon = PackedVector2Array(-16, -4, -16, -36, 16, -36, 16, -4)
-
 [node name="Body" type="Sprite2D" parent="."]
 light_mask = 2
 visibility_layer = 2
 use_parent_material = true
 texture = ExtResource("3_h2xli")
 offset = Vector2(0, -20)
+
+[node name="MissileHitbox" type="Area2D" parent="Body"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_lculk")
+
+[node name="MissileCollision" type="CollisionPolygon2D" parent="Body/MissileHitbox"]
+polygon = PackedVector2Array(-16, -4, -16, -36, 16, -36, 16, -4)
 
 [node name="Highlight" type="Sprite2D" parent="."]
 visible = false
@@ -189,8 +193,9 @@ texture_scale = 3.0
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 64.0
 target_desired_distance = 8.0
-path_max_distance = 9999.0
+path_max_distance = 16.0
 navigation_layers = 3
+path_postprocessing = 1
 avoidance_enabled = true
 radius = 16.0
 time_horizon_agents = 0.1
@@ -224,8 +229,8 @@ max_polyphony = 3
 bus = &"Sfx"
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Body/MissileHitbox" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Body/MissileHitbox" to="." method="_on_mouse_exited"]
 [connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_velocity_computed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

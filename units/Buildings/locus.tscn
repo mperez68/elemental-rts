@@ -33,18 +33,15 @@ empyrium_production = 0
 unit_name = "Locus"
 tags = Array[Texture]([ExtResource("3_o4lgy")])
 
-[node name="MissileCollision" parent="." index="1"]
-polygon = PackedVector2Array(-48, -12, -48, -48, 48, -48, 48, -12)
-
-[node name="Body" parent="." index="2"]
+[node name="Body" parent="." index="1"]
 texture = SubResource("GradientTexture2D_l2q72")
 offset = Vector2(0, -32)
 
-[node name="Highlight" parent="." index="3"]
+[node name="Highlight" parent="." index="2"]
 texture = SubResource("GradientTexture2D_3juf2")
 
-[node name="AttackRange" parent="." index="8"]
-visible = true
+[node name="NavigationAgent2D" parent="." index="5"]
+path_max_distance = 9999.0
 
-[node name="AttackSFX" parent="." index="11"]
+[node name="AttackSFX" parent="." index="10"]
 attenuation = 1.0

@@ -15,7 +15,7 @@ signal select_event(this: Unit)
 @onready var attack_sfx = $AttackSFX
 @onready var return_timer = $ReturnTimer
 @onready var anim = $AnimationPlayer
-@onready var missile_collision = $MissileCollision
+@onready var missile_collision = $Body/MissileHitbox/MissileCollision
 @onready var unit_collision = $UnitCollision
 
 var missile = preload("res://core/missile.tscn")
@@ -118,8 +118,9 @@ func movement(delta: float) -> void:
 			return_timer.start()
 	else:
 		# Approach nav target
-		priority_tie_break = (priority_tie_break + 1) % 100
-		nav.avoidance_priority = 0.5 + (float(priority_tie_break) * 0.001)
+		if nav.avoidance_priority < 0.5:
+			priority_tie_break = (priority_tie_break + 1) % 100
+			nav.avoidance_priority = 0.5 + (float(priority_tie_break) * 0.001)
 		var direction = position.direction_to(nav.get_next_path_position())
 		nav.set_velocity(direction * (acceleration * delta))
 		if !attack_cooldown.is_stopped():

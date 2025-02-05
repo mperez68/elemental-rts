@@ -25,7 +25,6 @@ fill_to = Vector2(1, 0.5)
 radius = 224.0
 
 [node name="DefenseTower" instance=ExtResource("1_p4jfv")]
-collision_layer = 1
 wall_min_slide_angle = 0.261799
 footprint = Vector2i(2, 2)
 unit_name = "Vanguard"
@@ -35,26 +34,27 @@ weapon_type = 1
 
 [node name="UnitCollision" parent="." index="0"]
 y_sort_enabled = false
+disabled = true
 
-[node name="MissileCollision" parent="." index="1"]
-polygon = PackedVector2Array(-32, -4, -32, -68, 32, -68, 32, -4)
-
-[node name="Body" parent="." index="2"]
+[node name="Body" parent="." index="1"]
 texture = SubResource("GradientTexture2D_6i07l")
 offset = Vector2(0, -68)
 
-[node name="Highlight" parent="." index="3"]
+[node name="MissileCollision" parent="Body/MissileHitbox" index="0"]
+polygon = PackedVector2Array(-34, -5, -29, -133, 29, -132, 33, -2)
+
+[node name="Highlight" parent="." index="2"]
 texture = SubResource("GradientTexture2D_x1a1v")
 
-[node name="Header" parent="." index="4"]
+[node name="Header" parent="." index="3"]
 offset_top = -160.0
 offset_bottom = -144.0
 
-[node name="Light" parent="." index="5"]
+[node name="Light" parent="." index="4"]
 position = Vector2(-5, -7)
 texture_scale = 2.0
 
-[node name="NavigationAgent2D" parent="." index="6"]
+[node name="NavigationAgent2D" parent="." index="5"]
 path_desired_distance = 16.0
 target_desired_distance = 10.0
 path_max_distance = 512.0
@@ -63,13 +63,15 @@ simplify_path = true
 time_horizon_agents = 1.0
 max_speed = 256.0
 
-[node name="AttackRange" parent="." index="8"]
+[node name="AttackRange" parent="." index="7"]
 shape = SubResource("CircleShape2D_v1x1j")
 
-[node name="AttackCooldown" parent="." index="9"]
+[node name="AttackCooldown" parent="." index="8"]
 wait_time = 1.0
 
-[node name="ReturnTimer" parent="." index="10"]
+[node name="ReturnTimer" parent="." index="9"]
 wait_time = 1.0
 
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
