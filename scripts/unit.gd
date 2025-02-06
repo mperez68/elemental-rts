@@ -11,6 +11,13 @@ const ELEMENT_TAG: Array[Texture] = [
 	preload("res://assets/graphics/effects/Icons/tile000.png"),
 	preload("res://assets/graphics/effects/Icons/tile002.png")
 ]
+const ELEMENT_COLOR: Array[Color] = [
+	Color.WHITE,
+	Color.SKY_BLUE,
+	Color.SANDY_BROWN,
+	Color(1, 0.51, 0.444),
+	Color(0.47, 0.64, 1)
+]
 
 signal select_event(this: Unit)
 
@@ -76,8 +83,9 @@ func _ready() -> void:
 	collider_target = sum
 	# Shuffle animation start time
 	anim.seek(randf_range(0, 4), true)
-	# Set tags
+	# Set element details
 	tags.push_back(ELEMENT_TAG[element])
+	modulate = ELEMENT_COLOR[element]
 	
 
 func _process(delta: float) -> void:
