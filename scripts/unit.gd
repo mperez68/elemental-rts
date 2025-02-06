@@ -132,7 +132,8 @@ func movement(delta: float) -> void:
 
 func _attack():
 	var new_targets: Array = []
-	for target in attack_radius.collision_result:
+	var collisions = attack_radius.collision_result
+	for target in collisions:
 		if target.collider is Unit and target.collider.team != team and !target.collider.flags["dying"]:
 			match weapon_type:
 				WeaponType.MISSILE:

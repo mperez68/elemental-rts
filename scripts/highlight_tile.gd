@@ -18,7 +18,6 @@ func _ready() -> void:
 	if tile == null or resource != resource_req:
 		valid = false
 	
-		
 	if valid:
 		sprite.self_modulate = valid_color
 	else:

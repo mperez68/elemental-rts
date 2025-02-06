@@ -1,6 +1,8 @@
 extends Object
 class_name Action
 
+signal clear_hover
+
 enum ActionNames{ BUILD_NEXUS, BUILD_LOCUS, BUILD_HIEROPHANT, BUILD_VANGUARD }
 
 var action_name: String
@@ -75,14 +77,14 @@ func _build(action: ActionNames, args: Array) -> bool:
 	if GameInfo.players[GameInfo.active_player].aether < building.aether_cost or GameInfo.players[GameInfo.active_player].empyrium < building.empyrium_cost:
 		print("INSUFFICIENT RESOURCES")
 		return false
-	else:
-		GameInfo.players[GameInfo.active_player].aether -= building.aether_cost
-		GameInfo.players[GameInfo.active_player].empyrium -= building.empyrium_cost
 	
-	clear_highlights()
+	GameInfo.players[GameInfo.active_player].aether -= building.aether_cost
+	GameInfo.players[GameInfo.active_player].empyrium -= building.empyrium_cost
+	
 	@warning_ignore("integer_division")
 	building.position = args[0] + Vector2(0, highlight_footprint.y / 2 * GameInfo.GRID.y)
 	args[1].add_child(building)
+	clear_hover.emit(building)
 	
 	return true
 
@@ -135,3 +137,5 @@ func clear_highlights():
 func _highlight_clicked(_viewport: Node, event: InputEvent, _shape_idx: int):
 	if event.is_action_pressed("click"):
 		effect.call([GameInfo.camera_offset(event.position), GameInfo.map.get_tree().current_scene])
+	elif event.is_action_pressed("alt_click"):
+		clear_hover.emit(null)

@@ -17,6 +17,9 @@ func _process(_delta: float) -> void:
 		queue_redraw()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if !GameInfo.map.get_children().is_empty():
+		return
+	
 	if event.is_action_pressed("alt_click"):
 		if map.get_cell_tile_data(map.local_to_map(GameInfo.camera_offset(event.position))) == null:
 			return
@@ -30,7 +33,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("click"):
 		selection_start = GameInfo.camera_offset(event.position)
 	
-	if event.is_action_released("click"):
+	if event.is_action_released("click") and selection_start != Vector2.ZERO:
 		var box: Rect2 = Rect2(selection_start, GameInfo.camera_offset(event.position) - selection_start).abs()
 		var box_size: Vector2 = box.size
 		var all_units = find_children("*", "Unit", true, false)

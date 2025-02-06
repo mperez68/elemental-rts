@@ -14,5 +14,8 @@ empyrium_cost = 200
 max_hp = 200
 actions = Array[int]([3, 1, 2])
 
+[node name="Light" parent="." index="4"]
+texture_scale = 2.0
+
 [node name="AttackSFX" parent="." index="10"]
 attenuation = 1.0

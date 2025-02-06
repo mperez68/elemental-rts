@@ -28,7 +28,6 @@ fill_to = Vector2(1, 0.5)
 radius = 224.0
 
 [node name="DefenseTower" instance=ExtResource("1_p4jfv")]
-wall_min_slide_angle = 0.261799
 footprint = Vector2i(2, 2)
 unit_name = "Vanguard"
 aether_cost = 30
@@ -60,14 +59,7 @@ position = Vector2(-5, -7)
 texture_scale = 2.0
 
 [node name="NavigationAgent2D" parent="." index="5"]
-path_desired_distance = 16.0
-target_desired_distance = 10.0
-path_max_distance = 512.0
 navigation_layers = 1
-simplify_path = true
-radius = 16.0
-time_horizon_agents = 1.0
-max_speed = 256.0
 
 [node name="AttackRange" parent="." index="7"]
 shape = SubResource("CircleShape2D_v1x1j")
@@ -77,5 +69,3 @@ wait_time = 1.0
 
 [node name="ReturnTimer" parent="." index="9"]
 wait_time = 1.0
-
-[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
