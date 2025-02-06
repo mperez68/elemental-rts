@@ -5,9 +5,16 @@ const ZOOM_MIN = 0.7
 
 var hud_scroll_vector: Vector2i = Vector2i.ZERO
 
+@export var start_focus: Unit
+@export var start_position: Vector2i
+
 # Engine
 func _ready() -> void:
 	GameInfo.camera = self
+	if start_focus != null:
+		position = start_focus.position
+	else:
+		position = start_position
 
 func _process(delta: float) -> void:
 	var move: Vector2i = Vector2i.ZERO

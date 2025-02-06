@@ -82,7 +82,7 @@ func _build(action: ActionNames, args: Array) -> bool:
 	GameInfo.players[GameInfo.active_player].empyrium -= building.empyrium_cost
 	
 	@warning_ignore("integer_division")
-	building.position = args[0] + Vector2(0, highlight_footprint.y / 2 * GameInfo.GRID.y)
+	building.position = args[0]# + Vector2(0, highlight_footprint.y / 2 * GameInfo.GRID.y)
 	args[1].add_child(building)
 	clear_hover.emit(building)
 	

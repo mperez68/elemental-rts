@@ -10,7 +10,7 @@ func _ready() -> void:
 	while (GameInfo.map == null):
 		await get_tree().create_timer(0.1).timeout
 	
-	position = GameInfo.map.map_to_local(GameInfo.map.local_to_map(position))
+	position = GameInfo.map.map_to_local(GameInfo.map.local_to_map(position) - (Vector2i(1, -1) * floor(footprint / 2)))
 	grid_start = GameInfo.map.local_to_map(position)
 	for i in range(1, footprint.x):
 		position -= Vector2(GameInfo.GRID) / 4
