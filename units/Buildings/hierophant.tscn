@@ -31,10 +31,16 @@ script = ExtResource("2_gs5d6")
 aether_production = 0
 empyrium_production = 10
 unit_name = "Hierophant"
+aether_cost = 25
+actions = Array[int]([3])
 tags = Array[Texture]([ExtResource("3_t4tav")])
 
 [node name="Body" parent="." index="1"]
 texture = SubResource("GradientTexture2D_yetbg")
+offset = Vector2(0, -28)
+
+[node name="MissileCollision" parent="Body/MissileHitbox" index="0"]
+polygon = PackedVector2Array(-48, -4, -48, -52, 48, -52, 48, -4)
 
 [node name="Highlight" parent="." index="2"]
 texture = SubResource("GradientTexture2D_elm17")

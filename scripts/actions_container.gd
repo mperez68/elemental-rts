@@ -32,7 +32,7 @@ func update() -> void:
 		button.disabled = true
 	if active_action > -1:
 		actions[active_action - 4].clear_highlights()
-	actions = []
+	actions.clear()
 	active_action = -1
 	
 	var unique_ability_counter: int = 4

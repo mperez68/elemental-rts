@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://tbn8673qlcsu" path="res://ui/highlight_tile.tres" id="1_q4u0x"]
 
 [node name="HighlightTile" type="Area2D"]
-z_index = 2
+z_index = 1
 script = ExtResource("1_37eb3")
 valid_color = Color(0, 0.886275, 0, 0.513726)
 invalid_color = Color(0.964706, 0, 0, 0.513726)

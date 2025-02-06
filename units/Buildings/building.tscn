@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyfrfpamya4yp"]
+[gd_scene load_steps=7 format=3 uid="uid://cyfrfpamya4yp"]
 
 [ext_resource type="PackedScene" uid="uid://cpbr6chnsnpg" path="res://units/unit.tscn" id="1_1ou6t"]
 [ext_resource type="Texture2D" uid="uid://bc3pgqwdhrlkw" path="res://textures/building_box.tres" id="2_7w8qw"]
 [ext_resource type="Script" path="res://scripts/building.gd" id="2_irg30"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u3yp7"]
+radius = 56.0
 
 [sub_resource type="Gradient" id="Gradient_s43am"]
 colors = PackedColorArray(0, 0.678431, 0, 1, 0, 0, 0, 0)
@@ -20,16 +23,20 @@ script = ExtResource("2_irg30")
 footprint = Vector2i(3, 3)
 unit_name = "Building"
 max_hp = 100
+actions = Array[int]([3])
 acceleration = 0.0
 weapon_type = 0
 stance = 0
 
+[node name="UnitCollision" parent="." index="0"]
+shape = SubResource("CircleShape2D_u3yp7")
+
 [node name="Body" parent="." index="1"]
 texture = ExtResource("2_7w8qw")
-offset = Vector2(0, -36)
+offset = Vector2(0, -44)
 
 [node name="MissileCollision" parent="Body/MissileHitbox" index="0"]
-polygon = PackedVector2Array(-80, 3, -81, -76, 80, -75, 79, 4)
+polygon = PackedVector2Array(-80, -4, -80, -84, 80, -84, 80, -4)
 
 [node name="Highlight" parent="." index="2"]
 texture = SubResource("GradientTexture2D_qdmxy")

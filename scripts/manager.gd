@@ -11,10 +11,6 @@ var clicked_unit: Unit = null
 
 
 # Engine
-func _ready() -> void:
-	for unit in find_children("*", "Unit"):
-		unit.select_event.connect(log_click_unit)
-
 func _process(_delta: float) -> void:
 	# Draw Selection Box
 	if selection_start != Vector2.ZERO:
@@ -95,3 +91,9 @@ func _get_formation(target: Vector2, spacing: int = 64) -> Array[Vector2]:
 			@warning_ignore("integer_division")
 			formation.push_back(GameInfo.camera_offset(target + Vector2(j * spacing, i * spacing / 2) - offset))
 	return formation
+
+
+# Signals
+func _on_child_entered_tree(node: Node) -> void:
+	if node is Unit:
+		node.select_event.connect(log_click_unit)

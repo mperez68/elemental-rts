@@ -5,17 +5,14 @@
 
 [node name="Nexus" instance=ExtResource("1_rpy0h")]
 script = ExtResource("2_js33e")
-aether_production = 10
+aether_production = 0
 empyrium_production = 0
 footprint = Vector2i(4, 4)
 unit_name = "Nexus"
+aether_cost = 400
+empyrium_cost = 200
 max_hp = 200
+actions = Array[int]([3, 1, 2])
 
-[node name="MissileCollision" parent="." index="1"]
-polygon = PackedVector2Array(-80, -4, -80, -36, 80, -36, 80, -4)
-
-[node name="AttackRange" parent="." index="8"]
-visible = true
-
-[node name="AttackSFX" parent="." index="11"]
+[node name="AttackSFX" parent="." index="10"]
 attenuation = 1.0

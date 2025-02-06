@@ -22,9 +22,11 @@ var missile = preload("res://core/missile.tscn")
 
 @export var unit_name: String = "Unit"
 @export var team: int = 0
+@export var aether_cost: int = 50
+@export var empyrium_cost: int = 0
 @export var max_hp: int = 10
 @export var damage_multiplier: float = 1
-@export var actions: Array[Action.ActionNames] = [  ]
+@export var actions: Array[Action.ActionNames] = []
 @export var acceleration: float = 1024
 @export var weapon_type: WeaponType = WeaponType.NONE
 @export var targetting_type: TargetingType = TargetingType.SINGLE

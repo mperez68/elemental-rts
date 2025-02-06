@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://j3qlx5gglclb"]
+[gd_scene load_steps=8 format=4 uid="uid://j3qlx5gglclb"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_u45tw"]
 [ext_resource type="PackedScene" uid="uid://cmrm13bj2120g" path="res://core/world.tscn" id="1_wu4d5"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dsn6ofk6ltksd" path="res://ui/hud.tscn" id="2_pf1tx"]
 [ext_resource type="Script" path="res://scripts/hud_layer.gd" id="4_0prem"]
 [ext_resource type="PackedScene" uid="uid://geybfgoqhvmj" path="res://units/Buildings/defense_tower.tscn" id="7_7o7vo"]
+[ext_resource type="PackedScene" uid="uid://c071lej28y8j7" path="res://units/Buildings/nexus.tscn" id="7_aak3y"]
 
 [node name="Manager" type="Node2D"]
 y_sort_enabled = true
@@ -25,10 +26,6 @@ tile_map_data = PackedByteArray("AAArAPD/AAADAAAAAAAqAPD/AAADAAEAAAApAPD/AAADAAE
 [node name="ResourceVeins" parent="World" index="3"]
 tile_map_data = PackedByteArray("AAAHAAwAAQAJAAAAAAAFABAAAQAEAAAAAAA=")
 
-[node name="DefenseTower" parent="." instance=ExtResource("7_7o7vo")]
-position = Vector2(502, 120)
-actions = Array[int]([])
-
 [node name="Unit" parent="." instance=ExtResource("2_7pr3c")]
 position = Vector2(608, 168)
 
@@ -38,7 +35,14 @@ position = Vector2(606, 97)
 [node name="Unit3" parent="." instance=ExtResource("2_7pr3c")]
 position = Vector2(605, 32)
 
+[node name="Nexus" parent="." instance=ExtResource("7_aak3y")]
+position = Vector2(765, -9)
+actions = Array[int]([0, 1, 2])
+
+[node name="DefenseTower" parent="." instance=ExtResource("7_7o7vo")]
+position = Vector2(439, -21)
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="update_hud" from="." to="HUDLayer/HUD" method="update"]
-[connection signal="input_event" from="DefenseTower" to="DefenseTower" method="_on_input_event"]
 
 [editable path="World"]

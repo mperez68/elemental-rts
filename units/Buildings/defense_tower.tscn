@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://geybfgoqhvmj"]
+[gd_scene load_steps=8 format=3 uid="uid://geybfgoqhvmj"]
 
 [ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/Buildings/building.tscn" id="1_p4jfv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w2l5i"]
+radius = 24.0
 
 [sub_resource type="Gradient" id="Gradient_ctinq"]
 colors = PackedColorArray(0, 0, 0, 1, 0.67069, 0.67069, 0.67069, 1)
@@ -28,20 +31,22 @@ radius = 224.0
 wall_min_slide_angle = 0.261799
 footprint = Vector2i(2, 2)
 unit_name = "Vanguard"
+aether_cost = 30
 max_hp = 50
 damage_multiplier = 2.0
+actions = Array[int]([])
 weapon_type = 1
 
 [node name="UnitCollision" parent="." index="0"]
 y_sort_enabled = false
-disabled = true
+shape = SubResource("CircleShape2D_w2l5i")
 
 [node name="Body" parent="." index="1"]
 texture = SubResource("GradientTexture2D_6i07l")
 offset = Vector2(0, -68)
 
 [node name="MissileCollision" parent="Body/MissileHitbox" index="0"]
-polygon = PackedVector2Array(-34, -5, -29, -133, 29, -132, 33, -2)
+polygon = PackedVector2Array(-32, -4, -32, -132, 32, -132, 32, -4)
 
 [node name="Highlight" parent="." index="2"]
 texture = SubResource("GradientTexture2D_x1a1v")
@@ -60,6 +65,7 @@ target_desired_distance = 10.0
 path_max_distance = 512.0
 navigation_layers = 1
 simplify_path = true
+radius = 16.0
 time_horizon_agents = 1.0
 max_speed = 256.0
 
@@ -72,6 +78,4 @@ wait_time = 1.0
 [node name="ReturnTimer" parent="." index="9"]
 wait_time = 1.0
 
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
