@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://6ti2x0yushru"]
+
+[ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/Buildings/building.tscn" id="1_usu24"]
+
+[node name="Temple" instance=ExtResource("1_usu24")]
+unit_name = "Temple"
+aether_cost = 30
+actions = Array[int]([4, 5, 6])
+element = 3

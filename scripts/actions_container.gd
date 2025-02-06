@@ -20,8 +20,12 @@ var selection: Array[Unit]
 func _process(_delta: float) -> void:
 	var in_reach = false
 	for unit in selection:
-		if !unit.flags["dying"] and unit.position.distance_to(GameInfo.camera_offset(get_viewport().get_mouse_position())) < unit.attack_radius.shape.radius * 2:
-			in_reach = true
+		if is_instance_valid(unit):
+			var range_vector = Vector2(unit.position.direction_to(GameInfo.camera_offset(get_viewport().get_mouse_position())) * unit.attack_radius.shape.radius * 2)
+			range_vector.y /= 2
+			var build_radius: float = range_vector.length()
+			if !unit.flags["dying"] and unit.position.distance_to(GameInfo.camera_offset(get_viewport().get_mouse_position())) < build_radius:
+				in_reach = true
 	
 	if active_action > -1:
 		if in_reach:
@@ -69,6 +73,7 @@ func update() -> void:
 	
 	for action in unique_actions:
 		var temp = Action.build(action)
+		temp.element = selection[0].element
 		temp.clear_hover.connect(clear_action)
 		actions.push_back(temp)
 

@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://48nqscje57ui"]
+
+[ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/Buildings/building.tscn" id="1_u5cev"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b828r"]
+radius = 12.0
+
+[sub_resource type="Gradient" id="Gradient_ctinq"]
+colors = PackedColorArray(0, 0, 0, 1, 0.67069, 0.67069, 0.67069, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yxy0c"]
+gradient = SubResource("Gradient_ctinq")
+width = 32
+height = 16
+fill = 1
+fill_from = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_s43am"]
+colors = PackedColorArray(0, 0.678431, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1lo0k"]
+gradient = SubResource("Gradient_s43am")
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="Proselytizer" instance=ExtResource("1_u5cev")]
+footprint = Vector2i(1, 1)
+actions = Array[int]([1, 4, 2, 3])
+
+[node name="UnitCollision" parent="." index="0"]
+shape = SubResource("CircleShape2D_b828r")
+
+[node name="Body" parent="." index="1"]
+texture = SubResource("GradientTexture2D_yxy0c")
+offset = Vector2(0, -16)
+
+[node name="MissileCollision" parent="Body/MissileHitbox" index="0"]
+polygon = PackedVector2Array(-16, -8, -16, -24, 16, -24, 16, -8)
+
+[node name="Highlight" parent="." index="2"]
+texture = SubResource("GradientTexture2D_1lo0k")

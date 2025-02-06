@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ycjtw44fyuf4"]
+
+[ext_resource type="PackedScene" uid="uid://cpbr6chnsnpg" path="res://units/unit.tscn" id="1_uq5cn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_01ur0"]
+radius = 96.0
+
+[node name="Sanctified" instance=ExtResource("1_uq5cn")]
+unit_name = "Sanctified"
+aether_cost = 15
+max_hp = 6
+targetting_type = 1
+
+[node name="AttackRange" parent="." index="7"]
+shape = SubResource("CircleShape2D_01ur0")

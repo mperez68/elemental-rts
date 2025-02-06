@@ -169,23 +169,21 @@ func _attack():
 	last_targets = new_targets
 
 func _missile(target: Unit):
+	add_sibling(_make_missile(get_collider_position(), target))
+	attack_sfx.play()
+func _hit_scan(target: Unit):
+	add_sibling(_make_missile(target.position, target))
+	attack_sfx.play()
+
+func _make_missile(origin: Vector2, target: Unit):
 	var m = missile.instantiate()
 	m.damage *= damage_multiplier
 	if element > Element.NONE:
 		m.set_element(element)
-	m.set_target(get_collider_position(), target.get_collider_position())
+	m.set_target(origin, target.get_collider_position())
 	m.team = team
-	add_sibling(m)
-	attack_sfx.play()
-	
-func _hit_scan(target: Unit):
-	var m = missile.instantiate()
-	m.damage *= damage_multiplier
-	m.set_target(target.position, target.get_collider_position())
-	m.team = team
-	m.z_index += 1
-	add_sibling(m)
-	attack_sfx.play()
+	return m
+
 
 # Signals
 func _on_attack_cooldown_timeout() -> void:

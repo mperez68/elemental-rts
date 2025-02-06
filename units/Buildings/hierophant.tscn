@@ -32,7 +32,6 @@ aether_production = 0
 empyrium_production = 10
 unit_name = "Hierophant"
 aether_cost = 25
-actions = Array[int]([3])
 tags = Array[Texture]([ExtResource("3_t4tav")])
 
 [node name="Body" parent="." index="1"]
