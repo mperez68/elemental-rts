@@ -6,6 +6,12 @@ extends GridContainer
 @onready var attack_button = action_buttons[2]
 @onready var stance_button = action_buttons[3]
 
+var default_actions: Array[Action] = [
+preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS),
+preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS),
+preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS),
+preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS)
+]
 var actions: Array[Action]
 var active_action = -1
 
@@ -19,9 +25,9 @@ func _process(_delta: float) -> void:
 	
 	if active_action > -1:
 		if in_reach:
-			actions[active_action - 4].hover.call(GameInfo.camera_offset(get_viewport().get_mouse_position()))
+			actions[active_action].hover.call(GameInfo.camera_offset(get_viewport().get_mouse_position()))
 		else:
-			actions[active_action - 4].clear_highlights()
+			actions[active_action].clear_highlights()
 
 func _on_hud_update_cards(new_sel: Array[Unit]) -> void:
 	selection = new_sel
@@ -30,8 +36,8 @@ func _on_hud_update_cards(new_sel: Array[Unit]) -> void:
 func clear_action(new_child: Node):
 	if new_child != null and  !new_child.is_node_ready():
 		await new_child.ready
-	if active_action - 4 < actions.size():
-		actions[active_action - 4].clear_highlights()
+	if active_action < actions.size():
+		actions[active_action].clear_highlights()
 	active_action = -1
 
 func update() -> void:
@@ -39,8 +45,9 @@ func update() -> void:
 	for button in action_buttons:
 		button.disabled = true
 	if active_action > -1:
-		actions[active_action - 4].clear_highlights()
+		actions[active_action].clear_highlights()
 	actions.clear()
+	actions = default_actions.duplicate()
 	active_action = -1
 	
 	var unique_ability_counter: int = 4

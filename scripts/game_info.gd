@@ -1,5 +1,6 @@
 extends Node
 
+
 const GRID: Vector2i = Vector2i(64, 32)
 
 @export var active_player: int = 0

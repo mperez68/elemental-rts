@@ -3,6 +3,14 @@ class_name Unit extends CharacterBody2D
 enum WeaponType { NONE, MISSILE, HITSCAN }
 enum TargetingType { SINGLE, MULTI }
 enum Stance { BUILDING, AGGRESSIVE, DEFENSIVE, HOLD_FIRE }
+enum Element { NONE, AIR, EARTH, FIRE, WATER }
+const ELEMENT_TAG: Array[Texture] = [
+	preload("res://ui/unit_card.tres"),
+	preload("res://assets/graphics/effects/Icons/tile003.png"),
+	preload("res://assets/graphics/effects/Icons/tile001.png"),
+	preload("res://assets/graphics/effects/Icons/tile000.png"),
+	preload("res://assets/graphics/effects/Icons/tile002.png")
+]
 
 signal select_event(this: Unit)
 
@@ -22,7 +30,7 @@ var missile = preload("res://core/missile.tscn")
 
 @export var unit_name: String = "Unit"
 @export var team: int = 0
-@export var aether_cost: int = 50
+@export var aether_cost: int = 0
 @export var empyrium_cost: int = 0
 @export var max_hp: int = 10
 @export var damage_multiplier: float = 1
@@ -30,6 +38,7 @@ var missile = preload("res://core/missile.tscn")
 @export var acceleration: float = 1024
 @export var weapon_type: WeaponType = WeaponType.NONE
 @export var targetting_type: TargetingType = TargetingType.SINGLE
+@export var element: Element = Element.NONE
 @export var stance: Stance = Stance.AGGRESSIVE
 @export var tags: Array[Texture]
 @onready var hp: int = max_hp
@@ -67,6 +76,9 @@ func _ready() -> void:
 	collider_target = sum
 	# Shuffle animation start time
 	anim.seek(randf_range(0, 4), true)
+	# Set tags
+	tags.push_back(ELEMENT_TAG[element])
+	
 
 func _process(delta: float) -> void:
 	movement(delta)
@@ -159,6 +171,8 @@ func _attack():
 func _missile(target: Unit):
 	var m = missile.instantiate()
 	m.damage *= damage_multiplier
+	if element > Element.NONE:
+		m.set_element(element)
 	m.set_target(get_collider_position(), target.get_collider_position())
 	m.team = team
 	add_sibling(m)
