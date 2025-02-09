@@ -5,6 +5,7 @@ const SERVER_IP = "127.0.0.1"
 
 var _spawner
 
+
 # Public
 func host_session():
 	print("HOST SESSION AT %s:%s" % [SERVER_IP, SERVER_PORT])
@@ -36,17 +37,16 @@ func _connect(id: int):
 	
 	GameInfo.add_player(id)
 	
-	var my_new_guy = load("res://units/sanctified.tscn").instantiate()
+	var my_new_guy = load("res://units/Buildings/nexus.tscn").instantiate()
 	my_new_guy.player_id = 1
-	my_new_guy.element = Unit.Element.FIRE
 	my_new_guy.position = Vector2(-256, 0)
-	_spawner.add_child(my_new_guy, true)
+	var count = 0
+	GameInfo.players.get_children()[0].spawn_unit(my_new_guy)
 	
-	var new_guy = load("res://units/sanctified.tscn").instantiate()
+	var new_guy = load("res://units/Buildings/nexus.tscn").instantiate()
 	new_guy.player_id = id
-	new_guy.element = Unit.Element.WATER
 	new_guy.position = Vector2(256, 0)
-	_spawner.add_child(new_guy, true)
+	GameInfo.players.get_children()[0].spawn_unit(new_guy)
 
 
 func _disconnect(id: int):

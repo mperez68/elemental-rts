@@ -7,10 +7,10 @@ extends GridContainer
 @onready var stance_button = action_buttons[3]
 
 var default_actions: Array[Action] = [
-preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS),
-preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS),
-preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS),
-preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS)
+preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS, 1),
+preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS, 1),
+preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS, 1),
+preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS, 1)
 ]
 var actions: Array[Action]
 var active_action = -1
@@ -90,7 +90,7 @@ func update() -> void:
 				unique_ability_counter += 1
 	
 	for action in unique_actions:
-		var temp = Action.build(action)
+		var temp = Action.build(action, selection[0].player_id)
 		temp.element = selection[0].element
 		temp.clear_hover.connect(clear_action)
 		actions.push_back(temp)

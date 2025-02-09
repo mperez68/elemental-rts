@@ -4,6 +4,7 @@ class_name BlueprintTile
 enum ResourceRequirement{ RESOURCE_NONE, RESOURCE_AETHER, RESOURCE_EMPYRIUM }
 
 var valid: bool = true
+@export var player_id: int
 
 @onready var sprite = $Sprite2D
 @export var valid_color: Color

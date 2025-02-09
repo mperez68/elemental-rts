@@ -40,33 +40,33 @@ acceleration = 0.0
 weapon_type = 0
 stance = 0
 
-[node name="UnitCollision" parent="." index="1"]
+[node name="UnitCollision" parent="." index="0"]
 shape = SubResource("CircleShape2D_u3yp7")
 
-[node name="Body" parent="." index="2"]
+[node name="Body" parent="." index="1"]
 texture = SubResource("GradientTexture2D_160w1")
 offset = Vector2(0, -44)
 
 [node name="MissileCollision" parent="Body/MissileHitbox" index="0"]
 polygon = PackedVector2Array(-80, -4, -80, -84, 80, -84, 80, -4)
 
-[node name="Highlight" parent="." index="3"]
+[node name="Highlight" parent="." index="2"]
 texture = SubResource("GradientTexture2D_qdmxy")
 
-[node name="Header" parent="." index="4"]
+[node name="Header" parent="." index="3"]
 offset_left = -72.0
 offset_top = -112.0
 offset_right = 72.0
 offset_bottom = -96.0
 
-[node name="Light" parent="." index="5"]
+[node name="Light" parent="." index="4"]
 texture_scale = 1.5
 
-[node name="NavigationAgent2D" parent="." index="6"]
+[node name="NavigationAgent2D" parent="." index="5"]
 avoidance_priority = 1.0
 
-[node name="AttackRange" parent="." index="8"]
+[node name="AttackRange" parent="." index="7"]
 shape = SubResource("CircleShape2D_8el4j")
 
-[node name="AttackCooldown" parent="." index="9"]
+[node name="AttackCooldown" parent="." index="8"]
 autostart = true

@@ -15,8 +15,9 @@ func _process(_delta: float) -> void:
 		var aether_rps: float = 0
 		var empyrium_rps: float = 0
 		for producer in player.producers:
-			aether_rps += producer.aether_production
-			empyrium_rps += producer.empyrium_production
+			if is_instance_valid(producer):
+				aether_rps += producer.aether_production
+				empyrium_rps += producer.empyrium_production
 		
 		aether_rps_text.text = str(aether_rps) + rps_postfix
 		empyrium_rps_text.text = str(empyrium_rps) + rps_postfix

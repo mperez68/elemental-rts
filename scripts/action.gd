@@ -12,13 +12,15 @@ var shortcut: StringName
 var effect: Callable
 var hover: Callable
 var element = Unit.Element.NONE
+var player_id: int = 1
 
 var highlight_footprint: Vector2i
 var highlight_tiles: Array = []
 
 # Public
-static func build(action: ActionNames) -> Action:
+static func build(action: ActionNames, id: int) -> Action:
 	var temp = Action.new()
+	temp.player_id = id
 	if range(ActionNames.BUILD_NEXUS, ActionNames.BUILD_VANGUARD + 1).has(action):
 		temp.hover = temp.hover_building
 	match action:
@@ -106,7 +108,8 @@ func _build(action: ActionNames, args: Array) -> bool:
 	
 	@warning_ignore("integer_division")
 	building.position = args[0]
-	args[1].add_child(building, true)
+	building.player_id = player_id
+	GameInfo.get_player(GameInfo.active_player).spawn_unit(building)
 	clear_hover.emit(building)
 	
 	return true
@@ -133,8 +136,9 @@ func _produce(action: ActionNames, args: Array):
 	
 	@warning_ignore("integer_division")
 	unit.position = args[0]
+	unit.player_id = player_id
 	unit.element = args[2]
-	args[1].add_child(unit, true)
+	GameInfo.get_player(GameInfo.active_player).spawn_unit(unit)
 	
 	return true
 

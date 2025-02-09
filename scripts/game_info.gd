@@ -10,7 +10,6 @@ var p = preload("res://core/player.tscn")
 @onready var music_manager = $MusicManager
 @onready var screen_size: Vector2i = get_viewport().get_visible_rect().size
 @onready var players = $Players
-var players_cache: Dictionary = {}
 
 var camera: Camera2D = null
 var map: TileMapLayer = null
@@ -47,7 +46,6 @@ func _handoff(node_name: String) -> void:
 			return
 		await get_tree().create_timer(0.1).timeout
 	node.set_multiplayer_authority(node.player_id)
-	print("%s :: %s :: %s" % [node.name, node.player_id, node.get_multiplayer_authority()])
 
 
 # Util

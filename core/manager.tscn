@@ -26,7 +26,7 @@ tile_map_data = PackedByteArray("AAAIABsAAQAEAAAAAAAAABwAAQAJAAAAAAA=")
 [node name="Units" type="Node2D" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://units/sanctified.tscn", "res://units/farweaver.tscn", "res://units/Buildings/nexus.tscn", "res://units/Buildings/locus.tscn", "res://units/Buildings/hierophant.tscn", "res://units/Buildings/defense_tower.tscn", "res://units/Buildings/proselytizer.tscn", "res://units/Buildings/temple.tscn", "res://core/missile.tscn")
+_spawnable_scenes = PackedStringArray("res://units/sanctified.tscn", "res://units/farweaver.tscn", "res://units/Buildings/nexus.tscn", "res://units/Buildings/locus.tscn", "res://units/Buildings/hierophant.tscn", "res://units/Buildings/defense_tower.tscn", "res://units/Buildings/temple.tscn", "res://core/missile.tscn", "res://units/Buildings/proselytizer.tscn")
 spawn_path = NodePath("../Units")
 
 [connection signal="update_hud" from="." to="HUDLayer/HUD" method="update"]

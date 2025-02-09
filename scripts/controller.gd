@@ -25,7 +25,6 @@ func route(new_target: Vector2, new_clear_chase: bool = false):
 # Private
 @rpc("call_local")
 func _route():
-	#if multiplayer.get_unique_id() == sync.get_multiplayer_authority():
 	if multiplayer.is_server():
 		if clear_chase:
 			unit.last_targets.clear()
