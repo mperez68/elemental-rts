@@ -2,6 +2,8 @@ extends Node
 class_name Player
 # Container class for player stats
 
+@onready var sync = $Synchronizer
+
 var aether: int = 100
 var empyrium: int = 0
 var player_id: int = 1

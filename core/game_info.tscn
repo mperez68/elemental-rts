@@ -29,4 +29,5 @@ _spawnable_scenes = PackedStringArray("res://core/player.tscn")
 spawn_path = NodePath("../Players")
 
 [connection signal="finished" from="MusicManager/ThemeIntro" to="MusicManager" method="_on_theme_finished" binds= [0]]
+[connection signal="child_entered_tree" from="Players" to="." method="_on_players_child_entered_tree"]
 [connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

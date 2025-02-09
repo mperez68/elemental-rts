@@ -98,19 +98,6 @@ func _get_formation(target: Vector2, spacing: int = 64) -> Array[Vector2]:
 			formation.push_back(GameInfo.camera_offset(target + Vector2(j * spacing, i * spacing / 2) - offset))
 	return formation
 
-
-# Signals
-func _on_child_entered_tree(node: Node) -> void:
-	if node is Unit:
-		node.select_event.connect(log_click_unit)
-		_handoff.rpc(node.name)
-
-
-func _on_multiplayer_spawner_spawned(node: Node) -> void:
-	if node is Unit:
-		_handoff.rpc(node.name)
-
-
 @rpc("any_peer", "reliable")
 func _handoff(node_name: String) -> void:
 	var node
@@ -125,3 +112,16 @@ func _handoff(node_name: String) -> void:
 			return
 		await get_tree().create_timer(0.1).timeout
 	node.sync.set_multiplayer_authority(node.player_id)
+
+
+
+# Signals
+func _on_child_entered_tree(node: Node) -> void:
+	if node is Unit:
+		node.select_event.connect(log_click_unit)
+		_handoff.rpc(node.name)
+
+
+func _on_multiplayer_spawner_spawned(node: Node) -> void:
+	if node is Unit:
+		_handoff.rpc(node.name)

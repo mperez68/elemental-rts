@@ -16,7 +16,6 @@ func host_session():
 	
 	_spawner = get_tree().current_scene.get_node("Units")
 	
-	GameInfo.get_player(GameInfo.active_player).aether += 566
 	multiplayer.peer_connected.connect(_connect)
 	multiplayer.peer_disconnected.connect(_disconnect)
 
@@ -27,7 +26,7 @@ func join_session():
 	client_peer.create_client(SERVER_IP, SERVER_PORT)
 	
 	multiplayer.multiplayer_peer = client_peer
-	print(multiplayer.get_unique_id())
+	
 	GameInfo.active_player = multiplayer.get_unique_id()
 
 
