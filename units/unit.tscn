@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cpbr6chnsnpg"]
+[gd_scene load_steps=20 format=3 uid="uid://cpbr6chnsnpg"]
 
 [ext_resource type="Script" path="res://scripts/unit.gd" id="1_70gch"]
 [ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="2_tvcjn"]
@@ -8,6 +8,7 @@
 [ext_resource type="Material" uid="uid://csh3ts0onhaqd" path="res://core/fog_unit.tres" id="3_uxhit"]
 [ext_resource type="Material" uid="uid://q7gg5v5jjwlg" path="res://textures/unit.tres" id="5_pp3fc"]
 [ext_resource type="AudioStream" uid="uid://c45cyb4vc1e1t" path="res://assets/sfx/MAGSpel_ Weird Magic, Fire Spell Launch, Metallic Resonance_Ocular Sounds_Magic Spells_The Complete Fantasy Collection.wav" id="7_kfwnh"]
+[ext_resource type="Script" path="res://scripts/controller.gd" id="9_51gg1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cgom5"]
 radius = 16.0
@@ -128,6 +129,14 @@ properties/6/replication_mode = 2
 properties/7/path = NodePath(".:player_id")
 properties/7/spawn = true
 properties/7/replication_mode = 2
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1dbs1"]
+properties/0/path = NodePath("InputSync:target")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("InputSync:clear_chase")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Unit" type="CharacterBody2D"]
 z_index = 1
@@ -256,6 +265,10 @@ bus = &"Sfx"
 
 [node name="Synchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_eih6u")
+
+[node name="InputSync" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1dbs1")
+script = ExtResource("9_51gg1")
 
 [connection signal="input_event" from="Body/MissileHitbox" to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="Body/MissileHitbox" to="." method="_on_mouse_entered"]

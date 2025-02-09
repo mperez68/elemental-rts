@@ -110,14 +110,18 @@ func _on_multiplayer_spawner_spawned(node: Node) -> void:
 	if node is Unit:
 		_handoff.rpc(node.name)
 
+
 @rpc("any_peer", "reliable")
 func _handoff(node_name: String) -> void:
 	var node
 	var count = 0
 	@warning_ignore("unassigned_variable")
 	while node == null and count < 100:
-		node = $Units.get_node(node_name)
+		if $Units.has_node(node_name):
+			node = $Units.get_node(node_name)
 		count += 1
-		await get_tree().create_timer(0.1).timeout 
-	node.set_multiplayer_authority(node.player_id)
-	
+		if count > 10:
+			print("COULD NOT FIND NODE")
+			return
+		await get_tree().create_timer(0.1).timeout
+	node.sync.set_multiplayer_authority(node.player_id)

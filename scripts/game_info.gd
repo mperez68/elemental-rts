@@ -48,7 +48,20 @@ func get_player(player_id: int):
 
 # Signal
 func _on_multiplayer_spawner_spawned(node: Node) -> void:
-	if multiplayer.is_server():
-		if !node.is_node_ready():
-			await node.ready
-		node.set_multiplayer_authority(node.player_id)
+	if node is Unit:
+		_handoff.rpc(node.name)
+
+@rpc("any_peer", "reliable")
+func _handoff(node_name: String) -> void:
+	var node
+	var count = 0
+	@warning_ignore("unassigned_variable")
+	while node == null:
+		if $Players.has_node(node_name):
+			node = $Players.get_node(node_name)
+		count += 1
+		if count > 10:
+			print("COULD NOT FIND NODE")
+			return
+		await get_tree().create_timer(0.1).timeout
+	node.set_multiplayer_authority(node.player_id)

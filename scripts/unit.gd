@@ -32,7 +32,7 @@ signal select_event(this: Unit)
 @onready var anim = $AnimationPlayer
 @onready var missile_collision = $Body/MissileHitbox/MissileCollision
 @onready var unit_collision = $UnitCollision
-@onready var sync = $Synchronizer
+@onready var sync = $InputSync
 
 var missile = preload("res://core/missile.tscn")
 
@@ -71,10 +71,6 @@ var last_targets: Array = [ ]
 # Engine
 func _ready() -> void:
 	# set visibility by player_id
-	#flags["reveal"] = player_id == GameInfo.active_player
-	#if !flags["reveal"]:
-		#$Light.queue_free()
-		#header.visible = false
 	route(position)
 	# Set bars
 	hp_meter.max_value = max_hp
@@ -91,7 +87,12 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	movement(delta)
+	if is_multiplayer_authority():
+		movement(delta)
+	flags["reveal"] = player_id == GameInfo.active_player
+	if !flags["reveal"]:
+		$Light.visible = false
+		header.visible = false
 
 func _draw() -> void:
 	if nav.debug_enabled:
@@ -102,10 +103,7 @@ func _draw() -> void:
 
 # Public
 func route(target: Vector2, clear_chase: bool = false):
-	if multiplayer.get_unique_id() == get_multiplayer_authority():
-		if clear_chase:
-			last_targets.clear()
-		nav.target_position = target
+	sync.route(target, clear_chase)
 
 func select(enable: bool = true):
 	flags["selected"] = enable
