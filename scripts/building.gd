@@ -10,33 +10,50 @@ func _ready() -> void:
 	while (GameInfo.map == null):
 		await get_tree().create_timer(0.1).timeout
 	
-	position = GameInfo.map.map_to_local(GameInfo.map.local_to_map(position) - (Vector2i(1, -1) * floor(footprint / 2)))
-	grid_start = GameInfo.map.local_to_map(position)
-	for i in range(1, footprint.x):
-		position -= Vector2(GameInfo.GRID) / 4
-	for j in range(1, footprint.y):
-		@warning_ignore("integer_division")
-		position.x += GameInfo.GRID.x / 4
-		@warning_ignore("integer_division")
-		position.y -= GameInfo.GRID.y / 4
+	if multiplayer.is_server():
+		position = GameInfo.map.map_to_local(GameInfo.map.local_to_map(position) - (Vector2i(1, -1) * floor(footprint / 2)))
 	
-	for a in footprint.x:
-		for b in footprint.y:
-			GameInfo.map.set_cell(grid_start + Vector2i(a, -b))
+		for i in range(1, footprint.x):
+			position -= Vector2(GameInfo.GRID) / 4
+		for j in range(1, footprint.y):
+			@warning_ignore("integer_division")
+			position.x += GameInfo.GRID.x / 4
+			@warning_ignore("integer_division")
+			position.y -= GameInfo.GRID.y / 4
+	
+	for tile in get_tiles_in_footprint():
+		GameInfo.map.set_cell(tile)
 	
 	super()
 
 
 # Public
+func get_tiles_in_footprint() -> Array[Vector2i]:
+	var ret: Array[Vector2i] = []
+	
+	grid_start = GameInfo.map.local_to_map(position)
+	var x_offset = 0
+	if footprint.x % 2 == 1:	# ODD
+		x_offset = (footprint.x - 1) / 2
+	else:	# EVEN
+		x_offset = (footprint.x / 2) - 1
+	var y_offset = 0
+	if footprint.y % 2 == 1:	# ODD
+		y_offset = (footprint.y - 1) / 2
+	else:	# EVEN
+		y_offset = (footprint.y / 2) - 1
+	
+	for x in footprint.x:
+		for y in footprint.y:
+			ret.push_back(grid_start + Vector2i(x - x_offset, y - y_offset))
+	
+	return ret
+
 func movement(_delta: float) -> void:
 	pass
 
 func die():
 	super()
 	
-	var points: Array[Vector2i] = []
-	for a in footprint.x:
-		for b in footprint.y:
-			points.push_back(grid_start + Vector2i(a, -b))
-	
+	var points: Array[Vector2i] = get_tiles_in_footprint()
 	GameInfo.map.set_cells_terrain_connect(points, 0, 0)
