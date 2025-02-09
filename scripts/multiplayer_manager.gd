@@ -40,7 +40,6 @@ func _connect(id: int):
 	var my_new_guy = load("res://units/Buildings/nexus.tscn").instantiate()
 	my_new_guy.player_id = 1
 	my_new_guy.position = Vector2(-256, 0)
-	var count = 0
 	GameInfo.players.get_children()[0].spawn_unit(my_new_guy)
 	
 	var new_guy = load("res://units/Buildings/nexus.tscn").instantiate()

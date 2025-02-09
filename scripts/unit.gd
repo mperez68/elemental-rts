@@ -219,15 +219,12 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	if event.is_action_pressed("click"):
 		select_event.emit(self)
 
-
 func _on_navigation_finished() -> void:
 	_on_attack_cooldown_timeout()
 	attack_cooldown.start()
 
-
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
-
 
 func _on_return_timer_timeout() -> void:
 	route(nav.target_position)

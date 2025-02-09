@@ -3,7 +3,7 @@ class_name Action
 
 signal clear_hover
 
-enum ActionNames{ BUILD_NEXUS, BUILD_PROSELYTIZER, BUILD_LOCUS, BUILD_HIEROPHANT, BUILD_VANGUARD, PRODUCE_SANCTIFIED, PRODUCE_LONGWEAVER }
+enum ActionNames{ BUILD_NEXUS, BUILD_PROSELYTIZER, BUILD_LOCUS, BUILD_HIEROPHANT, BUILD_TEMPLE, BUILD_VANGUARD, PRODUCE_SANCTIFIED, PRODUCE_LONGWEAVER }
 
 var t = preload("res://ui/highlight_tile.tscn")
 
@@ -51,6 +51,11 @@ static func build(action: ActionNames, id: int) -> Action:
 			temp.shortcut = "BuildProselytizer"
 			temp.effect = temp.build_proselytizer
 			temp.highlight_footprint = load("res://units/Buildings/proselytizer.tscn").instantiate().footprint
+		ActionNames.BUILD_TEMPLE:
+			temp.action_name = "Build [u]T[/u]emple"
+			temp.shortcut = "BuildTemple"
+			temp.effect = temp.build_temple
+			temp.highlight_footprint = load("res://units/Buildings/temple.tscn").instantiate().footprint
 		ActionNames.PRODUCE_SANCTIFIED:
 			temp.action_name = "Produce San[i]c[/i]tifier"
 			temp.shortcut = "ProduceSanctifier"
@@ -88,6 +93,8 @@ func _build(action: ActionNames, args: Array) -> bool:
 			building = load("res://units/Buildings/defense_tower.tscn").instantiate()
 		ActionNames.BUILD_PROSELYTIZER:
 			building = load("res://units/Buildings/proselytizer.tscn").instantiate()
+		ActionNames.BUILD_TEMPLE:
+			building = load("res://units/Buildings/temple.tscn").instantiate()
 		_:
 			_null_effect([])
 			return false
@@ -158,6 +165,9 @@ func build_vanguard(args: Array) -> bool:
 
 func build_proselytizer(args: Array) -> bool:
 	return _build(ActionNames.BUILD_PROSELYTIZER, args)
+
+func build_temple(args: Array) -> bool:
+	return _build(ActionNames.BUILD_TEMPLE, args)
 
 func produce_sanctified(args: Array) -> bool:
 	return _produce(ActionNames.PRODUCE_SANCTIFIED, args)

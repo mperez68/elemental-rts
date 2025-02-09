@@ -125,3 +125,13 @@ func _on_child_entered_tree(node: Node) -> void:
 func _on_multiplayer_spawner_spawned(node: Node) -> void:
 	if node is Unit:
 		_handoff.rpc(node.name)
+
+
+func _on_multiplayer_spawner_despawned(node: Node) -> void:
+	if node is Building:
+		var points: Array[Vector2i] = []
+		for a in node.footprint.x:
+			for b in node.footprint.y:
+				points.push_back(node.grid_start + Vector2i(a, -b))
+		
+		GameInfo.map.set_cells_terrain_connect(points, 0, 0)

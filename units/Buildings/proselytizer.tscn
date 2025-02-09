@@ -27,7 +27,8 @@ fill_to = Vector2(1, 0.5)
 
 [node name="Proselytizer" instance=ExtResource("1_u5cev")]
 footprint = Vector2i(1, 1)
-actions = Array[int]([1, 4, 2, 3])
+max_hp = 20
+actions = Array[int]([1, 5, 2, 3])
 
 [node name="UnitCollision" parent="." index="0"]
 shape = SubResource("CircleShape2D_b828r")

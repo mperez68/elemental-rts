@@ -28,4 +28,3 @@ func _spawn_unit(filepath: String, position: Vector2, id: int, element: Unit.Ele
 		node.player_id = id
 		node.element = element
 		get_tree().current_scene.get_node("Units").add_child(node, true)
-		print(node)
