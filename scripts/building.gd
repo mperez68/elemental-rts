@@ -34,13 +34,17 @@ func get_tiles_in_footprint() -> Array[Vector2i]:
 	grid_start = GameInfo.map.local_to_map(position)
 	var x_offset = 0
 	if footprint.x % 2 == 1:	# ODD
+		@warning_ignore("integer_division")
 		x_offset = (footprint.x - 1) / 2
 	else:	# EVEN
+		@warning_ignore("integer_division")
 		x_offset = (footprint.x / 2) - 1
 	var y_offset = 0
 	if footprint.y % 2 == 1:	# ODD
+		@warning_ignore("integer_division")
 		y_offset = (footprint.y - 1) / 2
 	else:	# EVEN
+		@warning_ignore("integer_division")
 		y_offset = (footprint.y / 2) - 1
 	
 	for x in footprint.x:
