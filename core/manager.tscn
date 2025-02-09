@@ -1,12 +1,9 @@
-[gd_scene load_steps=8 format=4 uid="uid://j3qlx5gglclb"]
+[gd_scene load_steps=5 format=4 uid="uid://j3qlx5gglclb"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_u45tw"]
 [ext_resource type="PackedScene" uid="uid://cmrm13bj2120g" path="res://core/world.tscn" id="1_wu4d5"]
 [ext_resource type="PackedScene" uid="uid://dsn6ofk6ltksd" path="res://ui/hud.tscn" id="2_pf1tx"]
 [ext_resource type="Script" path="res://scripts/hud_layer.gd" id="4_0prem"]
-[ext_resource type="PackedScene" uid="uid://6ti2x0yushru" path="res://units/Buildings/temple.tscn" id="6_24otq"]
-[ext_resource type="PackedScene" uid="uid://c071lej28y8j7" path="res://units/Buildings/nexus.tscn" id="7_aak3y"]
-[ext_resource type="PackedScene" uid="uid://bp0co1w2554w2" path="res://units/farweaver.tscn" id="8_xc3u7"]
 
 [node name="Manager" type="Node2D"]
 y_sort_enabled = true
@@ -26,34 +23,14 @@ tile_map_data = PackedByteArray("AAArAPD/AAADAAAAAAAqAPD/AAADAAEAAAApAPD/AAADAAE
 [node name="ResourceVeins" parent="World" index="3"]
 tile_map_data = PackedByteArray("AAAIABsAAQAEAAAAAAAAABwAAQAJAAAAAAA=")
 
-[node name="Camera" parent="World" index="4" node_paths=PackedStringArray("start_focus")]
-start_focus = NodePath("../../Nexus")
+[node name="Units" type="Node2D" parent="."]
 
-[node name="Nexus" parent="." instance=ExtResource("7_aak3y")]
-position = Vector2(1057, 398)
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://units/sanctified.tscn", "res://units/farweaver.tscn", "res://units/Buildings/nexus.tscn", "res://units/Buildings/locus.tscn", "res://units/Buildings/hierophant.tscn", "res://units/Buildings/defense_tower.tscn", "res://units/Buildings/proselytizer.tscn", "res://units/Buildings/temple.tscn", "res://core/missile.tscn", "res://core/input_synchronizer.tscn")
+spawn_path = NodePath("../Units")
 
-[node name="Temple" parent="." instance=ExtResource("6_24otq")]
-position = Vector2(798, 227)
-
-[node name="Farweaver" parent="." instance=ExtResource("8_xc3u7")]
-position = Vector2(58, -355)
-team = 1
-element = 2
-
-[node name="Farweaver2" parent="." instance=ExtResource("8_xc3u7")]
-position = Vector2(145, -401)
-team = 1
-element = 1
-
-[node name="Farweaver3" parent="." instance=ExtResource("8_xc3u7")]
-position = Vector2(511, -8)
-element = 4
-
-[node name="Farweaver4" parent="." instance=ExtResource("8_xc3u7")]
-position = Vector2(585, -58)
-element = 3
-
-[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="update_hud" from="." to="HUDLayer/HUD" method="update"]
+[connection signal="child_entered_tree" from="Units" to="." method="_on_child_entered_tree"]
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]
 
 [editable path="World"]

@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 	move += Vector2i.UP * int(Input.is_action_pressed("ui_up"))
 	move += Vector2i.DOWN * int(Input.is_action_pressed("ui_down"))
 	
-	position += (move + hud_scroll_vector) * delta * GameInfo.scroll_speed
+	position += (move) * delta * GameInfo.scroll_speed # + hud_scroll_vector
 
 func _input(event):
 	# Scroll with mouse

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dybyuy4iemrhh"]
+[gd_scene load_steps=6 format=3 uid="uid://dybyuy4iemrhh"]
 
 [ext_resource type="Script" path="res://scripts/game_info.gd" id="1_rhlfo"]
 [ext_resource type="Script" path="res://scripts/music_manager.gd" id="2_2huf8"]
 [ext_resource type="AudioStream" uid="uid://djjrqq8eymtxt" path="res://assets/music/theme_intro.wav" id="3_fvk1y"]
 [ext_resource type="AudioStream" uid="uid://bd8l70w8ahm5" path="res://assets/music/theme_loop.wav" id="4_6lq1h"]
+[ext_resource type="PackedScene" uid="uid://1kr5t4lfcokl" path="res://core/player.tscn" id="5_jbety"]
 
 [node name="GameInfo" type="Node"]
 script = ExtResource("1_rhlfo")
@@ -19,9 +20,13 @@ bus = &"Music"
 stream = ExtResource("4_6lq1h")
 bus = &"Music"
 
-[node name="ProductionTimer" type="Timer" parent="."]
-wait_time = 10.0
-autostart = true
+[node name="Players" type="Node" parent="."]
+
+[node name="Player" parent="Players" instance=ExtResource("5_jbety")]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://core/player.tscn")
+spawn_path = NodePath("../Players")
 
 [connection signal="finished" from="MusicManager/ThemeIntro" to="MusicManager" method="_on_theme_finished" binds= [0]]
-[connection signal="timeout" from="ProductionTimer" to="." method="_on_production_timer_timeout"]
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

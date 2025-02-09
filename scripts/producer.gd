@@ -6,4 +6,4 @@ class_name Producer extends Building
 
 func _ready() -> void:
 	super()
-	GameInfo.players[team].producers.push_back(self)
+	GameInfo.get_player(player_id).producers.push_back(self)

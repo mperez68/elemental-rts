@@ -11,6 +11,9 @@ var clicked_unit: Unit = null
 
 
 # Engine
+func _ready() -> void:
+	multiplayer.peer_connected.connect(clear_sel)
+
 func _process(_delta: float) -> void:
 	# Draw Selection Box
 	if selection_start != Vector2.ZERO:
@@ -42,7 +45,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			new_sel(all_units, box)
 		else:
 			clear_sel()
-			if clicked_unit != null and clicked_unit.team == GameInfo.active_player:
+			if clicked_unit != null and clicked_unit.player_id == GameInfo.active_player:
 				selected.push_back(clicked_unit)
 				clicked_unit.select()
 			clicked_unit = null
@@ -58,7 +61,7 @@ func log_click_unit(unit: Unit):
 func new_sel(units: Array[Node], rect: Rect2):
 	clear_sel()
 	for unit in units:
-		if rect.has_point(unit.position + unit.collider_target) and !unit.flags["dying"] and unit.team == GameInfo.active_player:
+		if rect.has_point(unit.position + unit.collider_target) and !unit.flags["dying"] and unit.player_id == GameInfo.active_player:
 			selected.push_back(unit)
 			unit.select()
 	if selected.size() > 1:
@@ -68,7 +71,7 @@ func new_sel(units: Array[Node], rect: Rect2):
 				selected.remove_at(i)
 	update_hud.emit(selected)
 
-func clear_sel():
+func clear_sel(_non = null):
 	for unit in selected:
 		if unit != null and !unit.flags["dying"]:
 			unit.select(false)
@@ -100,3 +103,21 @@ func _get_formation(target: Vector2, spacing: int = 64) -> Array[Vector2]:
 func _on_child_entered_tree(node: Node) -> void:
 	if node is Unit:
 		node.select_event.connect(log_click_unit)
+		_handoff.rpc(node.name)
+
+
+func _on_multiplayer_spawner_spawned(node: Node) -> void:
+	if node is Unit:
+		_handoff.rpc(node.name)
+
+@rpc("any_peer", "reliable")
+func _handoff(node_name: String) -> void:
+	var node
+	var count = 0
+	@warning_ignore("unassigned_variable")
+	while node == null and count < 100:
+		node = $Units.get_node(node_name)
+		count += 1
+		await get_tree().create_timer(0.1).timeout 
+	node.set_multiplayer_authority(node.player_id)
+	

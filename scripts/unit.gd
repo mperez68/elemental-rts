@@ -32,11 +32,12 @@ signal select_event(this: Unit)
 @onready var anim = $AnimationPlayer
 @onready var missile_collision = $Body/MissileHitbox/MissileCollision
 @onready var unit_collision = $UnitCollision
+@onready var sync = $Synchronizer
 
 var missile = preload("res://core/missile.tscn")
 
 @export var unit_name: String = "Unit"
-@export var team: int = 0
+@export var player_id: int = 1
 @export var aether_cost: int = 0
 @export var empyrium_cost: int = 0
 @export var max_hp: int = 10
@@ -45,7 +46,11 @@ var missile = preload("res://core/missile.tscn")
 @export var acceleration: float = 1024
 @export var weapon_type: WeaponType = WeaponType.NONE
 @export var targetting_type: TargetingType = TargetingType.SINGLE
-@export var element: Element = Element.NONE
+@export var element:= Element.NONE:
+	set(ele):
+		element = ele
+		tags.push_back(ELEMENT_TAG[element])
+		modulate = ELEMENT_COLOR[element]
 @export var stance: Stance = Stance.AGGRESSIVE
 @export var tags: Array[Texture]
 @onready var hp: int = max_hp
@@ -65,11 +70,11 @@ var last_targets: Array = [ ]
 
 # Engine
 func _ready() -> void:
-	# set visibility by team
-	flags["reveal"] = team == GameInfo.active_player
-	if !flags["reveal"]:
-		$Light.queue_free()
-		header.visible = false
+	# set visibility by player_id
+	#flags["reveal"] = player_id == GameInfo.active_player
+	#if !flags["reveal"]:
+		#$Light.queue_free()
+		#header.visible = false
 	route(position)
 	# Set bars
 	hp_meter.max_value = max_hp
@@ -83,10 +88,7 @@ func _ready() -> void:
 	collider_target = sum
 	# Shuffle animation start time
 	anim.seek(randf_range(0, 4), true)
-	# Set element details
-	tags.push_back(ELEMENT_TAG[element])
-	modulate = ELEMENT_COLOR[element]
-	
+
 
 func _process(delta: float) -> void:
 	movement(delta)
@@ -100,9 +102,10 @@ func _draw() -> void:
 
 # Public
 func route(target: Vector2, clear_chase: bool = false):
-	if clear_chase:
-		last_targets.clear()
-	nav.target_position = target
+	if multiplayer.get_unique_id() == get_multiplayer_authority():
+		if clear_chase:
+			last_targets.clear()
+		nav.target_position = target
 
 func select(enable: bool = true):
 	flags["selected"] = enable
@@ -154,7 +157,7 @@ func _attack():
 	var new_targets: Array = []
 	var collisions = attack_radius.collision_result
 	for target in collisions:
-		if target.collider is Unit and target.collider.team != team and !target.collider.flags["dying"]:
+		if target.collider is Unit and target.collider.player_id != player_id and !target.collider.flags["dying"]:
 			match weapon_type:
 				WeaponType.MISSILE:
 					_missile(target.collider)
@@ -177,10 +180,10 @@ func _attack():
 	last_targets = new_targets
 
 func _missile(target: Unit):
-	add_sibling(_make_missile(get_collider_position(), target))
+	add_sibling(_make_missile(get_collider_position(), target), true)
 	attack_sfx.play()
 func _hit_scan(target: Unit):
-	add_sibling(_make_missile(target.position, target))
+	add_sibling(_make_missile(target.position, target), true)
 	attack_sfx.play()
 
 func _make_missile(origin: Vector2, target: Unit):
@@ -189,17 +192,18 @@ func _make_missile(origin: Vector2, target: Unit):
 	if element > Element.NONE:
 		m.set_element(element)
 	m.set_target(origin, target.get_collider_position())
-	m.team = team
+	m.player_id = player_id
 	return m
 
 
 # Signals
 func _on_attack_cooldown_timeout() -> void:
 	# Simple Missile
-	if nav.is_navigation_finished():
-		_attack()
-	else:
-		attack_cooldown.stop()
+	if multiplayer.is_server():
+		if nav.is_navigation_finished():
+			_attack()
+		else:
+			attack_cooldown.stop()
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "die":

@@ -11,5 +11,5 @@ aether_cost = 15
 max_hp = 6
 targetting_type = 1
 
-[node name="AttackRange" parent="." index="7"]
+[node name="AttackRange" parent="." index="8"]
 shape = SubResource("CircleShape2D_01ur0")

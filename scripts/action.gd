@@ -97,16 +97,16 @@ func _build(action: ActionNames, args: Array) -> bool:
 		if !tile.valid:
 			return false
 	
-	if GameInfo.players[GameInfo.active_player].aether < building.aether_cost or GameInfo.players[GameInfo.active_player].empyrium < building.empyrium_cost:
+	if GameInfo.get_player(GameInfo.active_player).aether < building.aether_cost or GameInfo.get_player(GameInfo.active_player).empyrium < building.empyrium_cost:
 		print("INSUFFICIENT RESOURCES")
 		return false
 	
-	GameInfo.players[GameInfo.active_player].aether -= building.aether_cost
-	GameInfo.players[GameInfo.active_player].empyrium -= building.empyrium_cost
+	GameInfo.get_player(GameInfo.active_player).aether -= building.aether_cost
+	GameInfo.get_player(GameInfo.active_player).empyrium -= building.empyrium_cost
 	
 	@warning_ignore("integer_division")
 	building.position = args[0]
-	args[1].add_child(building)
+	args[1].add_child(building, true)
 	clear_hover.emit(building)
 	
 	return true
@@ -124,17 +124,17 @@ func _produce(action: ActionNames, args: Array):
 			_null_effect([])
 			return false
 	
-	if GameInfo.players[GameInfo.active_player].aether < unit.aether_cost or GameInfo.players[GameInfo.active_player].empyrium < unit.empyrium_cost:
+	if GameInfo.get_player(GameInfo.active_player).aether < unit.aether_cost or GameInfo.get_player(GameInfo.active_player).empyrium < unit.empyrium_cost:
 		print("INSUFFICIENT RESOURCES")
 		return false
 	
-	GameInfo.players[GameInfo.active_player].aether -= unit.aether_cost
-	GameInfo.players[GameInfo.active_player].empyrium -= unit.empyrium_cost
+	GameInfo.get_player(GameInfo.active_player).aether -= unit.aether_cost
+	GameInfo.get_player(GameInfo.active_player).empyrium -= unit.empyrium_cost
 	
 	@warning_ignore("integer_division")
 	unit.position = args[0]
 	unit.element = args[2]
-	args[1].add_child(unit)
+	args[1].add_child(unit, true)
 	
 	return true
 
@@ -201,6 +201,6 @@ func clear_highlights():
 # Signals
 func _highlight_clicked(_viewport: Node, event: InputEvent, _shape_idx: int):
 	if event.is_action_pressed("click"):
-		effect.call([GameInfo.camera_offset(event.position), GameInfo.map.get_tree().current_scene, element])
+		effect.call([GameInfo.camera_offset(event.position), GameInfo.map.get_tree().current_scene.get_node("Units"), element])
 	elif event.is_action_pressed("alt_click"):
 		clear_hover.emit(null)

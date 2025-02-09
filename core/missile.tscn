@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://r0c3hemkdpyp"]
+[gd_scene load_steps=56 format=3 uid="uid://r0c3hemkdpyp"]
 
 [ext_resource type="Material" uid="uid://csh3ts0onhaqd" path="res://core/fog_unit.tres" id="1_pfgfq"]
 [ext_resource type="Texture2D" uid="uid://365sxct7q81c" path="res://assets/graphics/effects/Fire_Ball/001.png" id="1_uykkq"]
@@ -13,6 +13,20 @@
 [ext_resource type="Texture2D" uid="uid://bandpyq27e2yi" path="res://assets/graphics/effects/Fire_Ball/008.png" id="8_cdgp7"]
 [ext_resource type="Texture2D" uid="uid://58lvlg12vtn0" path="res://assets/graphics/effects/Fire_Ball/009.png" id="9_63wgj"]
 [ext_resource type="Texture2D" uid="uid://dtt4d6pxh1d22" path="res://assets/graphics/effects/Fire_Ball/010.png" id="10_tcf4o"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v2drw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:elements")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x4ik5"]
 radius = 32.0156
@@ -380,6 +394,9 @@ collision_layer = 2
 collision_mask = 2
 audio_bus_name = &"Sfx"
 script = ExtResource("2_d1yrp")
+
+[node name="Synchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_v2drw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_x4ik5")

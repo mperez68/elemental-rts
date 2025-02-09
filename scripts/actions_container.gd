@@ -18,6 +18,7 @@ var active_action = -1
 var selection: Array[Unit]
 var last_selection_size: int = 0
 
+
 func _process(_delta: float) -> void:
 	var in_reach = false
 	var count_valid = 0
@@ -46,6 +47,13 @@ func _on_hud_update_cards(new_sel: Array[Unit]) -> void:
 	selection = new_sel
 	last_selection_size = new_sel.size()
 	update()
+
+func _on_action_button_pressed(index: int) -> void:
+	if active_action != index:
+		active_action = index
+	else:
+		active_action = -1
+
 
 func clear_action(new_child: Node):
 	if new_child != null and  !new_child.is_node_ready():
@@ -86,10 +94,3 @@ func update() -> void:
 		temp.element = selection[0].element
 		temp.clear_hover.connect(clear_action)
 		actions.push_back(temp)
-
-
-func _on_action_button_pressed(index: int) -> void:
-	if active_action != index:
-		active_action = index
-	else:
-		active_action = -1

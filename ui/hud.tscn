@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dsn6ofk6ltksd"]
+[gd_scene load_steps=22 format=3 uid="uid://dsn6ofk6ltksd"]
 
 [ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="1_kkdxd"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="2_cg38j"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/resource_data.gd" id="3_wrk08"]
 [ext_resource type="Script" path="res://scripts/unit_selection.gd" id="4_hwld0"]
 [ext_resource type="Script" path="res://scripts/actions_container.gd" id="6_qvhaj"]
+[ext_resource type="Script" path="res://scripts/temp_multiplayer_container.gd" id="7_c0nsu"]
 
 [sub_resource type="Gradient" id="Gradient_ggbrq"]
 offsets = PackedFloat32Array(0.898148, 0.967593)
@@ -371,6 +372,36 @@ texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
 
+[node name="TempMultiplayerContainer" type="PanelContainer" parent="Margins/InnerMarginBox"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.929
+anchor_right = 1.0
+anchor_bottom = 0.146
+offset_left = -0.359985
+offset_bottom = -1.52588e-05
+grow_horizontal = 0
+script = ExtResource("7_c0nsu")
+
+[node name="Background" type="ColorRect" parent="Margins/InnerMarginBox/TempMultiplayerContainer"]
+layout_mode = 2
+color = Color(0.239216, 0.239216, 0.239216, 0.666667)
+
+[node name="MarginContainer" type="MarginContainer" parent="Margins/InnerMarginBox/TempMultiplayerContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HostButton" type="Button" parent="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "HOST"
+
+[node name="JoinButton" type="Button" parent="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "JOIN
+"
+
 [node name="TopEdge" type="Control" parent="."]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 1
@@ -469,6 +500,8 @@ grow_vertical = 0
 [connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton9" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [9]]
 [connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton10" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [10]]
 [connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton11" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [11]]
+[connection signal="pressed" from="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer/HostButton" to="Margins/InnerMarginBox/TempMultiplayerContainer" method="_on_host_button_pressed"]
+[connection signal="pressed" from="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer/JoinButton" to="Margins/InnerMarginBox/TempMultiplayerContainer" method="_on_join_button_pressed"]
 [connection signal="mouse_entered" from="TopEdge" to="." method="_on_mouse_entered" binds= [Vector2i(0, -1)]]
 [connection signal="mouse_exited" from="TopEdge" to="." method="_on_mouse_exited" binds= [Vector2i(0, -1)]]
 [connection signal="mouse_entered" from="BottomEdge" to="." method="_on_mouse_entered" binds= [Vector2i(0, 1)]]

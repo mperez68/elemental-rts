@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cpbr6chnsnpg"]
+[gd_scene load_steps=18 format=3 uid="uid://cpbr6chnsnpg"]
 
 [ext_resource type="Script" path="res://scripts/unit.gd" id="1_70gch"]
 [ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="2_tvcjn"]
@@ -102,6 +102,32 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v4kk7"]
 radius = 160.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_eih6u"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:hp")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("AnimationPlayer:current_animation")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("Header/Health:value")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("Header/Health:max_value")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:element")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath(".:stance")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+properties/7/path = NodePath(".:player_id")
+properties/7/spawn = true
+properties/7/replication_mode = 2
 
 [node name="Unit" type="CharacterBody2D"]
 z_index = 1
@@ -227,6 +253,9 @@ volume_db = -18.0
 attenuation = 3.0
 max_polyphony = 3
 bus = &"Sfx"
+
+[node name="Synchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_eih6u")
 
 [connection signal="input_event" from="Body/MissileHitbox" to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="Body/MissileHitbox" to="." method="_on_mouse_entered"]

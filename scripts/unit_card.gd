@@ -6,9 +6,12 @@ extends PanelContainer
 
 var unit: Unit
 
-func _process(delta: float) -> void:
-	hp_bar.value = unit.hp
-	if unit.hp <= 0:
+func _process(_delta: float) -> void:
+	if is_instance_valid(unit):
+		hp_bar.value = unit.hp
+		if unit.hp <= 0:
+			queue_free()
+	else:
 		queue_free()
 
 func set_unit(u: Unit) -> bool:

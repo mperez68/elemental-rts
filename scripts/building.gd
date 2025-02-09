@@ -30,7 +30,7 @@ func _ready() -> void:
 # Public
 func movement(_delta: float) -> void:
 	pass
-	
+
 func die():
 	super()
 	
