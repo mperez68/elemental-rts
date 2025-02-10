@@ -31,6 +31,8 @@ func _on_start_button_pressed() -> void:
 		nexus.position = GameInfo.map.start_locations[count]
 		count += 1
 		player.spawn_unit(nexus)
+		if GameInfo.active_player == player.player_id:
+			GameInfo.camera. position = nexus.position
 
 
 # 	Host

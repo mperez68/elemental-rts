@@ -7,7 +7,10 @@ extends TileMapLayer
 # Engine
 func _ready() -> void:
 	GameInfo.map = self
+	start_locations.shuffle()
 
+
+# Public
 func get_resource(grid_position: Vector2i) -> int:
 	var ret: int
 	var resource_tile = resource_layer.get_cell_tile_data(grid_position)

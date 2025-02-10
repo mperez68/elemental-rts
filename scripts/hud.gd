@@ -2,6 +2,10 @@ extends NinePatchRect
 
 signal update_cards(selection: Array[Unit])
 
+func _ready() -> void:
+	%MultiplayerContainer.visible = true
+	%Margins.visible = false
+
 
 func update(selection: Array[Unit]):
 	update_cards.emit(selection)

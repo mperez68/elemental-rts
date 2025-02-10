@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlgp820oq2lfy"]
+
+[ext_resource type="Texture2D" uid="uid://75j44o686o8g" path="res://assets/graphics/Light.png" id="1_iaqd3"]
+[ext_resource type="Script" path="res://scripts/minimap_unit.gd" id="2_bb3qu"]
+
+[node name="MinimapUnit" type="Sprite2D"]
+rotation = 0.785398
+scale = Vector2(0.008, 0.008)
+texture = ExtResource("1_iaqd3")
+script = ExtResource("2_bb3qu")
+friendly_color = Color(6.01634e-07, 0.610609, 9.62615e-07, 1)
+unfriendly_color = Color(0.705939, 3.53761e-06, 3.85046e-07, 1)

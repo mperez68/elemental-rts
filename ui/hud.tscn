@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://dsn6ofk6ltksd"]
+[gd_scene load_steps=25 format=3 uid="uid://dsn6ofk6ltksd"]
 
 [ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="1_kkdxd"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="2_cg38j"]
 [ext_resource type="PackedScene" uid="uid://m05j8d1li5m3" path="res://ui/unit_card.tscn" id="2_qxiru"]
 [ext_resource type="Script" path="res://scripts/resource_data.gd" id="3_wrk08"]
 [ext_resource type="Script" path="res://scripts/unit_selection.gd" id="4_hwld0"]
+[ext_resource type="Script" path="res://scripts/minimap.gd" id="5_oicyu"]
 [ext_resource type="Script" path="res://scripts/actions_container.gd" id="6_qvhaj"]
 [ext_resource type="Script" path="res://scripts/temp_multiplayer_container.gd" id="7_c0nsu"]
 
@@ -41,6 +42,13 @@ height = 200
 fill = 2
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_mgu8a"]
+offsets = PackedFloat32Array(0, 0.984962)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wymgk"]
+gradient = SubResource("Gradient_mgu8a")
 
 [sub_resource type="Gradient" id="Gradient_pc7ph"]
 offsets = PackedFloat32Array(0.421569, 1)
@@ -97,6 +105,7 @@ patch_margin_bottom = 40
 script = ExtResource("2_cg38j")
 
 [node name="MultiplayerContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -186,7 +195,6 @@ text = "START GAME"
 
 [node name="Margins" type="MarginContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -294,13 +302,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Minimap" type="NinePatchRect" parent="Margins/InnerMarginBox"]
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(256, 256)
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.8
-anchor_right = 0.109
+anchor_top = 0.744
+anchor_right = 0.139
 anchor_bottom = 1.0
-offset_right = -0.560013
+offset_top = 56.0
+offset_right = -55.76
 grow_vertical = 0
 mouse_filter = 0
 texture = SubResource("GradientTexture2D_c2v7s")
@@ -309,16 +318,55 @@ patch_margin_top = 32
 patch_margin_right = 32
 patch_margin_bottom = 32
 
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Margins/InnerMarginBox/Minimap"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Margins/InnerMarginBox/Minimap/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(200, 200)
+render_target_update_mode = 4
+script = ExtResource("5_oicyu")
+
+[node name="Camera2D" type="Camera2D" parent="Margins/InnerMarginBox/Minimap/SubViewportContainer/SubViewport"]
+
+[node name="Units" type="Node2D" parent="Margins/InnerMarginBox/Minimap/SubViewportContainer/SubViewport"]
+rotation = -0.785398
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Margins/InnerMarginBox/Minimap/SubViewportContainer/SubViewport"]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="Margins/InnerMarginBox/Minimap/SubViewportContainer/SubViewport/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_right = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_wymgk")
+stretch_mode = 1
+
 [node name="UnitSelection" type="HFlowContainer" parent="Margins/InnerMarginBox"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.104
+anchor_left = 0.148
 anchor_top = 0.9
-anchor_right = 0.859
+anchor_right = 0.846
 anchor_bottom = 1.0
-offset_left = 0.319992
+offset_left = 0.679993
 offset_top = -6.10352e-05
-offset_right = 0.719971
+offset_right = 0.359985
 grow_horizontal = 2
 grow_vertical = 0
 alignment = 1

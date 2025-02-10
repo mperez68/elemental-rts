@@ -19,6 +19,7 @@ func _on_production_timer_timeout() -> void:
 
 func spawn_unit(unit: Unit):
 	_spawn_unit.rpc(unit.scene_file_path, unit.position, unit.player_id, unit.element)
+	
 
 @rpc("call_local", "reliable")
 func _spawn_unit(filepath: String, position: Vector2, id: int, element: Unit.Element):

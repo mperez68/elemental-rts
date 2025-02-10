@@ -98,7 +98,7 @@ func _get_formation(target: Vector2, spacing: int = 64) -> Array[Vector2]:
 			formation.push_back(GameInfo.camera_offset(target + Vector2(j * spacing, i * spacing / 2) - offset))
 	return formation
 
-@rpc("any_peer", "reliable")
+@rpc("call_local", "reliable")
 func _handoff(node_name: String) -> void:
 	var node
 	var count = 0
@@ -110,8 +110,15 @@ func _handoff(node_name: String) -> void:
 		if count > 10:
 			print("COULD NOT FIND NODE")
 			return
+		if count > 0:
+			print("%s is waiting on %s ... %s" % [node_name, multiplayer.get_unique_id(), count])
 		await get_tree().create_timer(0.1).timeout
-	node.sync.set_multiplayer_authority(node.player_id)
+	
+	#if $Units.has_node(node_name):
+		#node = $Units.get_node(node_name)
+		#node.sync.set_multiplayer_authority(node.player_id)
+	#else:
+		#$Units
 
 
 
