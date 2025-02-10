@@ -1,6 +1,7 @@
 extends TileMapLayer
 
-@onready var resource_layer: TileMapLayer = $"../ResourceVeins"
+@onready var resource_layer: TileMapLayer = %ResourceVeins
+@onready var bg_layer: TileMapLayer = %GroundCover
 
 @export var start_locations: Array[Vector2i] = []
 
@@ -17,3 +18,7 @@ func get_resource(grid_position: Vector2i) -> int:
 	if resource_tile:
 		ret = resource_tile.get_custom_data("Resource")
 	return ret
+
+func set_cell_all_maps(tile_position: Vector2i):
+	set_cell(tile_position)
+	bg_layer.set_cell(tile_position, 0, Vector2i(1, 1))

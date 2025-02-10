@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://cmrm13bj2120g"]
+[gd_scene load_steps=65 format=3 uid="uid://cmrm13bj2120g"]
 
 [ext_resource type="Texture2D" uid="uid://dk6j7twvhjhi5" path="res://assets/graphics/simpleisometric/tileset_simpleisometric.png" id="1_8i47a"]
 [ext_resource type="Script" path="res://addons/gaea/renderers/2D/tilemap_gaea_renderer.gd" id="2_vq5q1"]
@@ -26,7 +26,7 @@ tile = SubResource("Resource_2228d")
 fullness_check = 1
 fullness_percentage = 0.2
 constrain_world_size = true
-world_size = Vector2i(200, 400)
+world_size = Vector2i(150, 300)
 max_walkers = 100
 new_dir_chance = 0.3
 new_walker_chance = 0.6
@@ -36,6 +36,64 @@ Vector2i(2, 2): 0.5,
 Vector2i(3, 3): 0.1
 }
 modifiers = Array[ExtResource("4_1aw5i")]([])
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t4655"]
+texture = ExtResource("1_8i47a")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_j2lmv"]
+tile_shape = 1
+tile_layout = 4
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("TileSetAtlasSource_t4655")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s4y1o"]
 vertices = PackedVector2Array(24, 4, 0, 16, -24, 4, 0, -8)
@@ -71,6 +129,12 @@ agent_radius = 0.0
 vertices = PackedVector2Array(24, 4, 0, 16, -32, 0, -8, -12)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -12, -32, 0, 0, 16, 24, 4)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_qx1it"]
+vertices = PackedVector2Array(32, 0, 0, 16, -32, 0, 0, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -16, -32, 0, 0, 16, 32, 0)])
 agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_o5jkt"]
@@ -440,7 +504,7 @@ texture_region_size = Vector2i(64, 32)
 1:1/0/terrains_peering_bit/top_left_side = 0
 1:1/0/terrains_peering_bit/top_corner = 0
 1:1/0/terrains_peering_bit/top_right_side = 0
-1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_bd86c")
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_qx1it")
 2:1/0 = 0
 2:1/0/terrain_set = 0
 2:1/0/terrain = 0
@@ -805,13 +869,19 @@ script = ExtResource("2_vq5q1")
 tile_map_layers = [NodePath("../Ground")]
 generator = NodePath("../WalkerGenerator")
 
+[node name="GroundCover" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
+z_index = -1
+tile_set = SubResource("TileSet_j2lmv")
+navigation_enabled = false
+
 [node name="Ground" type="TileMapLayer" parent="."]
 z_index = -1
-y_sort_enabled = true
 tile_set = SubResource("TileSet_64sk4")
 script = ExtResource("7_s82ub")
 
 [node name="ResourceVeins" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
 z_index = 1
 y_sort_enabled = true
 tile_set = SubResource("TileSet_14q1s")

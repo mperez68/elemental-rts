@@ -3,6 +3,7 @@ class_name Building extends Unit
 
 @export var footprint: Vector2i = Vector2i(3, 3)
 var grid_start: Vector2i
+var grid_thread: Thread = Thread.new()
 
 # Engine
 func _ready() -> void:
@@ -21,10 +22,13 @@ func _ready() -> void:
 			@warning_ignore("integer_division")
 			position.y -= GameInfo.GRID.y / 4
 	
-	for tile in get_tiles_in_footprint():
-		GameInfo.map.set_cell(tile)
-	
 	super()
+	
+	grid_thread.start(clear_tiles.bind(get_tiles_in_footprint()), Thread.PRIORITY_HIGH)
+
+func clear_tiles(tiles: Array[Vector2i]):
+	for tile in tiles:
+		GameInfo.map.set_cell_all_maps(tile)
 
 
 # Public

@@ -85,7 +85,7 @@ func _draw() -> void:
 
 
 # Private
-func _get_formation(target: Vector2, spacing: int = 64) -> Array[Vector2]:
+func _get_formation(target: Vector2, spacing: int = 96) -> Array[Vector2]:
 	@warning_ignore("narrowing_conversion")
 	spacing *= GameInfo.camera.zoom.x
 	var formation: Array[Vector2] = [  ]
