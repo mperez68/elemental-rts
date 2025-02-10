@@ -23,11 +23,9 @@ func host_session(local: bool):
 	if local:
 		return LOCAL_HOST_ADDRESS
 	else:
-		return upnp_setup()
+		return _upnp_setup()
 
 func join_session(server_ip: String):
-	#if server_ip == "24.19.207.146":
-		#server_ip = "localhost"
 	print("JOINING P2P SESSION AT %s:%s" % [server_ip, SERVER_PORT])
 	
 	var client_peer = ENetMultiplayerPeer.new()
@@ -39,27 +37,8 @@ func join_session(server_ip: String):
 	print("NEW PLAYER, ID:", GameInfo.active_player)
 
 
-# Signals
-func _connect(id: int):
-	print("%s joining session" % id)
-	
-	GameInfo.add_player(id)
-	
-	var my_new_guy = load("res://units/Buildings/nexus.tscn").instantiate()
-	my_new_guy.player_id = 1
-	my_new_guy.position = Vector2(-256, 0)
-	GameInfo.players.get_children()[0].spawn_unit(my_new_guy)
-	
-	var new_guy = load("res://units/Buildings/nexus.tscn").instantiate()
-	new_guy.player_id = id
-	new_guy.position = Vector2(256, 0)
-	GameInfo.players.get_children()[0].spawn_unit(new_guy)
-
-func _disconnect(id: int):
-	print("%s leaving session" % id)
-	GameInfo.get_player(id).queue_free()
-
-func upnp_setup():
+# Private
+func _upnp_setup():
 	var upnp = UPNP.new()
 	
 	# Find address
@@ -79,3 +58,13 @@ func upnp_setup():
 	# Success, return valid address for display
 	print("Success! Join Address: %s" % upnp.query_external_address())
 	return upnp.query_external_address()
+
+
+# Signals
+func _connect(id: int):
+	print("%s joining session" % id)
+	GameInfo.add_player(id)
+
+func _disconnect(id: int):
+	print("%s leaving session" % id)
+	GameInfo.get_player(id).queue_free()

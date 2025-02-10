@@ -96,7 +96,93 @@ patch_margin_right = 40
 patch_margin_bottom = 40
 script = ExtResource("2_cg38j")
 
+[node name="MultiplayerContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = -70.0
+offset_right = 208.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_c0nsu")
+
+[node name="Background" type="ColorRect" parent="MultiplayerContainer"]
+layout_mode = 2
+color = Color(0.239216, 0.239216, 0.239216, 0.666667)
+
+[node name="ConnectContainer" type="MarginContainer" parent="MultiplayerContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MultiplayerContainer/ConnectContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HostContainer" type="HBoxContainer" parent="MultiplayerContainer/ConnectContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HostButton" type="Button" parent="MultiplayerContainer/ConnectContainer/VBoxContainer/HostContainer"]
+layout_mode = 2
+text = "HOST ONLINE"
+
+[node name="HostLocalButton" type="Button" parent="MultiplayerContainer/ConnectContainer/VBoxContainer/HostContainer"]
+layout_mode = 2
+text = "HOST LOCAL"
+
+[node name="JoinContainer" type="HBoxContainer" parent="MultiplayerContainer/ConnectContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="JoinButton" type="Button" parent="MultiplayerContainer/ConnectContainer/VBoxContainer/JoinContainer"]
+layout_mode = 2
+text = "JOIN ONLINE"
+
+[node name="JoinLocalButton" type="Button" parent="MultiplayerContainer/ConnectContainer/VBoxContainer/JoinContainer"]
+layout_mode = 2
+text = "JOIN LOCAL"
+
+[node name="TextEdit" type="LineEdit" parent="MultiplayerContainer/ConnectContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "host address"
+alignment = 1
+max_length = 64
+expand_to_text_length = true
+clear_button_enabled = true
+draw_control_chars = true
+
+[node name="Lobby" type="MarginContainer" parent="MultiplayerContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MultiplayerContainer/Lobby"]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayerList" type="ItemList" parent="MultiplayerContainer/Lobby/VBoxContainer"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="MultiplayerContainer/Lobby/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "START GAME"
+
 [node name="Margins" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -372,70 +458,6 @@ texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
 
-[node name="TempMultiplayerContainer" type="PanelContainer" parent="Margins/InnerMarginBox"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -208.0
-offset_top = -70.0
-offset_right = 208.0
-offset_bottom = 70.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("7_c0nsu")
-
-[node name="Background" type="ColorRect" parent="Margins/InnerMarginBox/TempMultiplayerContainer"]
-layout_mode = 2
-color = Color(0.239216, 0.239216, 0.239216, 0.666667)
-
-[node name="MarginContainer" type="MarginContainer" parent="Margins/InnerMarginBox/TempMultiplayerContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="HostContainer" type="HBoxContainer" parent="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="HostButton" type="Button" parent="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer/HostContainer"]
-layout_mode = 2
-text = "HOST ONLINE"
-
-[node name="HostLocalButton" type="Button" parent="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer/HostContainer"]
-layout_mode = 2
-text = "HOST LOCAL"
-
-[node name="JoinContainer" type="HBoxContainer" parent="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="JoinButton" type="Button" parent="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer/JoinContainer"]
-layout_mode = 2
-text = "JOIN ONLINE"
-
-[node name="JoinLocalButton" type="Button" parent="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer/JoinContainer"]
-layout_mode = 2
-text = "JOIN LOCAL"
-
-[node name="TextEdit" type="LineEdit" parent="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-placeholder_text = "host address"
-alignment = 1
-max_length = 64
-expand_to_text_length = true
-clear_button_enabled = true
-draw_control_chars = true
-
 [node name="TopEdge" type="Control" parent="."]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 1
@@ -521,6 +543,11 @@ grow_vertical = 0
 
 [connection signal="update_cards" from="." to="Margins/InnerMarginBox/UnitSelection" method="_on_hud_update_cards"]
 [connection signal="update_cards" from="." to="Margins/InnerMarginBox/ActionsContainer" method="_on_hud_update_cards"]
+[connection signal="pressed" from="MultiplayerContainer/ConnectContainer/VBoxContainer/HostContainer/HostButton" to="MultiplayerContainer" method="_on_host_button_pressed"]
+[connection signal="pressed" from="MultiplayerContainer/ConnectContainer/VBoxContainer/HostContainer/HostLocalButton" to="MultiplayerContainer" method="_on_host_local_button_pressed"]
+[connection signal="pressed" from="MultiplayerContainer/ConnectContainer/VBoxContainer/JoinContainer/JoinButton" to="MultiplayerContainer" method="_on_join_button_pressed"]
+[connection signal="pressed" from="MultiplayerContainer/ConnectContainer/VBoxContainer/JoinContainer/JoinLocalButton" to="MultiplayerContainer" method="_on_join_local_button_pressed"]
+[connection signal="pressed" from="MultiplayerContainer/Lobby/VBoxContainer/StartButton" to="MultiplayerContainer" method="_on_start_button_pressed"]
 [connection signal="pressed" from="Margins/InnerMarginBox/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton0" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [0]]
 [connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton1" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [1]]
@@ -534,10 +561,6 @@ grow_vertical = 0
 [connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton9" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [9]]
 [connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton10" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [10]]
 [connection signal="pressed" from="Margins/InnerMarginBox/ActionsContainer/ActionButton11" to="Margins/InnerMarginBox/ActionsContainer" method="_on_action_button_pressed" binds= [11]]
-[connection signal="pressed" from="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer/HostContainer/HostButton" to="Margins/InnerMarginBox/TempMultiplayerContainer" method="_on_host_button_pressed"]
-[connection signal="pressed" from="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer/HostContainer/HostLocalButton" to="Margins/InnerMarginBox/TempMultiplayerContainer" method="_on_host_local_button_pressed"]
-[connection signal="pressed" from="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer/JoinContainer/JoinButton" to="Margins/InnerMarginBox/TempMultiplayerContainer" method="_on_join_button_pressed"]
-[connection signal="pressed" from="Margins/InnerMarginBox/TempMultiplayerContainer/MarginContainer/VBoxContainer/JoinContainer/JoinLocalButton" to="Margins/InnerMarginBox/TempMultiplayerContainer" method="_on_join_local_button_pressed"]
 [connection signal="mouse_entered" from="TopEdge" to="." method="_on_mouse_entered" binds= [Vector2i(0, -1)]]
 [connection signal="mouse_exited" from="TopEdge" to="." method="_on_mouse_exited" binds= [Vector2i(0, -1)]]
 [connection signal="mouse_entered" from="BottomEdge" to="." method="_on_mouse_entered" binds= [Vector2i(0, 1)]]
