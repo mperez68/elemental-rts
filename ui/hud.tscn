@@ -173,7 +173,11 @@ layout_mode = 2
 alignment = 1
 
 [node name="PlayerList" type="ItemList" parent="MultiplayerContainer/Lobby/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
+allow_search = false
+auto_height = true
 
 [node name="StartButton" type="Button" parent="MultiplayerContainer/Lobby/VBoxContainer"]
 layout_mode = 2

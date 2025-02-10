@@ -2,6 +2,7 @@ extends TileMapLayer
 
 @onready var resource_layer: TileMapLayer = $"../ResourceVeins"
 
+@export var start_locations: Array[Vector2i] = []
 
 # Engine
 func _ready() -> void:

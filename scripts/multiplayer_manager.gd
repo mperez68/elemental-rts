@@ -20,6 +20,8 @@ func host_session(local: bool):
 	multiplayer.peer_connected.connect(_connect)
 	multiplayer.peer_disconnected.connect(_disconnect)
 	
+	_connect(1)
+	
 	if local:
 		return LOCAL_HOST_ADDRESS
 	else:
@@ -65,6 +67,7 @@ func _connect(id: int):
 	print("%s joining session" % id)
 	GameInfo.add_player(id)
 
+
 func _disconnect(id: int):
 	print("%s leaving session" % id)
-	GameInfo.get_player(id).queue_free()
+	GameInfo.del_player(id)

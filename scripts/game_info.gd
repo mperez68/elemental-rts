@@ -1,5 +1,6 @@
 extends Node
 
+signal update_player_list
 
 const GRID: Vector2i = Vector2i(64, 32)
 
@@ -29,6 +30,11 @@ func add_player(id: int) -> void:
 	var new_player = p.instantiate()
 	new_player.player_id = id
 	players.add_child(new_player, true)
+	update_player_list.emit()
+
+func del_player(id: int) -> void:
+	get_player(id).queue_free()
+	update_player_list.emit()
 
 
 # Private
@@ -65,7 +71,9 @@ func get_player(player_id: int):
 # Signal
 func _on_multiplayer_spawner_spawned(node: Node) -> void:
 	_handoff.rpc(node.name)
+	update_player_list.emit()
 
 
 func _on_players_child_entered_tree(node: Node) -> void:
 	_handoff.rpc(node.name)
+	update_player_list.emit()

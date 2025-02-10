@@ -1,7 +1,39 @@
 extends PanelContainer
 
+var list: Array[String] = []
 
-# Host Signals
+# Engine
+func _ready() -> void:
+	GameInfo.update_player_list.connect(_update)
+
+# Private
+func _update():
+	%PlayerList.clear()
+	for player in GameInfo.players.get_children():
+		%PlayerList.add_item(str(player.player_id))
+
+@rpc("any_peer", "reliable")
+func _show_hud():
+	%Margins.visible = true
+	visible = false
+
+
+# Signals
+func _on_start_button_pressed() -> void:
+	_show_hud()
+	_show_hud.rpc()
+	var count = 0
+	for player in GameInfo.players.get_children():
+		if count >= GameInfo.map.start_locations.size():
+			return
+		var nexus = load("res://units/Buildings/nexus.tscn").instantiate()
+		nexus.player_id = player.player_id
+		nexus.position = GameInfo.map.start_locations[count]
+		count += 1
+		player.spawn_unit(nexus)
+
+
+# 	Host
 func _on_host_button_pressed() -> void:
 	$ConnectContainer.visible = false
 	MultiplayerManager.host_session(false)
@@ -14,8 +46,7 @@ func _on_host_local_button_pressed() -> void:
 	$Lobby.visible = true
 	$Lobby/VBoxContainer/StartButton.disabled = false
 
-
-# Join Signals
+# 	Join
 func _on_join_button_pressed() -> void:
 	$ConnectContainer.visible = false
 	if %TextEdit.text != "":
@@ -28,23 +59,3 @@ func _on_join_local_button_pressed() -> void:
 	$ConnectContainer.visible = false
 	MultiplayerManager.join_session(MultiplayerManager.LOCAL_HOST_ADDRESS)
 	$Lobby.visible = true
-
-
-func _on_start_button_pressed() -> void:
-	_show_hud()
-	_show_hud.rpc()
-	#for player in GameInfo.players.get_children():
-	var my_new_guy = load("res://units/Buildings/nexus.tscn").instantiate()
-	my_new_guy.player_id = 1
-	my_new_guy.position = Vector2(-256, 0)
-	GameInfo.players.get_children()[0].spawn_unit(my_new_guy)
-	
-	var new_guy = load("res://units/Buildings/nexus.tscn").instantiate()
-	new_guy.player_id = GameInfo.players.get_children()[1].player_id
-	new_guy.position = Vector2(256, 0)
-	GameInfo.players.get_children()[1].spawn_unit(new_guy)
-
-@rpc("any_peer", "reliable")
-func _show_hud():
-	%Margins.visible = true
-	visible = false
