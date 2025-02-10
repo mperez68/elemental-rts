@@ -100,25 +100,22 @@ func _get_formation(target: Vector2, spacing: int = 64) -> Array[Vector2]:
 
 @rpc("call_local", "reliable")
 func _handoff(node_name: String) -> void:
+	if !multiplayer.is_server():
+		return
 	var node
 	var count = 0
 	@warning_ignore("unassigned_variable")
 	while node == null and count < 100:
 		if $Units.has_node(node_name):
 			node = $Units.get_node(node_name)
-		count += 1
 		if count > 10:
 			print("COULD NOT FIND NODE")
 			return
 		if count > 0:
-			print("%s is waiting on %s ... %s" % [node_name, multiplayer.get_unique_id(), count])
-		await get_tree().create_timer(0.1).timeout
-	
-	#if $Units.has_node(node_name):
-		#node = $Units.get_node(node_name)
-		#node.sync.set_multiplayer_authority(node.player_id)
-	#else:
-		#$Units
+			await get_tree().create_timer(0.1).timeout
+		count += 1
+	node.set_multiplayer_authority(node.player_id)
+
 
 
 

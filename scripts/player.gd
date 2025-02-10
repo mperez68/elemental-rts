@@ -18,7 +18,10 @@ func _on_production_timer_timeout() -> void:
 
 
 func spawn_unit(unit: Unit):
-	_spawn_unit.rpc(unit.scene_file_path, unit.position, unit.player_id, unit.element)
+	if multiplayer.is_server():
+		_spawn_unit(unit.scene_file_path, unit.position, unit.player_id, unit.element)
+	else:
+		_spawn_unit.rpc(unit.scene_file_path, unit.position, unit.player_id, unit.element)
 	
 
 @rpc("call_local", "reliable")
