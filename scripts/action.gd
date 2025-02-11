@@ -7,8 +7,8 @@ enum ActionNames{ BUILD_NEXUS, BUILD_PROSELYTIZER, BUILD_LOCUS, BUILD_HIEROPHANT
 
 var t = preload("res://ui/highlight_tile.tscn")
 
-var action_type: ActionNames
 var action_name: String
+var action_type: ActionNames
 var shortcut: StringName
 var effect: Callable
 var hover: Callable
@@ -30,64 +30,64 @@ static func build(action: ActionNames, id: int) -> Action:
 		temp.highlight_footprint = Vector2(1, 1)
 	match action:
 		ActionNames.BUILD_NEXUS:
-			temp.action_name = "Build [u]N[/u]exus"
+			temp.action_name = "Build Nexus"
 			temp.shortcut = "BuildNexus"
 			temp.effect = temp.build_nexus
 			temp.highlight_footprint = load("res://units/Buildings/nexus.tscn").instantiate().footprint
 		ActionNames.BUILD_LOCUS:
-			temp.action_name = "Build [u]L[/u]ocus"
+			temp.action_name = "Build Locus"
 			temp.shortcut = "BuildLocus"
 			temp.effect = temp.build_locus
 			temp.highlight_footprint = load("res://units/Buildings/locus.tscn").instantiate().footprint
 			temp.hover = temp.hover_locus
 		ActionNames.BUILD_HIEROPHANT:
-			temp.action_name = "Build [u]H[/u]ierophant"
+			temp.action_name = "Build Hierophant"
 			temp.shortcut = "BuildHierophant"
 			temp.effect = temp.build_hierophant
 			temp.highlight_footprint = load("res://units/Buildings/hierophant.tscn").instantiate().footprint
 			temp.hover = temp.hover_hierophant
 		ActionNames.BUILD_VANGUARD:
-			temp.action_name = "Build [u]V[/u]anguard"
+			temp.action_name = "Build Vanguard"
 			temp.shortcut = "BuildVanguard"
 			temp.effect = temp.build_vanguard
 			temp.highlight_footprint = load("res://units/Buildings/defense_tower.tscn").instantiate().footprint
 		ActionNames.BUILD_PROSELYTIZER:
-			temp.action_name = "Build [u]P[/u]roselytizer"
+			temp.action_name = "Build Proselytizer"
 			temp.shortcut = "BuildProselytizer"
 			temp.effect = temp.build_proselytizer
 			temp.highlight_footprint = load("res://units/Buildings/proselytizer.tscn").instantiate().footprint
 		ActionNames.BUILD_TEMPLE:
-			temp.action_name = "Build [u]T[/u]emple"
+			temp.action_name = "Build Temple"
 			temp.shortcut = "BuildTemple"
 			temp.effect = temp.build_temple
 			temp.highlight_footprint = load("res://units/Buildings/temple.tscn").instantiate().footprint
 		ActionNames.PRODUCE_SANCTIFIED:
-			temp.action_name = "Produce San[u]c[/u]tifier"
-			temp.shortcut = "ProduceSanctifier"
+			temp.action_name = "Produce Sanctified"
+			temp.shortcut = "ProduceSantified"
 			temp.effect = temp.produce_sanctified
 			temp.hover = temp.hover_unit
 		ActionNames.PRODUCE_LONGWEAVER:
-			temp.action_name = "Produce L[u]o[/u]ngweaver"
+			temp.action_name = "Produce Longweaver"
 			temp.shortcut = "ProduceLongweaver"
 			temp.effect = temp.produce_longweaver
 			temp.hover = temp.hover_unit
 		ActionNames.MOVE:
-			temp.action_name = "[u]M[/u]ove"
+			temp.action_name = "Move"
 			temp.shortcut = "move"
 			temp.effect = temp.move
 			temp.hover = temp.hover_unit
 		ActionNames.STOP:
-			temp.action_name = "[u]S[/u]top"
+			temp.action_name = "Stop"
 			temp.shortcut = "stop"
 			temp.effect = temp.stop
 			temp.hoverable = false
 		ActionNames.ATTACK:
-			temp.action_name = "[u]A[/u]ttack"
+			temp.action_name = "Attack"
 			temp.shortcut = "attack"
 			temp.effect = temp.attack
 			temp.hover = temp.hover_unit
 		ActionNames.STANCE:
-			temp.action_name = "Stanc[u]e[/u]"
+			temp.action_name = "Stance"
 			temp.shortcut = "stance"
 			temp.effect = temp.stance
 			temp.hoverable = false

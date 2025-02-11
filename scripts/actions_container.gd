@@ -1,6 +1,6 @@
 extends GridContainer
 
-@onready var action_buttons: Array[Node] = get_children()
+@onready var action_buttons: Array = get_children()
 @onready var move_button = action_buttons[0]
 @onready var stop_button = action_buttons[1]
 @onready var attack_button = action_buttons[2]
@@ -76,6 +76,9 @@ func update() -> void:
 	if active_action > -1:
 		actions[active_action].clear_highlights()
 	actions.clear()
+	for button in action_buttons:
+		button.tooltip_text = ""
+		button.shortcut = null
 	actions = default_actions.duplicate()
 	active_action = -1
 	
@@ -101,5 +104,12 @@ func update() -> void:
 		temp.element = selection[0].element
 		temp.clear_hover.connect(clear_action)
 		actions.push_back(temp)
-	for action in actions:
-		action.calling_units = selection
+	for i in actions.size():
+		actions[i].calling_units = selection
+		action_buttons[i].tooltip_text = actions[i].action_name
+		var temp: Shortcut = Shortcut.new()
+		var act: InputEventAction = InputEventAction.new()
+		act.action = actions[i].shortcut
+		temp.events.push_back(act)
+		action_buttons[i].shortcut = temp
+		
