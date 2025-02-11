@@ -42,3 +42,9 @@ polygon = PackedVector2Array(-16, -8, -16, -24, 16, -24, 16, -8)
 
 [node name="Highlight" parent="." index="2"]
 texture = SubResource("GradientTexture2D_1lo0k")
+
+[node name="Header" parent="." index="3"]
+offset_left = -16.0
+offset_top = -44.0
+offset_right = 16.0
+offset_bottom = -36.0

@@ -187,8 +187,8 @@ trail_enabled = true
 trail_lifetime = 0.02
 
 [node name="Header" type="Control" parent="."]
-visible = false
 z_index = 1
+y_sort_enabled = true
 use_parent_material = true
 layout_mode = 3
 anchors_preset = 7

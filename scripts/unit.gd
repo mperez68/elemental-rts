@@ -92,7 +92,7 @@ func _process(delta: float) -> void:
 	flags["reveal"] = player_id == GameInfo.active_player
 	if !flags["reveal"]:
 		$Light.visible = false
-		header.visible = false
+		#header.visible = false
 
 func _draw() -> void:
 	if nav.debug_enabled:
@@ -108,7 +108,7 @@ func route(target: Vector2, clear_chase: bool = false):
 func select(enable: bool = true):
 	flags["selected"] = enable
 	hl.visible = enable
-	header.visible = enable
+	#header.visible = enable
 
 func damage(dmg: int) -> void:
 	hp -= dmg
@@ -125,7 +125,7 @@ func die():
 	$AttackCooldown.stop()
 	flags["dying"] = true
 	anim.play("die")
-	header.visible = false
+	#header.visible = false
 	hl.visible = false
 	velocity = Vector2.ZERO
 
@@ -207,13 +207,13 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "die":
 		queue_free()
 
-func _on_mouse_entered() -> void:
-	if !flags["selected"]:
-		header.visible = true
+#func _on_mouse_entered() -> void:
+	#if !flags["selected"]:
+		#header.visible = true
 
-func _on_mouse_exited() -> void:
-	if !flags["selected"]:
-		header.visible = false
+#func _on_mouse_exited() -> void:
+	#if !flags["selected"]:
+		#header.visible = false
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("click"):

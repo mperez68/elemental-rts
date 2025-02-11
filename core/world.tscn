@@ -872,11 +872,13 @@ generator = NodePath("../WalkerGenerator")
 [node name="GroundCover" type="TileMapLayer" parent="."]
 unique_name_in_owner = true
 z_index = -1
+y_sort_enabled = true
 tile_set = SubResource("TileSet_j2lmv")
 navigation_enabled = false
 
 [node name="Ground" type="TileMapLayer" parent="."]
 z_index = -1
+y_sort_enabled = true
 tile_set = SubResource("TileSet_64sk4")
 script = ExtResource("7_s82ub")
 

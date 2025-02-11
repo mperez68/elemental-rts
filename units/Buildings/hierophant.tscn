@@ -44,6 +44,12 @@ polygon = PackedVector2Array(-48, -4, -48, -52, 48, -52, 48, -4)
 [node name="Highlight" parent="." index="2"]
 texture = SubResource("GradientTexture2D_elm17")
 
+[node name="Header" parent="." index="3"]
+offset_left = -36.0
+offset_top = -84.0
+offset_right = 36.0
+offset_bottom = -72.0
+
 [node name="NavigationAgent2D" parent="." index="5"]
 path_max_distance = 9999.0
 

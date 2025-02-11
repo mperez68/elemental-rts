@@ -25,6 +25,7 @@ start_locations = Array[Vector2i]([Vector2i(-512, -512), Vector2i(512, 512), Vec
 tile_map_data = PackedByteArray("AAD0/x4AAQAEAAAAAADx/xoAAQAJAAAAAAAZAP3/AQAJAAAAAAAdAPb/AQAEAAAAAADi/wcAAQAEAAAAAADn/w0AAQAJAAAAAAAIAOL/AQAJAAAAAAACAOb/AQAEAAAAAAA=")
 
 [node name="Units" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://units/sanctified.tscn", "res://units/farweaver.tscn", "res://units/Buildings/nexus.tscn", "res://units/Buildings/locus.tscn", "res://units/Buildings/hierophant.tscn", "res://units/Buildings/defense_tower.tscn", "res://units/Buildings/temple.tscn", "res://core/missile.tscn", "res://units/Buildings/proselytizer.tscn")
