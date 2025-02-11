@@ -11,7 +11,7 @@ func _ready() -> void:
 
 # Private
 func _update_elements_add(node: Node):
-	if node.unit_name == "Temple":
+	if node is Unit and node.unit_name == "Temple" and node.player_id == player_id:
 		node.remove_element.connect(lock_element)
 		unlock_element(node.element)
 
@@ -25,8 +25,8 @@ func unlock_element(ele: Element):
 			unlocked_count += 1
 	
 	if unlocked_count >= 4:
+		print("%'s timer started, 4 min to win")
 		$WinTimer.start()
-	print(unlocked_elements)
 
 func lock_element(ele: Element):
 	unlocked_elements[ele] = false

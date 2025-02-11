@@ -28,4 +28,4 @@ func _route():
 	if multiplayer.is_server():
 		if clear_chase:
 			unit.last_targets.clear()
-	unit.nav.target_position = target
+		unit.nav.target_position = target

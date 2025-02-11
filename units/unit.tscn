@@ -267,6 +267,7 @@ bus = &"Sfx"
 replication_config = SubResource("SceneReplicationConfig_eih6u")
 
 [node name="InputSync" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_1dbs1")
 script = ExtResource("9_51gg1")
 

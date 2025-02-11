@@ -98,7 +98,7 @@ func _get_formation(target: Vector2, spacing: int = 96) -> Array[Vector2]:
 			formation.push_back(GameInfo.camera_offset(target + Vector2(j * spacing, i * spacing / 2) - offset))
 	return formation
 
-@rpc("call_local", "reliable")
+@rpc("any_peer", "reliable")
 func _handoff(node_name: String) -> void:
 	if !multiplayer.is_server():
 		return
@@ -114,7 +114,10 @@ func _handoff(node_name: String) -> void:
 		if count > 0:
 			await get_tree().create_timer(0.1).timeout
 		count += 1
-	node.set_multiplayer_authority(node.player_id)
+	if node is Building:
+		node.set_multiplayer_authority(node.player_id)
+	else:
+		node.sync.set_multiplayer_authority(node.player_id)
 
 
 # Signals

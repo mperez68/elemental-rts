@@ -14,9 +14,9 @@ const ELEMENT_TAG: Array[Texture] = [
 const ELEMENT_COLOR: Array[Color] = [
 	Color.WHITE,
 	Color(1, 0.51, 0.444),
-	Color(0.121, 0.359, 1),
+	Color.SANDY_BROWN,
 	Color.YELLOW,
-	Color.SANDY_BROWN
+	Color(0.121, 0.359, 1)
 ]
 
 signal select_event(this: Unit)
@@ -33,12 +33,15 @@ signal remove_element(ele: Element)
 @onready var anim = $AnimationPlayer
 @onready var missile_collision = $Body/MissileHitbox/MissileCollision
 @onready var unit_collision = $UnitCollision
-@onready var sync = $InputSync
+@onready var sync = %InputSync
 
 var missile = preload("res://core/missile.tscn")
 
 @export var unit_name: String = "Unit"
-@export var player_id: int = 1
+@export var player_id: int = 1:
+	set(id):
+		player_id = id
+		%InputSync.set_multiplayer_authority(id)
 @export var aether_cost: int = 0
 @export var empyrium_cost: int = 0
 @export var max_hp: int = 10
