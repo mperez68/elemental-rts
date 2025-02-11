@@ -5,6 +5,7 @@ var unlocked_elements: Dictionary = {}
 
 # Engine
 func _ready() -> void:
+	super()
 	get_tree().current_scene.get_node("Units").child_entered_tree.connect(_update_elements_add)
 
 
