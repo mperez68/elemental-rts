@@ -15,6 +15,7 @@ max_hp = 200
 actions = Array[int]([1, 5, 4, 2, 3])
 
 [node name="Header" parent="." index="3"]
+y_sort_enabled = false
 offset_top = -116.0
 offset_bottom = -96.0
 
