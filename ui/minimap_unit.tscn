@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlgp820oq2lfy"]
+[gd_scene load_steps=6 format=3 uid="uid://dlgp820oq2lfy"]
 
 [ext_resource type="Texture2D" uid="uid://75j44o686o8g" path="res://assets/graphics/Light.png" id="1_iaqd3"]
 [ext_resource type="Script" path="res://scripts/minimap_unit.gd" id="2_bb3qu"]
+[ext_resource type="Script" path="res://scripts/minimap_unit_collider.gd" id="3_dbuek"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6g3j7"]
+radius = 1536.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cck8t"]
+radius = 256.0
 
 [node name="MinimapUnit" type="Sprite2D"]
 rotation = 0.785398
@@ -10,3 +17,20 @@ texture = ExtResource("1_iaqd3")
 script = ExtResource("2_bb3qu")
 friendly_color = Color(6.01634e-07, 0.610609, 9.62615e-07, 1)
 unfriendly_color = Color(0.705939, 3.53761e-06, 3.85046e-07, 1)
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_6g3j7")
+exclude_parent = false
+target_position = Vector2(0, 0)
+collision_mask = 4
+collide_with_areas = true
+
+[node name="MinimapUnitCollider" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("3_dbuek")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MinimapUnitCollider"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_cck8t")

@@ -117,8 +117,6 @@ func _handoff(node_name: String) -> void:
 	node.set_multiplayer_authority(node.player_id)
 
 
-
-
 # Signals
 func _on_child_entered_tree(node: Node) -> void:
 	if node is Unit:
