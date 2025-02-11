@@ -4,7 +4,7 @@ class_name Player
 
 @onready var sync = $Synchronizer
 
-var aether: int = 200
+var aether: int = 100
 var empyrium: int = 100
 var player_id: int = 1
 

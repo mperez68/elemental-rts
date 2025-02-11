@@ -20,6 +20,7 @@ const ELEMENT_COLOR: Array[Color] = [
 ]
 
 signal select_event(this: Unit)
+signal remove_element(ele: Element)
 
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var hl = $Highlight
@@ -121,6 +122,7 @@ func get_collider_position() -> Vector2:
 
 # Private
 func die():
+	remove_element.emit(element)
 	$AttackCooldown.stop()
 	flags["dying"] = true
 	anim.play("die")
