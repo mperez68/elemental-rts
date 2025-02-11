@@ -9,7 +9,6 @@ radius = 96.0
 unit_name = "Sanctified"
 aether_cost = 5
 empyrium_cost = 5
-max_hp = 6
 targetting_type = 1
 
 [node name="AttackRange" parent="." index="7"]

@@ -3,8 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://cpbr6chnsnpg" path="res://units/unit.tscn" id="1_4ex30"]
 
 [node name="Farweaver" instance=ExtResource("1_4ex30")]
-unit_name = "Farweaver"
+unit_name = "Weaver"
 aether_cost = 15
 empyrium_cost = 15
-damage_multiplier = 1.2
+max_hp = 8
 weapon_type = 2
+
+[node name="AttackCooldown" parent="." index="8"]
+wait_time = 0.3

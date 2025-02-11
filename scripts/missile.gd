@@ -1,10 +1,10 @@
 extends Area2D
 
 var player_id = 0
-@export var damage = 1
+@export var damage = 2
 @export var speed = 1024
 @export var elements: Array[Unit.Element]
-const element_missiles: Array[String] = [ "none", "air", "earth", "fire", "water" ]
+const element_missiles: Array[String] = [ "none", "fire", "earth", "air", "fire" ]
 const hit_postfix: String = "_hit"
 
 var velocity = Vector2.ZERO
@@ -56,7 +56,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area is UnitHitBox and area.unit.player_id != player_id:
 		if multiplayer.is_server():
-			area.unit.damage(damage)
+			area.unit.damage(damage * Unit.get_element_multiplier(elements[0], area.unit))
 		position = last_position
 		velocity = Vector2.ZERO
 		$AnimatedSprite2D.play(element_missiles[elements[0]] + hit_postfix)

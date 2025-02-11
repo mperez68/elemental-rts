@@ -30,7 +30,7 @@ fill_to = Vector2(1, 0.5)
 script = ExtResource("2_gs5d6")
 aether_production = 0
 empyrium_production = 5
-unit_name = "Hierophant"
+unit_name = "Cleric"
 aether_cost = 25
 tags = Array[Texture]([ExtResource("3_t4tav")])
 

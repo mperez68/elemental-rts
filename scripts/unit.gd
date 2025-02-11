@@ -3,20 +3,20 @@ class_name Unit extends CharacterBody2D
 enum WeaponType { NONE, MISSILE, HITSCAN }
 enum TargetingType { SINGLE, MULTI }
 enum Stance { BUILDING, AGGRESSIVE, DEFENSIVE, HOLD_FIRE }
-enum Element { NONE, AIR, EARTH, FIRE, WATER }
+enum Element { NONE, FIRE, EARTH, AIR, WATER }
 const ELEMENT_TAG: Array[Texture] = [
 	preload("res://ui/unit_card.tres"),
-	preload("res://assets/graphics/effects/Icons/tile003.png"),
-	preload("res://assets/graphics/effects/Icons/tile001.png"),
 	preload("res://assets/graphics/effects/Icons/tile000.png"),
+	preload("res://assets/graphics/effects/Icons/tile001.png"),
+	preload("res://assets/graphics/effects/Icons/tile003.png"),
 	preload("res://assets/graphics/effects/Icons/tile002.png")
 ]
 const ELEMENT_COLOR: Array[Color] = [
 	Color.WHITE,
-	Color.SKY_BLUE,
-	Color.SANDY_BROWN,
 	Color(1, 0.51, 0.444),
-	Color(0.47, 0.64, 1)
+	Color(0.121, 0.359, 1),
+	Color.YELLOW,
+	Color.SANDY_BROWN
 ]
 
 signal select_event(this: Unit)
@@ -227,3 +227,26 @@ func _on_velocity_computed(safe_velocity: Vector2) -> void:
 
 func _on_return_timer_timeout() -> void:
 	route(nav.target_position)
+
+
+# Util
+static func get_element_multiplier(element_in: Element, defender: Unit) -> float:
+	var ret = 1
+	
+	if defender.element == Element.NONE or element_in == Element.NONE:
+		return ret
+	
+	var weak = (element_in + 1) % Element.size()
+	if weak == 0:
+		weak += 1
+	
+	var strong = (element_in + Element.size() - 1) % Element.size()
+	if strong == 0:
+		strong = Element.size() - 1
+	
+	if defender.element == weak:
+		ret -= 0.5
+	if defender.element == strong:
+		ret += 0.5
+	
+	return ret

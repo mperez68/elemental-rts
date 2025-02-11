@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=4 uid="uid://j3qlx5gglclb"]
+[gd_scene load_steps=7 format=4 uid="uid://j3qlx5gglclb"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_u45tw"]
 [ext_resource type="PackedScene" uid="uid://cmrm13bj2120g" path="res://core/world.tscn" id="1_wu4d5"]
 [ext_resource type="PackedScene" uid="uid://dsn6ofk6ltksd" path="res://ui/hud.tscn" id="2_pf1tx"]
 [ext_resource type="Script" path="res://scripts/hud_layer.gd" id="4_0prem"]
+[ext_resource type="PackedScene" uid="uid://ycjtw44fyuf4" path="res://units/sanctified.tscn" id="5_rbqh2"]
+[ext_resource type="PackedScene" uid="uid://bp0co1w2554w2" path="res://units/farweaver.tscn" id="6_2onhr"]
 
 [node name="Manager" type="Node2D"]
 y_sort_enabled = true
@@ -30,6 +32,30 @@ y_sort_enabled = true
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://units/sanctified.tscn", "res://units/farweaver.tscn", "res://units/Buildings/nexus.tscn", "res://units/Buildings/locus.tscn", "res://units/Buildings/hierophant.tscn", "res://units/Buildings/defense_tower.tscn", "res://units/Buildings/temple.tscn", "res://core/missile.tscn", "res://units/Buildings/proselytizer.tscn")
 spawn_path = NodePath("../Units")
+
+[node name="Sanctified" parent="." instance=ExtResource("5_rbqh2")]
+position = Vector2(-615, 694)
+player_id = 2
+element = 1
+
+[node name="Sanctified2" parent="." instance=ExtResource("5_rbqh2")]
+position = Vector2(-623, 219)
+player_id = 2
+element = 2
+
+[node name="Sanctified3" parent="." instance=ExtResource("5_rbqh2")]
+position = Vector2(-621, -202)
+player_id = 2
+element = 3
+
+[node name="Sanctified4" parent="." instance=ExtResource("5_rbqh2")]
+position = Vector2(-610, -577)
+player_id = 2
+element = 4
+
+[node name="Farweaver" parent="." instance=ExtResource("6_2onhr")]
+position = Vector2(371, -33)
+element = 1
 
 [connection signal="update_hud" from="." to="HUDLayer/HUD" method="update"]
 [connection signal="child_entered_tree" from="Units" to="." method="_on_child_entered_tree"]
