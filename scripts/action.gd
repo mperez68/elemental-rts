@@ -3,16 +3,19 @@ class_name Action
 
 signal clear_hover
 
-enum ActionNames{ BUILD_NEXUS, BUILD_PROSELYTIZER, BUILD_LOCUS, BUILD_HIEROPHANT, BUILD_TEMPLE, BUILD_VANGUARD, PRODUCE_SANCTIFIED, PRODUCE_LONGWEAVER }
+enum ActionNames{ BUILD_NEXUS, BUILD_PROSELYTIZER, BUILD_LOCUS, BUILD_HIEROPHANT, BUILD_TEMPLE, BUILD_VANGUARD, PRODUCE_SANCTIFIED, PRODUCE_LONGWEAVER, MOVE, STOP, ATTACK, STANCE }
 
 var t = preload("res://ui/highlight_tile.tscn")
 
+var action_type: ActionNames
 var action_name: String
 var shortcut: StringName
 var effect: Callable
 var hover: Callable
+var hoverable: bool = true
 var element = Unit.Element.NONE
 var player_id: int = 1
+var calling_units: Array[Unit]
 
 var highlight_footprint: Vector2i
 var highlight_tiles: Array = []
@@ -21,8 +24,10 @@ var highlight_tiles: Array = []
 static func build(action: ActionNames, id: int) -> Action:
 	var temp = Action.new()
 	temp.player_id = id
+	temp.action_type = action
 	if range(ActionNames.BUILD_NEXUS, ActionNames.BUILD_VANGUARD + 1).has(action):
 		temp.hover = temp.hover_building
+		temp.highlight_footprint = Vector2(1, 1)
 	match action:
 		ActionNames.BUILD_NEXUS:
 			temp.action_name = "Build [u]N[/u]exus"
@@ -57,18 +62,35 @@ static func build(action: ActionNames, id: int) -> Action:
 			temp.effect = temp.build_temple
 			temp.highlight_footprint = load("res://units/Buildings/temple.tscn").instantiate().footprint
 		ActionNames.PRODUCE_SANCTIFIED:
-			temp.action_name = "Produce San[i]c[/i]tifier"
+			temp.action_name = "Produce San[u]c[/u]tifier"
 			temp.shortcut = "ProduceSanctifier"
 			temp.effect = temp.produce_sanctified
-			temp.highlight_footprint = Vector2(1, 1)
 			temp.hover = temp.hover_unit
 		ActionNames.PRODUCE_LONGWEAVER:
-			temp.action_name = "Produce L[i]o[/i]ngweaver"
+			temp.action_name = "Produce L[u]o[/u]ngweaver"
 			temp.shortcut = "ProduceLongweaver"
 			temp.effect = temp.produce_longweaver
-			temp.highlight_footprint = Vector2(1, 1)
 			temp.hover = temp.hover_unit
-			
+		ActionNames.MOVE:
+			temp.action_name = "[u]M[/u]ove"
+			temp.shortcut = "move"
+			temp.effect = temp.move
+			temp.hover = temp.hover_unit
+		ActionNames.STOP:
+			temp.action_name = "[u]S[/u]top"
+			temp.shortcut = "stop"
+			temp.effect = temp.stop
+			temp.hoverable = false
+		ActionNames.ATTACK:
+			temp.action_name = "[u]A[/u]ttack"
+			temp.shortcut = "attack"
+			temp.effect = temp.attack
+			temp.hover = temp.hover_unit
+		ActionNames.STANCE:
+			temp.action_name = "Stanc[u]e[/u]"
+			temp.shortcut = "stance"
+			temp.effect = temp.stance
+			temp.hoverable = false
 		_:
 			temp.effect = temp._null_effect
 	return temp
@@ -151,6 +173,37 @@ func _produce(action: ActionNames, args: Array):
 
 
 # Effects
+func move(args: Array) -> bool:
+	clear_highlights()
+	for unit in calling_units:
+		unit.route(args[0])
+	return true
+	
+func stop(_args: Array) -> bool:
+	for unit in calling_units:
+		unit.route(unit.position)
+	return true
+	
+func attack(args: Array) -> bool:
+	clear_highlights()
+	for unit in calling_units:
+		print("%s attacking towards %s" % [unit.name, args[0]])
+	return true
+	
+func stance(_args: Array) -> bool:
+	var new_stance: Unit.Stance
+	if calling_units and calling_units.size() > 0:
+		if calling_units[0].stance == 0:
+			return true
+		@warning_ignore("int_as_enum_without_cast")
+		new_stance = (calling_units[0].stance + 1) % Unit.Stance.size()
+		if new_stance == 0:
+			@warning_ignore("int_as_enum_without_cast")
+			new_stance += 1
+	for unit in calling_units:
+		unit.stance = new_stance
+	return true
+
 func build_nexus(args: Array) -> bool:
 	return _build(ActionNames.BUILD_NEXUS, args)
 
@@ -216,5 +269,5 @@ func clear_highlights():
 func _highlight_clicked(_viewport: Node, event: InputEvent, _shape_idx: int):
 	if event.is_action_pressed("click"):
 		effect.call([GameInfo.camera_offset(event.position), GameInfo.map.get_tree().current_scene.get_node("Units"), element])
-	elif event.is_action_pressed("alt_click"):
+	if event.is_action_pressed("click") or event.is_action_pressed("alt_click"):
 		clear_hover.emit(null)

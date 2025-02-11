@@ -7,10 +7,10 @@ extends GridContainer
 @onready var stance_button = action_buttons[3]
 
 var default_actions: Array[Action] = [
-preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS, 1),
-preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS, 1),
-preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS, 1),
-preload("res://scripts/action.gd").build(Action.ActionNames.BUILD_NEXUS, 1)
+preload("res://scripts/action.gd").build(Action.ActionNames.MOVE, GameInfo.active_player),
+preload("res://scripts/action.gd").build(Action.ActionNames.STOP, GameInfo.active_player),
+preload("res://scripts/action.gd").build(Action.ActionNames.ATTACK, GameInfo.active_player),
+preload("res://scripts/action.gd").build(Action.ActionNames.STANCE, GameInfo.active_player)
 ]
 var actions: Array[Action]
 var active_action = -1
@@ -18,6 +18,10 @@ var active_action = -1
 var selection: Array[Unit]
 var last_selection_size: int = 0
 
+# Engine
+func _ready() -> void:
+	for action in default_actions:
+		action.clear_hover.connect(clear_action)
 
 func _process(_delta: float) -> void:
 	var in_reach = false
@@ -38,7 +42,7 @@ func _process(_delta: float) -> void:
 		update()
 	
 	if active_action > -1:
-		if in_reach:
+		if (in_reach or actions[active_action].action_type >= Action.ActionNames.MOVE) and actions[active_action].hoverable:
 			actions[active_action].hover.call(GameInfo.camera_offset(get_viewport().get_mouse_position()))
 		else:
 			actions[active_action].clear_highlights()
@@ -50,7 +54,10 @@ func _on_hud_update_cards(new_sel: Array[Unit]) -> void:
 
 func _on_action_button_pressed(index: int) -> void:
 	if active_action != index:
-		active_action = index
+		if actions[index].hoverable:
+			active_action = index
+		else:
+			actions[index].effect.call([get_viewport().get_mouse_position()])
 	else:
 		active_action = -1
 
@@ -94,3 +101,5 @@ func update() -> void:
 		temp.element = selection[0].element
 		temp.clear_hover.connect(clear_action)
 		actions.push_back(temp)
+	for action in actions:
+		action.calling_units = selection
