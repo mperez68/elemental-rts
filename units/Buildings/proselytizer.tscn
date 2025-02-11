@@ -27,8 +27,9 @@ fill_to = Vector2(1, 0.5)
 
 [node name="Proselytizer" instance=ExtResource("1_u5cev")]
 footprint = Vector2i(1, 1)
+aether_cost = 10
 max_hp = 20
-actions = Array[int]([1, 5, 2, 3])
+actions = Array[int]([1, 2, 3, 8])
 
 [node name="UnitCollision" parent="." index="0"]
 shape = SubResource("CircleShape2D_b828r")
@@ -48,3 +49,6 @@ offset_left = -16.0
 offset_top = -44.0
 offset_right = 16.0
 offset_bottom = -36.0
+
+[connection signal="mouse_entered" from="Body/MissileHitbox" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Body/MissileHitbox" to="." method="_on_mouse_exited"]

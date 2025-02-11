@@ -29,7 +29,7 @@ fill_to = Vector2(1, 0.5)
 [node name="Hierophant" instance=ExtResource("1_f2j3m")]
 script = ExtResource("2_gs5d6")
 aether_production = 0
-empyrium_production = 10
+empyrium_production = 5
 unit_name = "Hierophant"
 aether_cost = 25
 tags = Array[Texture]([ExtResource("3_t4tav")])

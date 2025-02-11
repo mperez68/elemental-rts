@@ -4,7 +4,7 @@
 
 [node name="Farweaver" instance=ExtResource("1_4ex30")]
 unit_name = "Farweaver"
-aether_cost = 25
+aether_cost = 15
 empyrium_cost = 15
 damage_multiplier = 1.2
 weapon_type = 2

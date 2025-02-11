@@ -35,7 +35,6 @@ script = ExtResource("2_irg30")
 footprint = Vector2i(3, 3)
 unit_name = "Building"
 max_hp = 100
-actions = Array[int]([4])
 acceleration = 0.0
 weapon_type = 0
 stance = 0

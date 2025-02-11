@@ -4,6 +4,10 @@
 
 [node name="Temple" instance=ExtResource("1_usu24")]
 unit_name = "Temple"
-aether_cost = 30
-actions = Array[int]([6, 7])
+aether_cost = 100
+empyrium_cost = 100
+actions = Array[int]([9, 10])
 element = 3
+
+[connection signal="mouse_entered" from="Body/MissileHitbox" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Body/MissileHitbox" to="." method="_on_mouse_exited"]

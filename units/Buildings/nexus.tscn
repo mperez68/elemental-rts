@@ -9,10 +9,12 @@ aether_production = 0
 empyrium_production = 0
 footprint = Vector2i(4, 4)
 unit_name = "Nexus"
-aether_cost = 400
-empyrium_cost = 200
+aether_cost = 200
+empyrium_cost = 50
 max_hp = 200
-actions = Array[int]([1, 5, 4, 2, 3])
+damage_multiplier = 2.0
+actions = Array[int]([2, 3, 1, 8, 4, 5, 6, 7])
+weapon_type = 1
 
 [node name="Header" parent="." index="3"]
 y_sort_enabled = false

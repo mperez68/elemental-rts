@@ -54,6 +54,10 @@ func _on_hud_update_cards(new_sel: Array[Unit]) -> void:
 
 func _on_action_button_pressed(index: int) -> void:
 	if active_action != index:
+		# Break if can't afford
+		if !actions[index].can_afford():
+			print("CAN'T AFFORD")
+			return
 		if actions[index].hoverable:
 			active_action = index
 		else:
@@ -62,6 +66,7 @@ func _on_action_button_pressed(index: int) -> void:
 		active_action = -1
 
 
+# Public
 func clear_action(new_child: Node):
 	if new_child != null and  !new_child.is_node_ready():
 		await new_child.ready
@@ -101,7 +106,8 @@ func update() -> void:
 	
 	for action in unique_actions:
 		var temp = Action.build(action, selection[0].player_id)
-		temp.element = selection[0].element
+		if action > Action.ActionNames.BUILD_VANGUARD:
+			temp.element = selection[0].element
 		temp.clear_hover.connect(clear_action)
 		actions.push_back(temp)
 	for i in actions.size():

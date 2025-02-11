@@ -4,8 +4,8 @@ class_name Player
 
 @onready var sync = $Synchronizer
 
-var aether: int = 1000
-var empyrium: int = 1000
+var aether: int = 200
+var empyrium: int = 100
 var player_id: int = 1
 
 var producers: Array[Producer] = [  ]

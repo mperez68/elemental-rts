@@ -46,11 +46,7 @@ var missile = preload("res://core/missile.tscn")
 @export var acceleration: float = 1024
 @export var weapon_type: WeaponType = WeaponType.NONE
 @export var targetting_type: TargetingType = TargetingType.SINGLE
-@export var element:= Element.NONE:
-	set(ele):
-		element = ele
-		tags.push_back(ELEMENT_TAG[element])
-		modulate = ELEMENT_COLOR[element]
+@export var element: Element = Element.NONE
 @export var stance: Stance = Stance.AGGRESSIVE
 @export var tags: Array[Texture]
 @onready var hp: int = max_hp
@@ -84,6 +80,9 @@ func _ready() -> void:
 	collider_target = sum
 	# Shuffle animation start time
 	anim.seek(randf_range(0, 4), true)
+	# Set Element
+	tags.push_back(ELEMENT_TAG[element])
+	modulate = ELEMENT_COLOR[element]
 
 
 func _process(delta: float) -> void:

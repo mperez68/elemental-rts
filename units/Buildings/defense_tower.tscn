@@ -30,7 +30,8 @@ radius = 224.0
 [node name="DefenseTower" instance=ExtResource("1_p4jfv")]
 footprint = Vector2i(2, 2)
 unit_name = "Vanguard"
-aether_cost = 30
+aether_cost = 50
+empyrium_cost = 25
 max_hp = 50
 damage_multiplier = 2.0
 actions = Array[int]([])

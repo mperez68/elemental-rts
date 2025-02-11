@@ -3,7 +3,7 @@ class_name Action
 
 signal clear_hover
 
-enum ActionNames{ BUILD_NEXUS, BUILD_PROSELYTIZER, BUILD_LOCUS, BUILD_HIEROPHANT, BUILD_TEMPLE, BUILD_VANGUARD, PRODUCE_SANCTIFIED, PRODUCE_LONGWEAVER, MOVE, STOP, ATTACK, STANCE }
+enum ActionNames{ BUILD_NEXUS, BUILD_PROSELYTIZER, BUILD_LOCUS, BUILD_HIEROPHANT, BUILD_FIRE_TEMPLE, BUILD_WATER_TEMPLE, BUILD_AIR_TEMPLE, BUILD_EARTH_TEMPLE, BUILD_VANGUARD, PRODUCE_SANCTIFIED, PRODUCE_LONGWEAVER, MOVE, STOP, ATTACK, STANCE, BUILD_TEMPLE }
 
 var t = preload("res://ui/highlight_tile.tscn")
 
@@ -13,9 +13,11 @@ var shortcut: StringName
 var effect: Callable
 var hover: Callable
 var hoverable: bool = true
-var element = Unit.Element.NONE
+var element: Unit.Element = Unit.Element.NONE
 var player_id: int = 1
 var calling_units: Array[Unit]
+var aether_cost: int
+var empyrium_cost: int
 
 var highlight_footprint: Vector2i
 var highlight_tiles: Array = []
@@ -28,46 +30,77 @@ static func build(action: ActionNames, id: int) -> Action:
 	if range(ActionNames.BUILD_NEXUS, ActionNames.BUILD_VANGUARD + 1).has(action):
 		temp.hover = temp.hover_building
 		temp.highlight_footprint = Vector2(1, 1)
+	var b = null
 	match action:
 		ActionNames.BUILD_NEXUS:
-			temp.action_name = "Build Nexus"
+			b = load("res://units/Buildings/nexus.tscn").instantiate()
+			temp.highlight_footprint = b.footprint
+			temp.action_name = "Build Nexus. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "BuildNexus"
 			temp.effect = temp.build_nexus
-			temp.highlight_footprint = load("res://units/Buildings/nexus.tscn").instantiate().footprint
 		ActionNames.BUILD_LOCUS:
-			temp.action_name = "Build Locus"
+			b = load("res://units/Buildings/locus.tscn").instantiate()
+			temp.highlight_footprint = b.footprint
+			temp.action_name = "Build Locus. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "BuildLocus"
 			temp.effect = temp.build_locus
-			temp.highlight_footprint = load("res://units/Buildings/locus.tscn").instantiate().footprint
 			temp.hover = temp.hover_locus
 		ActionNames.BUILD_HIEROPHANT:
-			temp.action_name = "Build Hierophant"
+			b = load("res://units/Buildings/hierophant.tscn").instantiate()
+			temp.highlight_footprint = b.footprint
+			temp.action_name = "Build Hierophant. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "BuildHierophant"
 			temp.effect = temp.build_hierophant
-			temp.highlight_footprint = load("res://units/Buildings/hierophant.tscn").instantiate().footprint
 			temp.hover = temp.hover_hierophant
 		ActionNames.BUILD_VANGUARD:
-			temp.action_name = "Build Vanguard"
+			b = load("res://units/Buildings/defense_tower.tscn").instantiate()
+			temp.highlight_footprint = b.footprint
+			temp.action_name = "Build Vanguard. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "BuildVanguard"
 			temp.effect = temp.build_vanguard
-			temp.highlight_footprint = load("res://units/Buildings/defense_tower.tscn").instantiate().footprint
 		ActionNames.BUILD_PROSELYTIZER:
-			temp.action_name = "Build Proselytizer"
+			b = load("res://units/Buildings/proselytizer.tscn").instantiate()
+			temp.highlight_footprint = b.footprint
+			temp.action_name = "Build Proselytizer. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "BuildProselytizer"
 			temp.effect = temp.build_proselytizer
-			temp.highlight_footprint = load("res://units/Buildings/proselytizer.tscn").instantiate().footprint
-		ActionNames.BUILD_TEMPLE:
-			temp.action_name = "Build Temple"
-			temp.shortcut = "BuildTemple"
+		ActionNames.BUILD_FIRE_TEMPLE:
+			b = load("res://units/Buildings/temple.tscn").instantiate()
+			temp.highlight_footprint = b.footprint
+			temp.action_name = "Build Fire Temple. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
+			temp.shortcut = "BuildFireTemple"
+			temp.element = Unit.Element.FIRE
 			temp.effect = temp.build_temple
-			temp.highlight_footprint = load("res://units/Buildings/temple.tscn").instantiate().footprint
+		ActionNames.BUILD_WATER_TEMPLE:
+			b = load("res://units/Buildings/temple.tscn").instantiate()
+			temp.highlight_footprint = b.footprint
+			temp.action_name = "Build Water Temple. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
+			temp.shortcut = "BuildWaterTemple"
+			temp.element = Unit.Element.WATER
+			temp.effect = temp.build_temple
+		ActionNames.BUILD_AIR_TEMPLE:
+			b = load("res://units/Buildings/temple.tscn").instantiate()
+			temp.highlight_footprint = b.footprint
+			temp.action_name = "Build Air Temple. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
+			temp.shortcut = "BuildAirTemple"
+			temp.element = Unit.Element.AIR
+			temp.effect = temp.build_temple
+		ActionNames.BUILD_EARTH_TEMPLE:
+			b = load("res://units/Buildings/temple.tscn").instantiate()
+			temp.highlight_footprint = b.footprint
+			temp.action_name = "Build Earth Temple. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
+			temp.shortcut = "BuildEarthTemple"
+			temp.element = Unit.Element.EARTH
+			temp.effect = temp.build_temple
 		ActionNames.PRODUCE_SANCTIFIED:
-			temp.action_name = "Produce Sanctified"
+			b = load("res://units/sanctified.tscn").instantiate()
+			temp.action_name = "Produce Sanctified. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "ProduceSantified"
 			temp.effect = temp.produce_sanctified
 			temp.hover = temp.hover_unit
 		ActionNames.PRODUCE_LONGWEAVER:
-			temp.action_name = "Produce Longweaver"
+			b = load("res://units/farweaver.tscn").instantiate()
+			temp.action_name = "Produce Longweaver. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "ProduceLongweaver"
 			temp.effect = temp.produce_longweaver
 			temp.hover = temp.hover_unit
@@ -93,6 +126,9 @@ static func build(action: ActionNames, id: int) -> Action:
 			temp.hoverable = false
 		_:
 			temp.effect = temp._null_effect
+	if b != null:
+		temp.aether_cost = b.aether_cost
+		temp.empyrium_cost = b.empyrium_cost
 	return temp
 
 
@@ -102,7 +138,7 @@ func _null_effect(_args: Array):
 
 ## Args[ target_position, manager_node ]
 func _build(action: ActionNames, args: Array) -> bool:
-	var building
+	var building = load("res://units/Buildings/temple.tscn").instantiate()
 	
 	match action:
 		ActionNames.BUILD_NEXUS:
@@ -115,11 +151,6 @@ func _build(action: ActionNames, args: Array) -> bool:
 			building = load("res://units/Buildings/defense_tower.tscn").instantiate()
 		ActionNames.BUILD_PROSELYTIZER:
 			building = load("res://units/Buildings/proselytizer.tscn").instantiate()
-		ActionNames.BUILD_TEMPLE:
-			building = load("res://units/Buildings/temple.tscn").instantiate()
-		_:
-			_null_effect([])
-			return false
 	
 	if highlight_tiles.is_empty():
 		return false
@@ -138,6 +169,7 @@ func _build(action: ActionNames, args: Array) -> bool:
 	@warning_ignore("integer_division")
 	building.position = args[0]
 	building.player_id = player_id
+	building.element = element
 	GameInfo.get_player(GameInfo.active_player).spawn_unit(building)
 	clear_hover.emit(building)
 	
@@ -263,6 +295,10 @@ func clear_highlights():
 	for tile in highlight_tiles:
 		tile.queue_free()
 	highlight_tiles.clear()
+
+func can_afford():
+	var player: Player = GameInfo.get_player(GameInfo.active_player)
+	return player.aether >= aether_cost and player.empyrium >= empyrium_cost
 
 
 # Signals

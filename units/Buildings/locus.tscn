@@ -28,7 +28,7 @@ fill_to = Vector2(1, 0.5)
 
 [node name="Locus" instance=ExtResource("1_itrtn")]
 script = ExtResource("2_i0v1u")
-aether_production = 5
+aether_production = 10
 empyrium_production = 0
 unit_name = "Locus"
 aether_cost = 20
