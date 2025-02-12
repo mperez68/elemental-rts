@@ -84,6 +84,7 @@ func update() -> void:
 	for button in action_buttons:
 		button.tooltip_text = ""
 		button.shortcut = null
+		button.get_node("Icon").texture = null
 	actions = default_actions.duplicate()
 	active_action = -1
 	
@@ -113,6 +114,7 @@ func update() -> void:
 	for i in actions.size():
 		actions[i].calling_units = selection
 		action_buttons[i].tooltip_text = actions[i].action_name
+		action_buttons[i].get_node("Icon").texture = actions[i].icon
 		var temp: Shortcut = Shortcut.new()
 		var act: InputEventAction = InputEventAction.new()
 		act.action = actions[i].shortcut

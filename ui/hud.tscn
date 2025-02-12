@@ -400,6 +400,15 @@ texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
 
+[node name="Icon" type="TextureRect" parent="Margins/InnerMarginBox/ActionsContainer/ActionButton0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="ActionButton1" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
 focus_mode = 0
@@ -409,6 +418,15 @@ texture_pressed = SubResource("GradientTexture2D_jwmc4")
 texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="Margins/InnerMarginBox/ActionsContainer/ActionButton1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="ActionButton2" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
@@ -420,6 +438,15 @@ texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
 
+[node name="Icon" type="TextureRect" parent="Margins/InnerMarginBox/ActionsContainer/ActionButton2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="ActionButton3" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
 focus_mode = 0
@@ -429,6 +456,15 @@ texture_pressed = SubResource("GradientTexture2D_jwmc4")
 texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="Margins/InnerMarginBox/ActionsContainer/ActionButton3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="ActionButton4" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
@@ -440,6 +476,15 @@ texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
 
+[node name="Icon" type="TextureRect" parent="Margins/InnerMarginBox/ActionsContainer/ActionButton4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="ActionButton5" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
 focus_mode = 0
@@ -449,6 +494,15 @@ texture_pressed = SubResource("GradientTexture2D_jwmc4")
 texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="Margins/InnerMarginBox/ActionsContainer/ActionButton5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="ActionButton6" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
@@ -460,6 +514,15 @@ texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
 
+[node name="Icon" type="TextureRect" parent="Margins/InnerMarginBox/ActionsContainer/ActionButton6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="ActionButton7" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
 focus_mode = 0
@@ -469,6 +532,15 @@ texture_pressed = SubResource("GradientTexture2D_jwmc4")
 texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="Margins/InnerMarginBox/ActionsContainer/ActionButton7"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="ActionButton8" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
@@ -480,6 +552,15 @@ texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
 
+[node name="Icon" type="TextureRect" parent="Margins/InnerMarginBox/ActionsContainer/ActionButton8"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="ActionButton9" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
 focus_mode = 0
@@ -489,6 +570,15 @@ texture_pressed = SubResource("GradientTexture2D_jwmc4")
 texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="Margins/InnerMarginBox/ActionsContainer/ActionButton9"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="ActionButton10" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
@@ -500,6 +590,15 @@ texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
 
+[node name="Icon" type="TextureRect" parent="Margins/InnerMarginBox/ActionsContainer/ActionButton10"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="ActionButton11" type="TextureButton" parent="Margins/InnerMarginBox/ActionsContainer"]
 layout_mode = 2
 focus_mode = 0
@@ -509,6 +608,15 @@ texture_pressed = SubResource("GradientTexture2D_jwmc4")
 texture_hover = SubResource("GradientTexture2D_ktfj6")
 texture_disabled = SubResource("GradientTexture2D_x8yj8")
 stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="Margins/InnerMarginBox/ActionsContainer/ActionButton11"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="TopEdge" type="Control" parent="."]
 custom_minimum_size = Vector2(0, 25)

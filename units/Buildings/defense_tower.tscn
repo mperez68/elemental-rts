@@ -1,18 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://geybfgoqhvmj"]
+[gd_scene load_steps=7 format=3 uid="uid://geybfgoqhvmj"]
 
 [ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/Buildings/building.tscn" id="1_p4jfv"]
+[ext_resource type="Texture2D" uid="uid://d4cex6cpujf0b" path="res://assets/graphics/units/tower.png" id="2_ghe2b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w2l5i"]
 radius = 24.0
-
-[sub_resource type="Gradient" id="Gradient_ctinq"]
-colors = PackedColorArray(0, 0, 0, 1, 0.67069, 0.67069, 0.67069, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_6i07l"]
-gradient = SubResource("Gradient_ctinq")
-height = 128
-fill = 1
-fill_from = Vector2(0, 1)
 
 [sub_resource type="Gradient" id="Gradient_s43am"]
 colors = PackedColorArray(0, 0.678431, 0, 1, 0, 0, 0, 0)
@@ -34,7 +26,6 @@ aether_cost = 50
 empyrium_cost = 25
 max_hp = 50
 damage_multiplier = 2.0
-actions = Array[int]([])
 weapon_type = 1
 
 [node name="UnitCollision" parent="." index="0"]
@@ -42,8 +33,25 @@ y_sort_enabled = false
 shape = SubResource("CircleShape2D_w2l5i")
 
 [node name="Body" parent="." index="1"]
-texture = SubResource("GradientTexture2D_6i07l")
+texture = ExtResource("2_ghe2b")
 offset = Vector2(0, -68)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Body" index="0"]
+position = Vector2(0, -104)
+scale = Vector2(1, 0.5)
+amount = 64
+lifetime = 3.0
+randomness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+color = Color(0.565733, 0.565733, 1.92523e-07, 0.694118)
+
+[node name="MissileHitbox" parent="Body" index="1"]
+visible = false
 
 [node name="MissileCollision" parent="Body/MissileHitbox" index="0"]
 polygon = PackedVector2Array(-32, -4, -32, -132, 32, -132, 32, -4)

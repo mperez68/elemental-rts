@@ -1,19 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://me35g8ppcoqg"]
+[gd_scene load_steps=7 format=3 uid="uid://me35g8ppcoqg"]
 
 [ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/Buildings/building.tscn" id="1_f2j3m"]
 [ext_resource type="Script" path="res://scripts/producer.gd" id="2_gs5d6"]
 [ext_resource type="Texture2D" uid="uid://cjow6wj7gs2xb" path="res://assets/graphics/effects/Icons/tile004.png" id="3_t4tav"]
-
-[sub_resource type="Gradient" id="Gradient_6gbta"]
-colors = PackedColorArray(1, 1, 0, 0.196078, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_yetbg"]
-gradient = SubResource("Gradient_6gbta")
-width = 96
-height = 48
-fill = 1
-fill_from = Vector2(0.521368, 0.521368)
-fill_to = Vector2(1, 0.517094)
+[ext_resource type="Texture2D" uid="uid://db7puj4itat36" path="res://assets/graphics/units/hiero.png" id="4_uaacr"]
 
 [sub_resource type="Gradient" id="Gradient_s43am"]
 offsets = PackedFloat32Array(0.00462963, 1)
@@ -35,11 +25,11 @@ aether_cost = 25
 tags = Array[Texture]([ExtResource("3_t4tav")])
 
 [node name="Body" parent="." index="1"]
-texture = SubResource("GradientTexture2D_yetbg")
-offset = Vector2(0, -28)
+z_index = 1
+texture = ExtResource("4_uaacr")
 
 [node name="MissileCollision" parent="Body/MissileHitbox" index="0"]
-polygon = PackedVector2Array(-48, -4, -48, -52, 48, -52, 48, -4)
+polygon = PackedVector2Array(-48, -20, -48, -68, 48, -68, 48, -20)
 
 [node name="Highlight" parent="." index="2"]
 texture = SubResource("GradientTexture2D_elm17")

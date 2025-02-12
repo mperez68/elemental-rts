@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://6ti2x0yushru"]
+[gd_scene load_steps=3 format=3 uid="uid://6ti2x0yushru"]
 
 [ext_resource type="PackedScene" uid="uid://cyfrfpamya4yp" path="res://units/Buildings/building.tscn" id="1_usu24"]
+[ext_resource type="Texture2D" uid="uid://bim28t0itjs7y" path="res://assets/graphics/units/temple.png" id="2_oew7w"]
 
 [node name="Temple" instance=ExtResource("1_usu24")]
 unit_name = "Temple"
@@ -8,6 +9,9 @@ aether_cost = 100
 empyrium_cost = 100
 actions = Array[int]([9, 10])
 element = 3
+
+[node name="Body" parent="." index="1"]
+texture = ExtResource("2_oew7w")
 
 [connection signal="mouse_entered" from="Body/MissileHitbox" to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Body/MissileHitbox" to="." method="_on_mouse_exited"]

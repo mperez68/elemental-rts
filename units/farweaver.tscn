@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bp0co1w2554w2"]
+[gd_scene load_steps=3 format=3 uid="uid://bp0co1w2554w2"]
 
 [ext_resource type="PackedScene" uid="uid://cpbr6chnsnpg" path="res://units/unit.tscn" id="1_4ex30"]
+[ext_resource type="Texture2D" uid="uid://b0nt68b80ryxb" path="res://assets/graphics/units/farweaver.png" id="2_8g4kf"]
 
 [node name="Farweaver" instance=ExtResource("1_4ex30")]
 unit_name = "Weaver"
@@ -8,6 +9,9 @@ aether_cost = 15
 empyrium_cost = 15
 max_hp = 8
 weapon_type = 2
+
+[node name="Body" parent="." index="1"]
+texture = ExtResource("2_8g4kf")
 
 [node name="AttackCooldown" parent="." index="8"]
 wait_time = 0.3

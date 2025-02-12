@@ -10,6 +10,7 @@ var t = preload("res://ui/highlight_tile.tscn")
 var action_name: String
 var action_type: ActionNames
 var shortcut: StringName
+var icon: Texture
 var effect: Callable
 var hover: Callable
 var hoverable: bool = true
@@ -45,6 +46,7 @@ static func build(action: ActionNames, id: int) -> Action:
 			temp.shortcut = "BuildLocus"
 			temp.effect = temp.build_locus
 			temp.hover = temp.hover_locus
+			temp.icon = load("res://assets/graphics/actiontiles/locus.png")
 		ActionNames.BUILD_HIEROPHANT:
 			b = load("res://units/Buildings/hierophant.tscn").instantiate()
 			temp.highlight_footprint = b.footprint
@@ -52,18 +54,21 @@ static func build(action: ActionNames, id: int) -> Action:
 			temp.shortcut = "BuildHierophant"
 			temp.effect = temp.build_hierophant
 			temp.hover = temp.hover_hierophant
+			temp.icon = load("res://assets/graphics/actiontiles/hierophant.png")
 		ActionNames.BUILD_VANGUARD:
 			b = load("res://units/Buildings/defense_tower.tscn").instantiate()
 			temp.highlight_footprint = b.footprint
 			temp.action_name = "Build Vanguard. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "BuildVanguard"
 			temp.effect = temp.build_vanguard
+			temp.icon = load("res://assets/graphics/actiontiles/vanguard.png")
 		ActionNames.BUILD_PROSELYTIZER:
 			b = load("res://units/Buildings/proselytizer.tscn").instantiate()
 			temp.highlight_footprint = b.footprint
 			temp.action_name = "Build Proselytizer. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "BuildProselytizer"
 			temp.effect = temp.build_proselytizer
+			temp.icon = load("res://assets/graphics/actiontiles/proselytizer.png")
 		ActionNames.BUILD_FIRE_TEMPLE:
 			b = load("res://units/Buildings/temple.tscn").instantiate()
 			temp.highlight_footprint = b.footprint
@@ -71,6 +76,7 @@ static func build(action: ActionNames, id: int) -> Action:
 			temp.shortcut = "BuildFireTemple"
 			temp.element = Unit.Element.FIRE
 			temp.effect = temp.build_temple
+			temp.icon = load("res://assets/graphics/actiontiles/fire.png")
 		ActionNames.BUILD_WATER_TEMPLE:
 			b = load("res://units/Buildings/temple.tscn").instantiate()
 			temp.highlight_footprint = b.footprint
@@ -78,6 +84,7 @@ static func build(action: ActionNames, id: int) -> Action:
 			temp.shortcut = "BuildWaterTemple"
 			temp.element = Unit.Element.WATER
 			temp.effect = temp.build_temple
+			temp.icon = load("res://assets/graphics/actiontiles/water.png")
 		ActionNames.BUILD_AIR_TEMPLE:
 			b = load("res://units/Buildings/temple.tscn").instantiate()
 			temp.highlight_footprint = b.footprint
@@ -85,6 +92,7 @@ static func build(action: ActionNames, id: int) -> Action:
 			temp.shortcut = "BuildAirTemple"
 			temp.element = Unit.Element.AIR
 			temp.effect = temp.build_temple
+			temp.icon = load("res://assets/graphics/actiontiles/air.png")
 		ActionNames.BUILD_EARTH_TEMPLE:
 			b = load("res://units/Buildings/temple.tscn").instantiate()
 			temp.highlight_footprint = b.footprint
@@ -92,38 +100,45 @@ static func build(action: ActionNames, id: int) -> Action:
 			temp.shortcut = "BuildEarthTemple"
 			temp.element = Unit.Element.EARTH
 			temp.effect = temp.build_temple
+			temp.icon = load("res://assets/graphics/actiontiles/earth.png")
 		ActionNames.PRODUCE_SANCTIFIED:
 			b = load("res://units/sanctified.tscn").instantiate()
 			temp.action_name = "Produce Sanctified. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "ProduceSantified"
 			temp.effect = temp.produce_sanctified
 			temp.hover = temp.hover_unit
+			temp.icon = load("res://assets/graphics/actiontiles/sanctified.png")
 		ActionNames.PRODUCE_LONGWEAVER:
 			b = load("res://units/farweaver.tscn").instantiate()
 			temp.action_name = "Produce Longweaver. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "ProduceLongweaver"
 			temp.effect = temp.produce_longweaver
 			temp.hover = temp.hover_unit
+			temp.icon = load("res://assets/graphics/actiontiles/farweaver.png")
 		ActionNames.MOVE:
 			temp.action_name = "Move"
 			temp.shortcut = "move"
 			temp.effect = temp.move
 			temp.hover = temp.hover_unit
+			temp.icon = load("res://assets/graphics/actiontiles/move.png")
 		ActionNames.STOP:
 			temp.action_name = "Stop"
 			temp.shortcut = "stop"
 			temp.effect = temp.stop
 			temp.hoverable = false
+			temp.icon = load("res://assets/graphics/actiontiles/stop.png")
 		ActionNames.ATTACK:
 			temp.action_name = "Attack"
 			temp.shortcut = "attack"
 			temp.effect = temp.attack
 			temp.hover = temp.hover_unit
+			temp.icon = load("res://assets/graphics/actiontiles/attack.png")
 		ActionNames.STANCE:
 			temp.action_name = "Stance"
 			temp.shortcut = "stance"
 			temp.effect = temp.stance
 			temp.hoverable = false
+			temp.icon = load("res://assets/graphics/actiontiles/stance1.png")
 		_:
 			temp.effect = temp._null_effect
 	if b != null:
