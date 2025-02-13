@@ -20,4 +20,14 @@ func _on_mouse_exited(direction: Vector2i) -> void:
 
 
 func _on_menu_button_pressed() -> void:
-	print("In-Game Menu")
+	%Margins.visible = false
+	%InGameMenu.visible = true
+
+
+func _return_to_game() -> void:
+	%Margins.visible = true
+	%InGameMenu.visible = false
+
+
+func _on_exit_button_pressed() -> void:
+	get_tree().quit()

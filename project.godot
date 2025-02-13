@@ -17,7 +17,7 @@ config/tags=PackedStringArray("proof_of_concept")
 run/main_scene="res://core/manager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-config/icon="res://icon.svg"
+config/icon="res://assets/graphics/actiontiles/locus.png"
 
 [autoload]
 

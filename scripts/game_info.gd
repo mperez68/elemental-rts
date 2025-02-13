@@ -22,7 +22,7 @@ var scroll_speed: int = 2048
 func _ready() -> void:
 	get_tree().get_root().size_changed.connect(resize)
 	#music_manager.play(music_manager.THEME)
-	#DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
+	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 
 
 # Public

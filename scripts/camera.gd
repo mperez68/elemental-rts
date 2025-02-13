@@ -24,7 +24,10 @@ func _process(delta: float) -> void:
 	move += Vector2i.UP * int(Input.is_action_pressed("ui_up"))
 	move += Vector2i.DOWN * int(Input.is_action_pressed("ui_down"))
 	
-	position += (move) * delta * GameInfo.scroll_speed # + hud_scroll_vector
+	position += (move + hud_scroll_vector) * delta * GameInfo.scroll_speed
+	
+	position.x = clamp(position.x, limit_left + (GameInfo.screen_size.x/2), limit_right - (GameInfo.screen_size.x/2))
+	position.y = clamp(position.y, limit_top + (GameInfo.screen_size.y/2), limit_bottom - (GameInfo.screen_size.y/2))
 
 func _input(event):
 	# Scroll with mouse

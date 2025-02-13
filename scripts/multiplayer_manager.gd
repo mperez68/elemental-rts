@@ -38,6 +38,9 @@ func join_session(server_ip: String):
 	GameInfo.active_player = multiplayer.get_unique_id()
 	print("NEW PLAYER, ID:", GameInfo.active_player)
 
+func end_session():
+	print("leaving session")
+	pass
 
 # Private
 func _upnp_setup():

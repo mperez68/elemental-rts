@@ -61,3 +61,9 @@ func _on_join_local_button_pressed() -> void:
 	$ConnectContainer.visible = false
 	MultiplayerManager.join_session(MultiplayerManager.LOCAL_HOST_ADDRESS)
 	$Lobby.visible = true
+
+
+func _on_back_pressed() -> void:
+	$Lobby.visible = false
+	$ConnectContainer.visible = true
+	MultiplayerManager.end_session()
