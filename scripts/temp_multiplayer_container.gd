@@ -5,6 +5,9 @@ var list: Array[String] = []
 # Engine
 func _ready() -> void:
 	GameInfo.update_player_list.connect(_update)
+	if GameInfo.players.get_child_count() > 1:
+		$ConnectContainer.visible = false
+		$Lobby.visible = true
 
 # Private
 func _update():
@@ -38,13 +41,17 @@ func _on_start_button_pressed() -> void:
 # 	Host
 func _on_host_button_pressed() -> void:
 	$ConnectContainer.visible = false
-	MultiplayerManager.host_session(false)
+	%LoadingText.visible = true
+	await get_tree().create_timer(0.1).timeout
+	%IpText.text = "Hosting at address: " + MultiplayerManager.host_session(false)
+	%LoadingText.visible = false
 	$Lobby.visible = true
-	$Lobby/VBoxContainer/StartButton.visible = true
+	$Lobby/VBoxContainer/StartButton.disabled = false
 
 func _on_host_local_button_pressed() -> void:
 	$ConnectContainer.visible = false
 	MultiplayerManager.host_session(true)
+	%IpText.text = "Hosting Local Game"
 	$Lobby.visible = true
 	$Lobby/VBoxContainer/StartButton.disabled = false
 

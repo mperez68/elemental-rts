@@ -40,7 +40,8 @@ func join_session(server_ip: String):
 
 func end_session():
 	print("leaving session")
-	pass
+	multiplayer.multiplayer_peer.close()
+	GameInfo.clear_players()
 
 # Private
 func _upnp_setup():

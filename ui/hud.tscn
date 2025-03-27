@@ -573,6 +573,22 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 alignment = 1
 
+[node name="RichTextLabel" type="RichTextLabel" parent="MultiplayerContainer/ConnectContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=30][center][u]CONFLUX[/u][/center][/font_size]
+[center]HOW TO PLAY[/center]
+
+ - Win by Eliminating all opponents nexus' or unlocking all 4 elements and holding them for 6 minutes.
+ - Each elements temple unlocks that element. That element is re-locked if it's temple is destroyed.
+ - Damage is doubled vs. certain elements as outlined below:
+[center]FIRE > EARTH
+^               v
+WATER < AIR
+[/center]
+ - Inversely, damage is halved in reverse."
+fit_content = true
+
 [node name="HostContainer" type="HBoxContainer" parent="MultiplayerContainer/ConnectContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
@@ -630,6 +646,11 @@ focus_mode = 0
 allow_search = false
 auto_height = true
 
+[node name="IpText" type="Label" parent="MultiplayerContainer/Lobby/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+
 [node name="StartButton" type="Button" parent="MultiplayerContainer/Lobby/VBoxContainer"]
 layout_mode = 2
 disabled = true
@@ -642,6 +663,15 @@ text = "DISCONNECT"
 [node name="ExitButton2" type="Button" parent="MultiplayerContainer/Lobby/VBoxContainer"]
 layout_mode = 2
 text = "EXIT GAME"
+
+[node name="LoadingText" type="Label" parent="MultiplayerContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Establishing
+Connection..."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="InGameMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -728,6 +758,44 @@ text = "EXIT GAME"
 layout_mode = 2
 shortcut = SubResource("Shortcut_ad5vb")
 text = "RETURN TO GAME"
+
+[node name="EndGameScreen" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="EndGameScreen"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EndGameScreen/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EndGameScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="NameText" type="Label" parent="EndGameScreen/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "[NAME]"
+
+[node name="WinsText" type="Label" parent="EndGameScreen/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "WINS"
+
+[node name="RestartButton" type="Button" parent="EndGameScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "MAIN MENU"
 
 [node name="TopEdge" type="Control" parent="."]
 custom_minimum_size = Vector2(0, 25)
@@ -837,6 +905,7 @@ grow_vertical = 0
 [connection signal="pressed" from="MultiplayerContainer/Lobby/VBoxContainer/ExitButton2" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="InGameMenu/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="InGameMenu/MarginContainer/VBoxContainer/ReturnButton" to="." method="_return_to_game"]
+[connection signal="pressed" from="EndGameScreen/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="mouse_entered" from="TopEdge" to="." method="_on_mouse_entered" binds= [Vector2i(0, -1)]]
 [connection signal="mouse_exited" from="TopEdge" to="." method="_on_mouse_exited" binds= [Vector2i(0, -1)]]
 [connection signal="mouse_entered" from="BottomEdge" to="." method="_on_mouse_entered" binds= [Vector2i(0, 1)]]

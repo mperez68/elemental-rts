@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cpbr6chnsnpg"]
+[gd_scene load_steps=21 format=3 uid="uid://cpbr6chnsnpg"]
 
 [ext_resource type="Script" path="res://scripts/unit.gd" id="1_70gch"]
 [ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="2_tvcjn"]
@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://scripts/controller.gd" id="9_51gg1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cgom5"]
-radius = 16.0
+radius = 8.0
 
 [sub_resource type="Gradient" id="Gradient_s43am"]
 colors = PackedColorArray(0, 0.678431, 0, 1, 0, 0, 0, 0)
@@ -94,11 +94,15 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, -4), Vector2(0, 0), Vector2(0, 4), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_s3puh"]
+resource_name = "spawn_in"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_08fj6"]
 _data = {
 "RESET": SubResource("Animation_rcmn5"),
 "die": SubResource("Animation_yyg1g"),
-"idle": SubResource("Animation_iben3")
+"idle": SubResource("Animation_iben3"),
+"spawn_in": SubResource("Animation_s3puh")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v4kk7"]

@@ -2,10 +2,13 @@ extends Node
 class_name Player
 # Container class for player stats
 
+const START_AETHER: int = 500
+const START_EMPYRIUM: int = 500
+
 @onready var sync = $Synchronizer
 
-var aether: int = 150
-var empyrium: int = 100
+var aether: int = START_AETHER
+var empyrium: int = START_EMPYRIUM
 var player_id: int = 1
 
 var producers: Array[Producer] = [  ]

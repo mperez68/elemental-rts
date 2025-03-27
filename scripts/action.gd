@@ -3,7 +3,7 @@ class_name Action
 
 signal clear_hover
 
-enum ActionNames{ BUILD_NEXUS, BUILD_PROSELYTIZER, BUILD_LOCUS, BUILD_HIEROPHANT, BUILD_FIRE_TEMPLE, BUILD_WATER_TEMPLE, BUILD_AIR_TEMPLE, BUILD_EARTH_TEMPLE, BUILD_VANGUARD, PRODUCE_SANCTIFIED, PRODUCE_LONGWEAVER, MOVE, STOP, ATTACK, STANCE, BUILD_TEMPLE }
+enum ActionNames{ BUILD_NEXUS, BUILD_PROSELYTIZER, BUILD_LOCUS, BUILD_HIEROPHANT, BUILD_FIRE_TEMPLE, BUILD_WATER_TEMPLE, BUILD_AIR_TEMPLE, BUILD_EARTH_TEMPLE, BUILD_VANGUARD, PRODUCE_MOTE, PRODUCE_ESSENCE, MOVE, STOP, ATTACK, STANCE, BUILD_TEMPLE }
 
 var t = preload("res://ui/highlight_tile.tscn")
 
@@ -101,20 +101,20 @@ static func build(action: ActionNames, id: int) -> Action:
 			temp.element = Unit.Element.EARTH
 			temp.effect = temp.build_temple
 			temp.icon = load("res://assets/graphics/actiontiles/earth.png")
-		ActionNames.PRODUCE_SANCTIFIED:
-			b = load("res://units/sanctified.tscn").instantiate()
-			temp.action_name = "Produce Sanctified. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
+		ActionNames.PRODUCE_MOTE:
+			b = load("res://units/mote.tscn").instantiate()
+			temp.action_name = "Produce Mote. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "ProduceSantified"
-			temp.effect = temp.produce_sanctified
+			temp.effect = temp.produce_mote
 			temp.hover = temp.hover_unit
-			temp.icon = load("res://assets/graphics/actiontiles/sanctified.png")
-		ActionNames.PRODUCE_LONGWEAVER:
-			b = load("res://units/farweaver.tscn").instantiate()
-			temp.action_name = "Produce Longweaver. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
+			temp.icon = load("res://assets/graphics/actiontiles/mote.png")
+		ActionNames.PRODUCE_ESSENCE:
+			b = load("res://units/essence.tscn").instantiate()
+			temp.action_name = "Produce Essence. A:%s, E:%s" % [b.aether_cost, b.empyrium_cost]
 			temp.shortcut = "ProduceLongweaver"
-			temp.effect = temp.produce_longweaver
+			temp.effect = temp.produce_essence
 			temp.hover = temp.hover_unit
-			temp.icon = load("res://assets/graphics/actiontiles/farweaver.png")
+			temp.icon = load("res://assets/graphics/actiontiles/essence.png")
 		ActionNames.MOVE:
 			temp.action_name = "Move"
 			temp.shortcut = "move"
@@ -195,10 +195,10 @@ func _produce(action: ActionNames, args: Array):
 	var unit
 	
 	match action:
-		ActionNames.PRODUCE_SANCTIFIED:
-			unit = load("res://units/sanctified.tscn").instantiate()
-		ActionNames.PRODUCE_LONGWEAVER:
-			unit = load("res://units/farweaver.tscn").instantiate()
+		ActionNames.PRODUCE_MOTE:
+			unit = load("res://units/mote.tscn").instantiate()
+		ActionNames.PRODUCE_ESSENCE:
+			unit = load("res://units/essence.tscn").instantiate()
 		_:
 			_null_effect([])
 			return false
@@ -269,11 +269,11 @@ func build_proselytizer(args: Array) -> bool:
 func build_temple(args: Array) -> bool:
 	return _build(ActionNames.BUILD_TEMPLE, args)
 
-func produce_sanctified(args: Array) -> bool:
-	return _produce(ActionNames.PRODUCE_SANCTIFIED, args)
+func produce_mote(args: Array) -> bool:
+	return _produce(ActionNames.PRODUCE_MOTE, args)
 
-func produce_longweaver(args: Array) -> bool:
-	return _produce(ActionNames.PRODUCE_LONGWEAVER, args)
+func produce_essence(args: Array) -> bool:
+	return _produce(ActionNames.PRODUCE_ESSENCE, args)
 
 func hover_locus(target_position: Vector2):
 	hover_building(target_position, BlueprintTile.ResourceRequirement.RESOURCE_AETHER)

@@ -26,7 +26,9 @@ func _process(delta: float) -> void:
 	
 	position += (move + hud_scroll_vector) * delta * GameInfo.scroll_speed
 	
+	@warning_ignore("integer_division")
 	position.x = clamp(position.x, limit_left + (GameInfo.screen_size.x/2), limit_right - (GameInfo.screen_size.x/2))
+	@warning_ignore("integer_division")
 	position.y = clamp(position.y, limit_top + (GameInfo.screen_size.y/2), limit_bottom - (GameInfo.screen_size.y/2))
 
 func _input(event):

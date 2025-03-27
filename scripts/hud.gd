@@ -10,6 +10,11 @@ func _ready() -> void:
 func update(selection: Array[Unit]):
 	update_cards.emit(selection)
 
+func show_end_game(winner: Player):
+	%Margins.visible = false
+	%InGameMenu.visible = false
+	%EndGameScreen.visible = true
+	%NameText.text = str(winner.player_id)
 
 func _on_mouse_entered(direction: Vector2i) -> void:
 	GameInfo.camera.hud_scroll_vector += direction
@@ -31,3 +36,7 @@ func _return_to_game() -> void:
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_restart_button_pressed() -> void:
+	get_tree().reload_current_scene()

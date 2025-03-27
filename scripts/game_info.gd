@@ -15,13 +15,13 @@ var p = preload("res://core/player.tscn")
 var camera: Camera2D = null
 var map: TileMapLayer = null
 
+var nexuses: Dictionary = {  }
 var scroll_speed: int = 2048
 
 
 # Engine
 func _ready() -> void:
 	get_tree().get_root().size_changed.connect(resize)
-	#music_manager.play(music_manager.THEME)
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 
 
@@ -35,6 +35,24 @@ func add_player(id: int) -> void:
 func del_player(id: int) -> void:
 	get_player(id).queue_free()
 	update_player_list.emit()
+
+func clear_players() -> void:
+	for player in players.get_children():
+		player.queue_free()
+
+func add_nexus(id: int):
+	if !nexuses.has(id):
+		nexuses[id] = 0
+	nexuses[id] += 1
+
+func remove_nexus(id: int):
+	nexuses[id] -= 1
+	var active: Array[int] = [  ]
+	for nexus in nexuses.keys():
+		if nexuses[nexus] > 0:
+			active.push_back(nexus)
+	if active.size() == 1:
+		get_tree().current_scene.end_game(get_player(active[0]))
 
 
 # Private

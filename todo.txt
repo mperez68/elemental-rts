@@ -1,0 +1,7 @@
+Shift selection (add to current)
+control groups (ctrl + #)
+Build Time
+Cancel while building
+feedback for insufficient funds
+highlights not clearing when building
+animate each element on nexus

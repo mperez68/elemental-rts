@@ -13,6 +13,9 @@ var clicked_unit: Unit = null
 # Engine
 func _ready() -> void:
 	multiplayer.peer_connected.connect(clear_sel)
+	for player in GameInfo.players.get_children():
+		player.aether = Player.START_AETHER
+		player.empyrium = Player.START_EMPYRIUM
 
 func _process(_delta: float) -> void:
 	# Draw Selection Box
@@ -76,6 +79,9 @@ func clear_sel(_non = null):
 		if unit != null and !unit.flags["dying"]:
 			unit.select(false)
 	selected.clear()
+
+func end_game(winner: Player):
+	$HUDLayer/HUD.show_end_game(winner)
 
 func _draw() -> void:
 	if selection_start != Vector2.ZERO:
