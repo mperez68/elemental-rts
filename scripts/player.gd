@@ -2,8 +2,8 @@ extends Node
 class_name Player
 # Container class for player stats
 
-const START_AETHER: int = 500
-const START_EMPYRIUM: int = 500
+const START_AETHER: int = 150
+const START_EMPYRIUM: int = 100
 
 @onready var sync = $Synchronizer
 
