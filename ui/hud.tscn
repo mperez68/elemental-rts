@@ -545,7 +545,6 @@ mouse_filter = 2
 
 [node name="MultiplayerContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -677,6 +676,7 @@ vertical_alignment = 1
 
 [node name="InGameMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.4
