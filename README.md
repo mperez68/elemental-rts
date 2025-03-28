@@ -1,4 +1,4 @@
-#### Conflux (working)
+#### Conflux
 
 ## CREDITS
 
