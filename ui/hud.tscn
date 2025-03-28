@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dsn6ofk6ltksd"]
+[gd_scene load_steps=30 format=3 uid="uid://dsn6ofk6ltksd"]
 
 [ext_resource type="Theme" uid="uid://cirsgegfbmvdq" path="res://core/theme.tres" id="1_kkdxd"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="2_cg38j"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/minimap.gd" id="5_oicyu"]
 [ext_resource type="Script" path="res://scripts/actions_container.gd" id="6_qvhaj"]
 [ext_resource type="Script" path="res://scripts/temp_multiplayer_container.gd" id="7_c0nsu"]
+[ext_resource type="Script" path="res://scripts/in_game_menu.gd" id="9_cs2qo"]
 
 [sub_resource type="Gradient" id="Gradient_ggbrq"]
 offsets = PackedFloat32Array(0.898148, 0.967593)
@@ -544,6 +545,7 @@ mouse_filter = 2
 
 [node name="MultiplayerContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -675,19 +677,19 @@ vertical_alignment = 1
 
 [node name="InGameMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -188.0
-offset_top = -92.0
-offset_right = 188.0
-offset_bottom = 92.0
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.382
+anchor_right = 0.6
+anchor_bottom = 0.618
+offset_left = 4.0
+offset_top = 35.44
+offset_right = -4.0
+offset_bottom = -35.4401
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("9_cs2qo")
 
 [node name="MarginContainer" type="MarginContainer" parent="InGameMenu"]
 layout_mode = 2
@@ -716,7 +718,8 @@ vertical_alignment = 1
 [node name="HSlider" type="HSlider" parent="InGameMenu/MarginContainer/VBoxContainer/MasterAudio"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-value = 100.0
+min_value = -80.0
+max_value = 0.0
 
 [node name="MusicAudio" type="HBoxContainer" parent="InGameMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -732,7 +735,8 @@ vertical_alignment = 1
 [node name="HSlider" type="HSlider" parent="InGameMenu/MarginContainer/VBoxContainer/MusicAudio"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-value = 100.0
+min_value = -80.0
+max_value = 0.0
 
 [node name="SFXAudio" type="HBoxContainer" parent="InGameMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -748,7 +752,8 @@ vertical_alignment = 1
 [node name="HSlider" type="HSlider" parent="InGameMenu/MarginContainer/VBoxContainer/SFXAudio"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-value = 100.0
+min_value = -80.0
+max_value = 0.0
 
 [node name="ExitButton" type="Button" parent="InGameMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -903,6 +908,9 @@ grow_vertical = 0
 [connection signal="pressed" from="MultiplayerContainer/Lobby/VBoxContainer/StartButton" to="MultiplayerContainer" method="_on_start_button_pressed"]
 [connection signal="pressed" from="MultiplayerContainer/Lobby/VBoxContainer/Back" to="MultiplayerContainer" method="_on_back_pressed"]
 [connection signal="pressed" from="MultiplayerContainer/Lobby/VBoxContainer/ExitButton2" to="." method="_on_exit_button_pressed"]
+[connection signal="value_changed" from="InGameMenu/MarginContainer/VBoxContainer/MasterAudio/HSlider" to="InGameMenu" method="_on_master_slider_changed"]
+[connection signal="value_changed" from="InGameMenu/MarginContainer/VBoxContainer/MusicAudio/HSlider" to="InGameMenu" method="_on_music_slider_changed"]
+[connection signal="value_changed" from="InGameMenu/MarginContainer/VBoxContainer/SFXAudio/HSlider" to="InGameMenu" method="_on_sfx_slider_changed"]
 [connection signal="pressed" from="InGameMenu/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="InGameMenu/MarginContainer/VBoxContainer/ReturnButton" to="." method="_return_to_game"]
 [connection signal="pressed" from="EndGameScreen/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

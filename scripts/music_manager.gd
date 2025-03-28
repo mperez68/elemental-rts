@@ -10,15 +10,16 @@ var lowering_layers: Array[Unit.Element] = [  ]
 
 func _process(delta: float) -> void:
 	for i in range(rising_layers.size() - 1, -1, -1):
-		layers[rising_layers[i]].volume_db += 1
 		if layers[rising_layers[i]].volume_db >= VOLUME_MAX:
 			rising_layers.remove_at(i)
+		else:
+			layers[rising_layers[i]].volume_db += 1
 	
 	for i in range(lowering_layers.size() - 1, -1, -1):
-		layers[lowering_layers[i]].volume_db -= 1
 		if layers[lowering_layers[i]].volume_db <= VOLUME_MIN:
 			lowering_layers.remove_at(i)
-		
+		else:
+			layers[lowering_layers[i]].volume_db -= 1
 
 func play(element: Unit.Element):
 	rising_layers.push_front(element)
